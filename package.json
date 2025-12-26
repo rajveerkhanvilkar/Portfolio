@@ -1,0 +1,16 @@
+{
+    "name": "rajveer-portfolio",
+    "version": "1.0.0",
+    "description": "Rajveer Khanvilkar's Portfolio - Static HTML Site",
+    "scripts": {
+        "build": "echo 'Static site - no build needed'",
+        "dev": "python -m http.server 3000",
+        "start": "python -m http.server 3000"
+    },
+    "keywords": [
+        "portfolio",
+        "static"
+    ],
+    "author": "Rajveer Khanvilkar",
+    "license": "MIT"
+}
