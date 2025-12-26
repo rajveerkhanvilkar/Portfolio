@@ -1,0 +1,105 @@
+/* ========================================
+   Additional 3D Spline Elements Styling
+   ======================================== */
+
+/* Instructions:
+   1. Copy this entire file content
+   2. Open style.css
+   3. Find line 384 (after the spotlightRotate animation)
+   4. Paste this code before the "/* TABLET RESPONSIVE */
+" comment
+ */
+
+/* 3D Element in About Section */
+.about-3d-element {
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    width: 400px;
+    height: 400px;
+    z-index: 2;
+    pointer-events: auto;
+    opacity: 0;
+    animation: fadeInFloat 1.5s ease-out forwards;
+}
+
+/* 3D Element in Projects Section */
+.projects-3d-element {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    opacity: 0.3;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* 3D Mascot in Contact Section */
+.contact-3d-mascot {
+    position: absolute;
+    bottom: 10%;
+    left: 5%;
+    width: 350px;
+    height: 350px;
+    z-index: 2;
+    pointer-events: auto;
+    opacity: 0;
+    animation: fadeInFloat 2s ease-out forwards;
+}
+
+/* Fade in and float animation for 3D elements */
+@keyframes fadeInFloat {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive adjustments for 3D elements */
+@media (max-width: 1300px) {
+    .about-3d-element {
+        width: 300px;
+        height: 300px;
+        right: 2%;
+    }
+
+    .projects-3d-element {
+        width: 250px;
+        height: 250px;
+    }
+
+    .contact-3d-mascot {
+        width: 280px;
+        height: 280px;
+        left: 2%;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .about-3d-element,
+    .projects-3d-element,
+    .contact-3d-mascot {
+        width: 200px;
+        height: 200px;
+    }
+
+    .about-3d-element {
+        top: 5%;
+        right: 50%;
+        transform: translateX(50%);
+    }
+
+    .contact-3d-mascot {
+        bottom: 5%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
