@@ -1,0 +1,398 @@
+/* ========================================
+   FREE CSS 3D ELEMENTS
+   No external dependencies required!
+   ======================================== */
+
+/* ========================================
+   1. FLOATING 3D CUBE
+   ======================================== */
+
+.floating-3d-cube {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    top: 20%;
+    right: 10%;
+    transform-style: preserve-3d;
+    animation: rotateCube 20s infinite linear;
+}
+
+.cube-face {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 153, 255, 0.2));
+    border: 2px solid rgba(0, 212, 255, 0.3);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
+}
+
+.cube-face.front {
+    transform: rotateY(0deg) translateZ(100px);
+}
+
+.cube-face.back {
+    transform: rotateY(180deg) translateZ(100px);
+}
+
+.cube-face.right {
+    transform: rotateY(90deg) translateZ(100px);
+}
+
+.cube-face.left {
+    transform: rotateY(-90deg) translateZ(100px);
+}
+
+.cube-face.top {
+    transform: rotateX(90deg) translateZ(100px);
+}
+
+.cube-face.bottom {
+    transform: rotateX(-90deg) translateZ(100px);
+}
+
+@keyframes rotateCube {
+    0% {
+        transform: rotateX(0deg) rotateY(0deg);
+    }
+
+    100% {
+        transform: rotateX(360deg) rotateY(360deg);
+    }
+}
+
+/* ========================================
+   2. 3D FLOATING PARTICLES
+   ======================================== */
+
+.particle-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.particle-3d {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.8), transparent);
+    border-radius: 50%;
+    animation: floatParticle 15s infinite ease-in-out;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+}
+
+.particle-3d:nth-child(1) {
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.particle-3d:nth-child(2) {
+    left: 20%;
+    animation-delay: 2s;
+}
+
+.particle-3d:nth-child(3) {
+    left: 30%;
+    animation-delay: 4s;
+}
+
+.particle-3d:nth-child(4) {
+    left: 40%;
+    animation-delay: 6s;
+}
+
+.particle-3d:nth-child(5) {
+    left: 50%;
+    animation-delay: 8s;
+}
+
+.particle-3d:nth-child(6) {
+    left: 60%;
+    animation-delay: 10s;
+}
+
+.particle-3d:nth-child(7) {
+    left: 70%;
+    animation-delay: 12s;
+}
+
+.particle-3d:nth-child(8) {
+    left: 80%;
+    animation-delay: 14s;
+}
+
+@keyframes floatParticle {
+
+    0%,
+    100% {
+        transform: translateY(100vh) translateZ(0) scale(0.5);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateY(-20vh) translateZ(100px) scale(1.5);
+    }
+}
+
+/* ========================================
+   3. 3D CARD FLIP (for Skills)
+   ======================================== */
+
+.card-3d-container {
+    perspective: 1000px;
+    width: 200px;
+    height: 250px;
+}
+
+.card-3d {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+    cursor: pointer;
+}
+
+.card-3d-container:hover .card-3d {
+    transform: rotateY(180deg);
+}
+
+.card-3d-front,
+.card-3d-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.card-3d-front {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    border: 2px solid rgba(0, 212, 255, 0.3);
+}
+
+.card-3d-back {
+    background: linear-gradient(135deg, #00d4ff, #0099ff);
+    transform: rotateY(180deg);
+    color: #000;
+}
+
+/* ========================================
+   4. 3D ROTATING TEXT
+   ======================================== */
+
+.text-3d {
+    font-size: 60px;
+    font-weight: bold;
+    color: #00d4ff;
+    text-shadow:
+        0 1px 0 #0099ff,
+        0 2px 0 #0088ee,
+        0 3px 0 #0077dd,
+        0 4px 0 #0066cc,
+        0 5px 0 #0055bb,
+        0 6px 1px rgba(0, 0, 0, 0.1),
+        0 0 5px rgba(0, 212, 255, 0.5),
+        0 1px 3px rgba(0, 212, 255, 0.3),
+        0 3px 5px rgba(0, 212, 255, 0.2),
+        0 5px 10px rgba(0, 212, 255, 0.25),
+        0 10px 10px rgba(0, 212, 255, 0.2),
+        0 20px 20px rgba(0, 212, 255, 0.15);
+    animation: text3DFloat 3s ease-in-out infinite;
+}
+
+@keyframes text3DFloat {
+
+    0%,
+    100% {
+        transform: translateY(0) rotateX(0deg);
+    }
+
+    50% {
+        transform: translateY(-10px) rotateX(5deg);
+    }
+}
+
+/* ========================================
+   5. 3D HEXAGON GRID
+   ======================================== */
+
+.hexagon-3d {
+    position: relative;
+    width: 100px;
+    height: 57.74px;
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 153, 255, 0.2));
+    margin: 28.87px 0;
+    border-left: solid 2px rgba(0, 212, 255, 0.3);
+    border-right: solid 2px rgba(0, 212, 255, 0.3);
+    transform-style: preserve-3d;
+    transition: all 0.3s ease;
+}
+
+.hexagon-3d:before,
+.hexagon-3d:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 70.71px;
+    height: 70.71px;
+    transform: scaleY(0.5774) rotate(-45deg);
+    background: inherit;
+    left: 12.64px;
+    border-left: inherit;
+    border-right: inherit;
+}
+
+.hexagon-3d:before {
+    top: -35.36px;
+    border-top: solid 2px rgba(0, 212, 255, 0.3);
+}
+
+.hexagon-3d:after {
+    bottom: -35.36px;
+    border-bottom: solid 2px rgba(0, 212, 255, 0.3);
+}
+
+.hexagon-3d:hover {
+    transform: translateZ(20px) scale(1.1);
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.3), rgba(0, 153, 255, 0.4));
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+}
+
+/* ========================================
+   6. 3D SPHERE (Pure CSS)
+   ======================================== */
+
+.sphere-3d {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%,
+            rgba(0, 255, 255, 0.4),
+            rgba(0, 212, 255, 0.3),
+            rgba(0, 153, 255, 0.2),
+            rgba(0, 100, 200, 0.1));
+    box-shadow:
+        inset -25px -25px 40px rgba(0, 0, 0, 0.5),
+        inset 10px 10px 20px rgba(255, 255, 255, 0.1),
+        0 0 50px rgba(0, 212, 255, 0.3);
+    animation: sphereRotate 10s infinite linear;
+}
+
+@keyframes sphereRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* ========================================
+   7. FLOATING 3D RING
+   ======================================== */
+
+.ring-3d {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border: 20px solid rgba(0, 212, 255, 0.3);
+    border-radius: 50%;
+    transform-style: preserve-3d;
+    animation: ringFloat 4s ease-in-out infinite;
+    box-shadow:
+        0 0 30px rgba(0, 212, 255, 0.4),
+        inset 0 0 30px rgba(0, 212, 255, 0.2);
+}
+
+.ring-3d::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    border: 10px solid rgba(0, 153, 255, 0.2);
+    border-radius: 50%;
+    transform: rotateX(60deg);
+}
+
+@keyframes ringFloat {
+
+    0%,
+    100% {
+        transform: translateY(0) rotateX(45deg) rotateZ(0deg);
+    }
+
+    50% {
+        transform: translateY(-20px) rotateX(45deg) rotateZ(180deg);
+    }
+}
+
+/* ========================================
+   RESPONSIVE ADJUSTMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+    .floating-3d-cube {
+        width: 120px;
+        height: 120px;
+        right: 5%;
+    }
+
+    .cube-face {
+        width: 120px;
+        height: 120px;
+    }
+
+    .cube-face.front {
+        transform: rotateY(0deg) translateZ(60px);
+    }
+
+    .cube-face.back {
+        transform: rotateY(180deg) translateZ(60px);
+    }
+
+    .cube-face.right {
+        transform: rotateY(90deg) translateZ(60px);
+    }
+
+    .cube-face.left {
+        transform: rotateY(-90deg) translateZ(60px);
+    }
+
+    .cube-face.top {
+        transform: rotateX(90deg) translateZ(60px);
+    }
+
+    .cube-face.bottom {
+        transform: rotateX(-90deg) translateZ(60px);
+    }
+
+    .text-3d {
+        font-size: 36px;
+    }
+
+    .sphere-3d,
+    .ring-3d {
+        width: 120px;
+        height: 120px;
+    }
+}
