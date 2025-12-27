@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="apka-rakshak.css">
     <link rel="stylesheet" href="achievements.css">
     <link rel="stylesheet" href="contact-icons.css">
+    <link rel="stylesheet" href="typing-animation.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 
@@ -38,7 +39,11 @@
             <div class="content">
                 <div data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300" data-aos-offset="0"
                     data-aos-duration="1500" class="tag-box">
-                    <div class="tag">FRONTEND & WEB DEVELOPER ✦</div>
+                    <div class="tag">
+                        <span id="typing-text"></span>
+                        <span class="typing-cursor">|</span>
+                        ✦
+                    </div>
                 </div>
 
                 <h1 data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300" data-aos-offset="0"
@@ -754,6 +759,58 @@
             if (event.key === 'Escape') {
                 closeVideoModal();
             }
+        });
+
+        // Typing Animation Effect
+        const roles = [
+            'Web Developer',
+            'MERN Full-Stack Dev',
+            'Frontend Developer',
+            'Prompt Engineer'
+        ];
+
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingSpeed = 100;
+
+        function typeEffect() {
+            const typingText = document.getElementById('typing-text');
+            const currentRole = roles[roleIndex];
+
+            if (!isDeleting) {
+                // Typing
+                typingText.textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+
+                if (charIndex === currentRole.length) {
+                    // Pause at end of word
+                    isDeleting = true;
+                    typingSpeed = 2000; // Wait 2 seconds before deleting
+                } else {
+                    typingSpeed = 100; // Normal typing speed
+                }
+            } else {
+                // Deleting
+                typingText.textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+
+                if (charIndex === 0) {
+                    // Move to next role
+                    isDeleting = false;
+                    roleIndex = (roleIndex + 1) % roles.length;
+                    typingSpeed = 500; // Pause before typing next word
+                } else {
+                    typingSpeed = 50; // Faster deleting speed
+                }
+            }
+
+            setTimeout(typeEffect, typingSpeed);
+        }
+
+        // Start typing effect after page loads
+        window.addEventListener('load', function () {
+            setTimeout(typeEffect, 1500); // Start after 1.5 seconds
         });
     </script>
 </body>
