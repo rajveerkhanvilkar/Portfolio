@@ -1,0 +1,16 @@
+/* ========================================
+   SKILL ICONS SVG STYLING
+   Styling for Core Expertise SVG icons
+   ======================================== */
+
+.skill-icon svg {
+    width: 24px;
+    height: 24px;
+    color: #00d4ff;
+    transition: all 0.3s ease;
+}
+
+.skill-item:hover .skill-icon svg {
+    transform: scale(1.2) rotate(5deg);
+    color: #4facfe;
+}
