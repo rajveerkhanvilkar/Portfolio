@@ -14,3 +14,20 @@
     transform: scale(1.2) rotate(5deg);
     color: #4facfe;
 }
+
+/* ========================================
+   STAT ICONS SVG STYLING
+   Styling for Stats Cards SVG icons
+   ======================================== */
+
+.stat-icon svg {
+    width: 40px;
+    height: 40px;
+    color: #00d4ff;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover .stat-icon svg {
+    transform: scale(1.1) rotate(5deg);
+    color: #4facfe;
+}
