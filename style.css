@@ -928,13 +928,10 @@ main {
     justify-content: center;
 }
 
+
 /* Jarvis AI - Purple/Blue AI theme */
-.project-image::before {
-    content: '🤖';
-    font-size: 5rem;
-    opacity: 0.3;
-    position: absolute;
-}
+/* Removed emoji overlay to prevent overlapping on project images */
+
 
 .jarvis-image {
     background-image: url('jarvis-ai.png');
