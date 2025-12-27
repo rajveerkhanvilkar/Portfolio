@@ -8,3 +8,17 @@
     background-position: center;
     height: 300px;
 }
+
+.ewaste-image {
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('ewaste.png');
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+}
+
+.cyber-security-image {
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('cyber-security.png');
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+}
