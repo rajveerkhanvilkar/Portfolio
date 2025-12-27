@@ -1,0 +1,27 @@
+/* ========================================
+   PROJECT CARD 3D TILT EFFECT
+   Cards tilt towards mouse cursor position
+   ======================================== */
+
+.project-card {
+    transition: transform 0.1s ease-out, box-shadow 0.3s ease;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.project-card:hover {
+    box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+}
+
+/* Remove the dark overlay effect */
+.project-overlay {
+    background: linear-gradient(to top,
+            rgba(0, 0, 0, 0.9) 0%,
+            rgba(0, 0, 0, 0.3) 50%,
+            transparent 100%);
+    transition: opacity 0.3s ease;
+}
+
+.project-card:hover .project-overlay {
+    opacity: 1;
+}

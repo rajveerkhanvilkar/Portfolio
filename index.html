@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="contact-icons.css">
     <link rel="stylesheet" href="typing-animation.css">
     <link rel="stylesheet" href="skill-icons.css">
+    <link rel="stylesheet" href="project-tilt.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 
@@ -878,6 +879,29 @@
         // Start typing effect after page loads
         window.addEventListener('load', function () {
             setTimeout(typeEffect, 1500); // Start after 1.5 seconds
+        });
+
+        // 3D Tilt Effect for Project Cards
+        const projectCards = document.querySelectorAll('.project-card');
+
+        projectCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = ((y - centerY) / centerY) * -10; // Tilt up/down
+                const rotateY = ((x - centerX) / centerX) * 10;  // Tilt left/right
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+            });
         });
     </script>
 </body>
