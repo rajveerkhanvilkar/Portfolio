@@ -326,13 +326,13 @@
             <div class="projects-grid">
                 <!-- Project 1: Jarvis AI Assistant -->
                 <div data-aos="fade-up" data-aos-duration="1000" class="project-card">
-                    <div class="project-image jarvis-image">
-                        <video autoplay loop muted playsinline class="project-video">
+                    <div class="project-image jarvis-image" onclick="openVideoModal()">
+                        <video class="project-video" preload="metadata">
                             <source src="jarvis-assistant.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                         <div class="project-overlay">
-                            <span class="view-project">In Development →</span>
+                            <span class="view-project">▶ Watch Demo →</span>
                         </div>
                     </div>
                     <div class="project-info">
@@ -608,6 +608,41 @@
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init();
+    </script>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="video-modal" onclick="closeVideoModal()">
+        <div class="video-modal-content" onclick="event.stopPropagation()">
+            <span class="video-modal-close" onclick="closeVideoModal()">&times;</span>
+            <video id="modalVideo" controls>
+                <source src="jarvis-assistant.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <script>
+        function openVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('modalVideo');
+            modal.style.display = 'flex';
+            video.play();
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('modalVideo');
+            modal.style.display = 'none';
+            video.pause();
+            video.currentTime = 0;
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                closeVideoModal();
+            }
+        });
     </script>
 </body>
 
