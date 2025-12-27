@@ -1,31 +1,26 @@
 /* ========================================
    METALLIC NAME EFFECT
-   Realistic Silver/Chrome style with noise texture
+   Chrome/Metal style with noise texture
    ======================================== */
 
 .metallic-text {
     position: relative;
     font-size: clamp(3rem, 10vw, 6rem);
-    font-weight: 800;
+    font-weight: 900;
     line-height: 1.1;
-    letter-spacing: 0.5px;
-    background: linear-gradient(145deg,
-            #cfcfcf 0%,
-            #b1b1b1 20%,
-            #8a8a8a 45%,
-            #d9d9d9 65%,
-            #9a9a9a 85%,
-            #f1f1f1 100%);
+    background: linear-gradient(135deg,
+            #667eea 0%,
+            #764ba2 25%,
+            #f093fb 50%,
+            #4facfe 75%,
+            #00f2fe 100%);
+    background-size: 200% 200%;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    animation: metalShine 3s ease-in-out infinite;
     text-transform: uppercase;
-
-    /* Realism */
-    filter: contrast(1.1);
-    text-shadow:
-        0 1px 1px rgba(255, 255, 255, 0.25),
-        0 -1px 1px rgba(0, 0, 0, 0.25);
+    letter-spacing: 2px;
 }
 
 .metallic-text::after {
@@ -38,9 +33,22 @@
     mix-blend-mode: overlay;
 }
 
+@keyframes metalShine {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .metallic-text {
         font-size: clamp(2.5rem, 8vw, 4rem);
+        letter-spacing: 1px;
     }
 }
