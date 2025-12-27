@@ -893,10 +893,10 @@
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
 
-                const rotateX = ((y - centerY) / centerY) * -10; // Tilt up/down
-                const rotateY = ((x - centerX) / centerX) * 10;  // Tilt left/right
+                const rotateX = ((y - centerY) / centerY) * -15; // Tilt up/down (increased from 10 to 15)
+                const rotateY = ((x - centerX) / centerX) * 15;  // Tilt left/right (increased from 10 to 15)
 
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
             });
 
             card.addEventListener('mouseleave', () => {
