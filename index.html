@@ -940,53 +940,6 @@
                 });
             }
         });
-
-        // Robot Sound Effect on Mouse Movement
-        let lastSoundTime = 0;
-        const soundCooldown = 2000; // 2 seconds between sounds
-        let isPlayingSound = false;
-
-        // Create audio context for cute robot sound
-        function playRobotSound() {
-            if (isPlayingSound) return;
-
-            const currentTime = Date.now();
-            if (currentTime - lastSoundTime < soundCooldown) return;
-
-            isPlayingSound = true;
-            lastSoundTime = currentTime;
-
-            // Use Web Speech API for cute "huh" sound
-            if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance('huh');
-                utterance.rate = 1.5; // Faster for cuteness
-                utterance.pitch = 2.0; // Higher pitch for cute effect
-                utterance.volume = 0.3; // Soft volume
-
-                utterance.onend = () => {
-                    isPlayingSound = false;
-                };
-
-                window.speechSynthesis.speak(utterance);
-            } else {
-                isPlayingSound = false;
-            }
-        }
-
-        // Track mouse movement on hero section
-        const heroSection = document.querySelector('main#home');
-        if (heroSection) {
-            let mouseMoveTimeout;
-            heroSection.addEventListener('mousemove', () => {
-                // Clear previous timeout
-                clearTimeout(mouseMoveTimeout);
-
-                // Set new timeout to play sound after movement stops briefly
-                mouseMoveTimeout = setTimeout(() => {
-                    playRobotSound();
-                }, 300); // Play sound after 300ms of movement
-            });
-        }
     </script>
 </body>
 
