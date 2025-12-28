@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="typing-animation.css">
     <link rel="stylesheet" href="skill-icons.css">
     <link rel="stylesheet" href="project-tilt.css">
+    <link rel="stylesheet" href="skills-scroll.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 
@@ -902,6 +903,42 @@
             card.addEventListener('mouseleave', () => {
                 card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
             });
+        });
+
+        // Skills Infinite Scroll Animation
+        window.addEventListener('load', function () {
+            const skillsGrid = document.querySelector('.skills-grid');
+            if (skillsGrid) {
+                // Get all skill cards
+                const skillCards = Array.from(skillsGrid.querySelectorAll('.skill-card'));
+
+                // Create wrapper for scrolling
+                const scrollWrapper = document.createElement('div');
+                scrollWrapper.className = 'skills-scroll-wrapper';
+
+                // Clone and append skills twice for seamless loop
+                skillCards.forEach(card => {
+                    scrollWrapper.appendChild(card.cloneNode(true));
+                });
+                skillCards.forEach(card => {
+                    scrollWrapper.appendChild(card.cloneNode(true));
+                });
+
+                // Clear original grid and add wrapper
+                skillsGrid.innerHTML = '';
+                skillsGrid.appendChild(scrollWrapper);
+
+                // Pause animation on individual card hover
+                const allCards = scrollWrapper.querySelectorAll('.skill-card');
+                allCards.forEach(card => {
+                    card.addEventListener('mouseenter', () => {
+                        scrollWrapper.style.animationPlayState = 'paused';
+                    });
+                    card.addEventListener('mouseleave', () => {
+                        scrollWrapper.style.animationPlayState = 'running';
+                    });
+                });
+            }
         });
     </script>
 </body>

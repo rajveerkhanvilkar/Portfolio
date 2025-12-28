@@ -1,0 +1,64 @@
+/* ========================================
+   SKILLS SCROLLING ANIMATION
+   Infinite horizontal scroll with pause on hover
+   ======================================== */
+
+.skills-grid {
+    overflow: hidden;
+    position: relative;
+    padding: 2rem 0;
+}
+
+.skills-grid::before,
+.skills-grid::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.skills-grid::before {
+    left: 0;
+    background: linear-gradient(to right, #0a0a0a, transparent);
+}
+
+.skills-grid::after {
+    right: 0;
+    background: linear-gradient(to left, #0a0a0a, transparent);
+}
+
+/* Scrolling wrapper */
+.skills-scroll-wrapper {
+    display: flex;
+    animation: scroll-left 30s linear infinite;
+    width: fit-content;
+}
+
+.skills-scroll-wrapper:hover {
+    animation-play-state: paused;
+}
+
+/* Individual skill card hover pause */
+.skill-card:hover {
+    animation-play-state: paused;
+}
+
+/* Scroll animation */
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Skill cards in a row */
+.skills-grid .skill-card {
+    flex-shrink: 0;
+    margin: 0 1.5rem;
+}
