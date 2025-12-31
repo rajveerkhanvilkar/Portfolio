@@ -3,13 +3,13 @@
    Black dot + white inverted color jelly blob
    ======================================== */
 
-/* Hide default cursor */
+/* Show default cursor (don't hide it) */
 body.custom-cursor-active {
-    cursor: none;
+    cursor: auto;
 }
 
 body.custom-cursor-active * {
-    cursor: none !important;
+    cursor: auto !important;
 }
 
 /* Small black cursor dot (follows directly) */
@@ -36,14 +36,21 @@ body.custom-cursor-active * {
     z-index: 10000;
     transform: translate(-50%, -50%);
     mix-blend-mode: difference;
-    transition: width 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-        height 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        height 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
         border-radius 0.15s ease;
 }
 
 /* Jelly deformation when moving */
 .cursor-circle.moving {
     border-radius: 40% 60% 50% 50%;
+}
+
+/* Expand to fill button on hover */
+.cursor-circle.hover-button {
+    width: 200px;
+    height: 60px;
+    border-radius: 30px;
 }
 
 /* Expand on click */
@@ -58,10 +65,5 @@ body.custom-cursor-active * {
     .cursor-dot,
     .cursor-circle {
         display: none;
-    }
-
-    body.custom-cursor-active,
-    body.custom-cursor-active * {
-        cursor: auto !important;
     }
 }

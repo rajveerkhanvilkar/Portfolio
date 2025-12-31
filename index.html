@@ -1024,6 +1024,19 @@
             }
             animateCircle();
 
+            // Detect hovering over clickable elements
+            const clickableElements = document.querySelectorAll('a, button, [role="button"], .btn-get-started, .btn-signing-main, .project-card, .skill-card, .achievement-card, .contact-card');
+
+            clickableElements.forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    cursorCircle.classList.add('hover-button');
+                });
+
+                element.addEventListener('mouseleave', () => {
+                    cursorCircle.classList.remove('hover-button');
+                });
+            });
+
             // Expand circle on click
             document.addEventListener('mousedown', () => {
                 cursorCircle.classList.add('expand');
