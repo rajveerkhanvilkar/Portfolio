@@ -1592,56 +1592,20 @@ html {
     letter-spacing: 0.05em !important;
     line-height: 1.1 !important;
 
-    /* Chrome/Metallic Gradient */
-    background: linear-gradient(135deg,
-            #667eea 0%,
-            #764ba2 10%,
-            #f093fb 20%,
-            #4facfe 30%,
-            #00f2fe 40%,
-            #43e97b 50%,
-            #38f9d7 60%,
-            #4facfe 70%,
-            #f093fb 80%,
-            #764ba2 90%,
-            #667eea 100%);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    /* Simple white color */
+    color: #ffffff;
 
-    /* Animated gradient shine */
-    animation: metallicShine 8s ease-in-out infinite;
-
-    /* 3D Depth with multiple shadows */
-    filter: drop-shadow(0 0 20px rgba(102, 126, 234, 0.5)) drop-shadow(0 0 40px rgba(67, 233, 123, 0.3)) drop-shadow(0 5px 15px rgba(0, 0, 0, 0.5));
-
-    /* Additional text shadow for depth */
-    text-shadow:
-        0 1px 0 #c9c9c9,
-        0 2px 0 #b9b9b9,
-        0 3px 0 #aaa,
-        0 4px 0 #9a9a9a,
-        0 5px 0 #8a8a8a,
-        0 6px 1px rgba(0, 0, 0, .1),
-        0 0 5px rgba(102, 126, 234, 0.5),
-        0 1px 3px rgba(102, 126, 234, 0.3),
-        0 3px 5px rgba(67, 233, 123, 0.2),
-        0 5px 10px rgba(79, 172, 254, 0.25),
-        0 10px 10px rgba(79, 172, 254, 0.2),
-        0 20px 20px rgba(0, 242, 254, 0.15);
-
-    /* Transform for 3D effect */
-    transform: perspective(500px) rotateX(5deg);
-    transform-style: preserve-3d;
-
-    /* Smooth transitions */
+    /* Remove all effects */
+    background: none;
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: initial;
+    background-clip: initial;
+    animation: none;
+    filter: none;
+    text-shadow: none;
+    transform: none;
+    transform-style: initial;
     transition: all 0.3s ease;
-}
-
-.metallic-text:hover {
-    transform: perspective(500px) rotateX(0deg) scale(1.02);
-    filter: drop-shadow(0 0 30px rgba(102, 126, 234, 0.8)) drop-shadow(0 0 60px rgba(67, 233, 123, 0.5)) drop-shadow(0 10px 25px rgba(0, 0, 0, 0.6));
 }
 
 /* Metallic shine animation */
