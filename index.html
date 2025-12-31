@@ -946,7 +946,7 @@
             }
         });
 
-        // Custom Cursor with Trailing Effect
+        // Custom Cursor with Jelly Blob Effect
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorCircle = document.querySelector('.cursor-circle');
 
@@ -955,6 +955,10 @@
             let mouseY = 0;
             let circleX = 0;
             let circleY = 0;
+            let prevCircleX = 0;
+            let prevCircleY = 0;
+            let isMoving = false;
+            let movingTimeout;
 
             // Track mouse position
             document.addEventListener('mousemove', (e) => {
@@ -964,14 +968,44 @@
                 // Dot follows directly
                 cursorDot.style.left = mouseX + 'px';
                 cursorDot.style.top = mouseY + 'px';
+
+                // Add moving class for jelly effect
+                cursorCircle.classList.add('moving');
+                clearTimeout(movingTimeout);
+                movingTimeout = setTimeout(() => {
+                    cursorCircle.classList.remove('moving');
+                }, 150);
             });
 
-            // Animate circle with smooth trailing
+            // Animate circle with smooth trailing and jelly deformation
             function animateCircle() {
                 // Elastic easing for smooth following
                 const speed = 0.15;
+
+                prevCircleX = circleX;
+                prevCircleY = circleY;
+
                 circleX += (mouseX - circleX) * speed;
                 circleY += (mouseY - circleY) * speed;
+
+                // Calculate velocity for jelly effect
+                const velocityX = circleX - prevCircleX;
+                const velocityY = circleY - prevCircleY;
+                const velocity = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
+
+                // Deform blob based on movement
+                if (velocity > 0.5) {
+                    const angle = Math.atan2(velocityY, velocityX);
+                    const stretch = Math.min(velocity * 2, 20);
+
+                    // Stretch in direction of movement
+                    const scaleX = 1 + (Math.abs(Math.cos(angle)) * stretch / 40);
+                    const scaleY = 1 + (Math.abs(Math.sin(angle)) * stretch / 40);
+
+                    cursorCircle.style.transform = `translate(-50%, -50%) scale(${scaleX}, ${scaleY}) rotate(${angle}rad)`;
+                } else {
+                    cursorCircle.style.transform = 'translate(-50%, -50%) scale(1, 1)';
+                }
 
                 cursorCircle.style.left = circleX + 'px';
                 cursorCircle.style.top = circleY + 'px';
