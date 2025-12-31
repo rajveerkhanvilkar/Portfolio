@@ -1,0 +1,59 @@
+/* ========================================
+   CUSTOM CURSOR WITH TRAILING EFFECT
+   Small cursor dot + larger trailing circle
+   ======================================== */
+
+/* Hide default cursor */
+body.custom-cursor-active {
+    cursor: none;
+}
+
+body.custom-cursor-active * {
+    cursor: none !important;
+}
+
+/* Small cursor dot (follows directly) */
+.cursor-dot {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background-color: white;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease;
+}
+
+/* Larger trailing circle (follows with delay) */
+.cursor-circle {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+/* Expand on click */
+.cursor-circle.expand {
+    width: 60px;
+    height: 60px;
+}
+
+/* Hide on touch devices */
+@media (hover: none) and (pointer: coarse) {
+
+    .cursor-dot,
+    .cursor-circle {
+        display: none;
+    }
+
+    body.custom-cursor-active,
+    body.custom-cursor-active * {
+        cursor: auto !important;
+    }
+}

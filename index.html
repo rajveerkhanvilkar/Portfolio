@@ -14,10 +14,15 @@
     <link rel="stylesheet" href="skill-icons.css">
     <link rel="stylesheet" href="project-tilt.css">
     <link rel="stylesheet" href="skills-scroll.css">
+    <link rel="stylesheet" href="custom-cursor.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 
-<body>
+<body class="custom-cursor-active">
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-circle"></div>
+
     <img class="image-gradient" src="gradient.png" alt="gradient">
     <div class="layer-blur"></div>
 
@@ -940,6 +945,62 @@
                 });
             }
         });
+
+        // Custom Cursor with Trailing Effect
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorCircle = document.querySelector('.cursor-circle');
+
+        if (cursorDot && cursorCircle) {
+            let mouseX = 0;
+            let mouseY = 0;
+            let circleX = 0;
+            let circleY = 0;
+
+            // Track mouse position
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+
+                // Dot follows directly
+                cursorDot.style.left = mouseX + 'px';
+                cursorDot.style.top = mouseY + 'px';
+            });
+
+            // Animate circle with smooth trailing
+            function animateCircle() {
+                // Elastic easing for smooth following
+                const speed = 0.15;
+                circleX += (mouseX - circleX) * speed;
+                circleY += (mouseY - circleY) * speed;
+
+                cursorCircle.style.left = circleX + 'px';
+                cursorCircle.style.top = circleY + 'px';
+
+                requestAnimationFrame(animateCircle);
+            }
+            animateCircle();
+
+            // Expand circle on click
+            document.addEventListener('mousedown', () => {
+                cursorCircle.classList.add('expand');
+            });
+
+            document.addEventListener('mouseup', () => {
+                cursorCircle.classList.remove('expand');
+            });
+
+            // Hide cursors when mouse leaves window
+            document.addEventListener('mouseleave', () => {
+                cursorDot.style.opacity = '0';
+                cursorCircle.style.opacity = '0';
+            });
+
+            // Show cursors when mouse enters window
+            document.addEventListener('mouseenter', () => {
+                cursorDot.style.opacity = '1';
+                cursorCircle.style.opacity = '1';
+            });
+        }
     </script>
 </body>
 
