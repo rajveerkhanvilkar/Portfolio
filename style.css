@@ -1593,18 +1593,18 @@ html {
     line-height: 1.1 !important;
 
     /* Simple white color */
-    color: #ffffff;
+    color: #ffffff !important;
 
     /* Remove all effects */
-    background: none;
-    -webkit-background-clip: initial;
-    -webkit-text-fill-color: initial;
-    background-clip: initial;
-    animation: none;
-    filter: none;
-    text-shadow: none;
-    transform: none;
-    transform-style: initial;
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    -webkit-text-fill-color: #ffffff !important;
+    background-clip: initial !important;
+    animation: none !important;
+    filter: none !important;
+    text-shadow: none !important;
+    transform: none !important;
+    transform-style: initial !important;
     transition: all 0.3s ease;
 }
 
