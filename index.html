@@ -14,10 +14,14 @@
     <link rel="stylesheet" href="skill-icons.css">
     <link rel="stylesheet" href="project-tilt.css">
     <link rel="stylesheet" href="skills-scroll.css">
+    <link rel="stylesheet" href="cursor-effect.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 
-<body>
+<body class="cursor-effect-active">
+    <!-- Cursor Inverted Color Spotlight -->
+    <div class="cursor-spotlight"></div>
+
     <img class="image-gradient" src="gradient.png" alt="gradient">
     <div class="layer-blur"></div>
 
@@ -940,6 +944,26 @@
                 });
             }
         });
+
+        // Cursor Inverted Color Spotlight Effect
+        const cursorSpotlight = document.querySelector('.cursor-spotlight');
+
+        if (cursorSpotlight) {
+            document.addEventListener('mousemove', (e) => {
+                cursorSpotlight.style.left = e.clientX + 'px';
+                cursorSpotlight.style.top = e.clientY + 'px';
+            });
+
+            // Hide spotlight when cursor leaves window
+            document.addEventListener('mouseleave', () => {
+                cursorSpotlight.style.opacity = '0';
+            });
+
+            // Show spotlight when cursor enters window
+            document.addEventListener('mouseenter', () => {
+                cursorSpotlight.style.opacity = '0.8';
+            });
+        }
     </script>
 </body>
 
