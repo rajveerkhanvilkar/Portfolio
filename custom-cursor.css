@@ -36,21 +36,20 @@ body.custom-cursor-active * {
     z-index: 10000;
     transform: translate(-50%, -50%);
     mix-blend-mode: difference;
-    transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-        height 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-        border-radius 0.15s ease;
+    transition: width 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        height 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        border-radius 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        top 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* Jelly deformation when moving */
-.cursor-circle.moving {
-    border-radius: 40% 60% 50% 50%;
-}
-
-/* Expand to fill button on hover */
+/* When hovering button - disable jelly deformation */
 .cursor-circle.hover-button {
-    width: 200px;
-    height: 60px;
-    border-radius: 30px;
+    transition: width 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        height 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        border-radius 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        left 0.2s ease-out,
+        top 0.2s ease-out;
 }
 
 /* Expand on click */

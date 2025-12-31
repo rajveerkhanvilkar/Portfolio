@@ -1024,6 +1024,45 @@
             }
             animateCircle();
 
+            // Smart button detection - blob fits each button perfectly
+            let hoveredElement = null;
+
+            document.addEventListener('mousemove', (e) => {
+                const element = document.elementFromPoint(e.clientX, e.clientY);
+
+                // Check if hovering over clickable element
+                const clickable = element?.closest('a, button, [role="button"], .btn-get-started, .btn-signing-main');
+
+                if (clickable && clickable !== hoveredElement) {
+                    hoveredElement = clickable;
+                    const rect = clickable.getBoundingClientRect();
+
+                    // Make blob fit the button perfectly
+                    cursorCircle.style.width = rect.width + 'px';
+                    cursorCircle.style.height = rect.height + 'px';
+
+                    // Match button's border radius
+                    const computedStyle = window.getComputedStyle(clickable);
+                    cursorCircle.style.borderRadius = computedStyle.borderRadius;
+
+                    // Position blob at button center
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+
+                    // Override animation to snap to button
+                    cursorCircle.style.left = centerX + 'px';
+                    cursorCircle.style.top = centerY + 'px';
+                    cursorCircle.classList.add('hover-button');
+                } else if (!clickable && hoveredElement) {
+                    // Reset to normal blob
+                    hoveredElement = null;
+                    cursorCircle.style.width = '40px';
+                    cursorCircle.style.height = '40px';
+                    cursorCircle.style.borderRadius = '50%';
+                    cursorCircle.classList.remove('hover-button');
+                }
+            });
+
             // Expand circle on click
             document.addEventListener('mousedown', () => {
                 cursorCircle.classList.add('expand');
