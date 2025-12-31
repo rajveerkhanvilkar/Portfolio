@@ -993,26 +993,27 @@
                 const velocityY = circleY - prevCircleY;
                 const velocity = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
 
-                // Enhanced jelly deformation based on movement
-                if (velocity > 0.3) {
+
+                // Subtle jelly deformation based on movement
+                if (velocity > 0.5) {
                     const angle = Math.atan2(velocityY, velocityX);
-                    const stretch = Math.min(velocity * 5, 40); // More stretch
+                    const stretch = Math.min(velocity * 2, 15); // Less stretch
 
-                    // Stretch in direction of movement, squash perpendicular
-                    const scaleX = 1 + (Math.abs(Math.cos(angle)) * stretch / 25);
-                    const scaleY = 1 + (Math.abs(Math.sin(angle)) * stretch / 25);
+                    // Gentle stretch in direction of movement
+                    const scaleX = 1 + (Math.abs(Math.cos(angle)) * stretch / 40);
+                    const scaleY = 1 + (Math.abs(Math.sin(angle)) * stretch / 40);
 
-                    // Squash effect (opposite direction gets smaller)
-                    const squashX = 1 - (Math.abs(Math.sin(angle)) * stretch / 60);
-                    const squashY = 1 - (Math.abs(Math.cos(angle)) * stretch / 60);
+                    // Minimal squash effect
+                    const squashX = 1 - (Math.abs(Math.sin(angle)) * stretch / 100);
+                    const squashY = 1 - (Math.abs(Math.cos(angle)) * stretch / 100);
 
                     const finalScaleX = scaleX * squashX;
                     const finalScaleY = scaleY * squashY;
 
-                    cursorCircle.style.transform = `translate(-50%, -50%) scale(${finalScaleX}, ${finalScaleY}) rotate(${angle * 0.5}rad)`;
-                    cursorCircle.style.borderRadius = '30% 70% 70% 30% / 60% 40% 60% 40%'; // Organic blob shape
+                    cursorCircle.style.transform = `translate(-50%, -50%) scale(${finalScaleX}, ${finalScaleY}) rotate(${angle * 0.3}rad)`;
+                    cursorCircle.style.borderRadius = '45% 55% 55% 45% / 50% 50% 50% 50%'; // Subtle organic shape
                 } else {
-                    // Smooth return to circle with bounce
+                    // Smooth return to circle
                     cursorCircle.style.transform = 'translate(-50%, -50%) scale(1, 1)';
                     cursorCircle.style.borderRadius = '50%';
                 }
