@@ -14,14 +14,10 @@
     <link rel="stylesheet" href="skill-icons.css">
     <link rel="stylesheet" href="project-tilt.css">
     <link rel="stylesheet" href="skills-scroll.css">
-    <link rel="stylesheet" href="cursor-effect.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 
-<body class="cursor-effect-active">
-    <!-- Cursor Inverted Color Spotlight -->
-    <div class="cursor-spotlight"></div>
-
+<body>
     <img class="image-gradient" src="gradient.png" alt="gradient">
     <div class="layer-blur"></div>
 
@@ -944,54 +940,6 @@
                 });
             }
         });
-
-        // Cursor Inverted Color Spotlight Effect with Jelly Movement
-        const cursorSpotlight = document.querySelector('.cursor-spotlight');
-
-        if (cursorSpotlight) {
-            let mouseX = 0;
-            let mouseY = 0;
-            let cursorX = 0;
-            let cursorY = 0;
-
-            // Smooth jelly-like following
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-            });
-
-            // Animate cursor with jelly effect
-            function animateCursor() {
-                // Elastic easing for jelly effect
-                const speed = 0.15;
-                cursorX += (mouseX - cursorX) * speed;
-                cursorY += (mouseY - cursorY) * speed;
-
-                cursorSpotlight.style.left = cursorX + 'px';
-                cursorSpotlight.style.top = cursorY + 'px';
-
-                requestAnimationFrame(animateCursor);
-            }
-            animateCursor();
-
-            // Click ripple effect
-            document.addEventListener('mousedown', () => {
-                cursorSpotlight.classList.add('ripple');
-                setTimeout(() => {
-                    cursorSpotlight.classList.remove('ripple');
-                }, 600);
-            });
-
-            // Hide spotlight when cursor leaves window
-            document.addEventListener('mouseleave', () => {
-                cursorSpotlight.style.opacity = '0';
-            });
-
-            // Show spotlight when cursor enters window
-            document.addEventListener('mouseenter', () => {
-                cursorSpotlight.style.opacity = '0.9';
-            });
-        }
     </script>
 </body>
 
