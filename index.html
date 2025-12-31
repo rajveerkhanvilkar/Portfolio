@@ -945,13 +945,41 @@
             }
         });
 
-        // Cursor Inverted Color Spotlight Effect
+        // Cursor Inverted Color Spotlight Effect with Jelly Movement
         const cursorSpotlight = document.querySelector('.cursor-spotlight');
 
         if (cursorSpotlight) {
+            let mouseX = 0;
+            let mouseY = 0;
+            let cursorX = 0;
+            let cursorY = 0;
+
+            // Smooth jelly-like following
             document.addEventListener('mousemove', (e) => {
-                cursorSpotlight.style.left = e.clientX + 'px';
-                cursorSpotlight.style.top = e.clientY + 'px';
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            // Animate cursor with jelly effect
+            function animateCursor() {
+                // Elastic easing for jelly effect
+                const speed = 0.15;
+                cursorX += (mouseX - cursorX) * speed;
+                cursorY += (mouseY - cursorY) * speed;
+
+                cursorSpotlight.style.left = cursorX + 'px';
+                cursorSpotlight.style.top = cursorY + 'px';
+
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            // Click ripple effect
+            document.addEventListener('mousedown', () => {
+                cursorSpotlight.classList.add('ripple');
+                setTimeout(() => {
+                    cursorSpotlight.classList.remove('ripple');
+                }, 600);
             });
 
             // Hide spotlight when cursor leaves window
@@ -961,7 +989,7 @@
 
             // Show spotlight when cursor enters window
             document.addEventListener('mouseenter', () => {
-                cursorSpotlight.style.opacity = '0.8';
+                cursorSpotlight.style.opacity = '0.9';
             });
         }
     </script>
