@@ -28,8 +28,8 @@ body.custom-cursor-active * {
 /* Large white jelly blob (follows with delay and deforms) */
 .cursor-circle {
     position: fixed;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     background: white;
     border-radius: 50%;
     pointer-events: none;
@@ -54,8 +54,8 @@ body.custom-cursor-active * {
 
 /* Expand on click */
 .cursor-circle.expand {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
 }
 
 /* Hide on touch devices */
