@@ -1,6 +1,6 @@
 /* ========================================
-   CURSOR-FOLLOWING BORDER GLOW EFFECT
-   Border lights up where cursor hovers
+   CURSOR-FOLLOWING BORDER GLOW WITH PARTICLES
+   Border lights up with animated sparkles where cursor hovers
    ======================================== */
 
 /* Apply to cards, inputs, and bordered elements */
@@ -54,7 +54,51 @@ button::before,
     z-index: 1;
 }
 
-/* Show glow on hover */
+/* Animated sparkle particles on border */
+.project-card::after,
+.skill-card::after,
+.achievement-card::after,
+.contact-card::after,
+.stat-card::after,
+input::after,
+textarea::after,
+button::after,
+.btn-get-started::after,
+.btn-signing-main::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background:
+        radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+            rgba(255, 255, 255, 0.9) 0%,
+            rgba(0, 212, 255, 0.6) 20%,
+            transparent 50%),
+        repeating-conic-gradient(from 0deg at var(--mouse-x, 50%) var(--mouse-y, 50%),
+            transparent 0deg,
+            rgba(255, 255, 255, 0.4) 5deg,
+            transparent 10deg,
+            transparent 20deg);
+    background-size: 100% 100%, 200% 200%;
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    animation: borderSparkle 2s linear infinite;
+    z-index: 2;
+}
+
+/* Show effects on hover/focus */
 .project-card:hover::before,
 .skill-card:hover::before,
 .achievement-card:hover::before,
@@ -68,4 +112,30 @@ button:hover::before,
 .btn-get-started:hover::before,
 .btn-signing-main:hover::before {
     opacity: 1;
+}
+
+.project-card:hover::after,
+.skill-card:hover::after,
+.achievement-card:hover::after,
+.contact-card:hover::after,
+.stat-card:hover::after,
+input:hover::after,
+input:focus::after,
+textarea:hover::after,
+textarea:focus::after,
+button:hover::after,
+.btn-get-started:hover::after,
+.btn-signing-main:hover::after {
+    opacity: 0.7;
+}
+
+/* Sparkle animation */
+@keyframes borderSparkle {
+    0% {
+        background-position: 0% 0%, 0% 0%;
+    }
+
+    100% {
+        background-position: 0% 0%, 100% 100%;
+    }
 }
