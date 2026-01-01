@@ -38,8 +38,8 @@ button::before,
     border-radius: inherit;
     padding: 2px;
     background: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-            rgba(0, 150, 255, 1),
-            rgba(0, 100, 200, 0.6) 30%,
+            rgba(255, 150, 50, 1),
+            rgba(255, 120, 30, 0.6) 30%,
             transparent 50%);
     -webkit-mask:
         linear-gradient(#fff 0 0) content-box,
@@ -77,13 +77,13 @@ button::after,
     background:
         radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
             rgba(255, 255, 255, 1) 0%,
-            rgba(0, 150, 255, 0.9) 15%,
-            rgba(0, 100, 200, 0.5) 30%,
+            rgba(255, 150, 50, 0.9) 15%,
+            rgba(255, 120, 30, 0.5) 30%,
             transparent 50%),
         repeating-conic-gradient(from 0deg at var(--mouse-x, 50%) var(--mouse-y, 50%),
             transparent 0deg,
             rgba(255, 255, 255, 0.8) 3deg,
-            rgba(0, 150, 255, 0.6) 5deg,
+            rgba(255, 150, 50, 0.6) 5deg,
             transparent 8deg,
             transparent 15deg);
     background-size: 100% 100%, 200% 200%;
