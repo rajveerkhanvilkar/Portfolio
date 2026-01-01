@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="skills-scroll.css">
     <link rel="stylesheet" href="custom-cursor.css">
     <link rel="stylesheet" href="force-cursor.css">
+    <link rel="stylesheet" href="border-glow.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 
@@ -1047,6 +1048,20 @@
                 cursorCircle.style.opacity = '1';
             });
         }
+
+        // Cursor-following border glow effect
+        const glowElements = document.querySelectorAll('.project-card, .skill-card, .achievement-card, .contact-card, .stat-card, input, textarea, button, .btn-get-started, .btn-signing-main');
+
+        glowElements.forEach(element => {
+            element.addEventListener('mousemove', (e) => {
+                const rect = element.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+                element.style.setProperty('--mouse-x', `${x}%`);
+                element.style.setProperty('--mouse-y', `${y}%`);
+            });
+        });
     </script>
 </body>
 
