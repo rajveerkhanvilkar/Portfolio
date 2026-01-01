@@ -46,13 +46,12 @@ button::before,
     right: -2px;
     bottom: -2px;
     border-radius: inherit;
-    padding: 5px;
-    background: radial-gradient(180px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-            rgba(150, 40, 0, 1),
-            rgba(120, 30, 0, 1) 25%,
-            rgba(90, 20, 0, 1) 40%,
-            rgba(60, 15, 0, 1) 55%,
-            transparent 75%);
+    padding: 3px;
+    background: radial-gradient(250px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+            rgba(255, 80, 0, 1),
+            rgba(220, 60, 0, 1) 20%,
+            rgba(180, 40, 0, 0.9) 40%,
+            transparent 70%);
     -webkit-mask:
         linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);
