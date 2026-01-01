@@ -1,0 +1,42 @@
+/* ========================================
+   FORCE DEFAULT CURSOR EVERYWHERE
+   Prevent text cursor (I-beam) on text elements
+   ======================================== */
+
+/* Force default arrow cursor on all text elements */
+body,
+body * {
+    cursor: default !important;
+}
+
+/* Override text cursor on all text-selectable elements */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+div,
+a,
+button,
+input,
+textarea,
+label,
+li,
+td,
+th {
+    cursor: default !important;
+}
+
+/* Keep pointer cursor only on clickable elements */
+a:hover,
+button:hover,
+[role="button"]:hover,
+.btn-get-started:hover,
+.btn-signing-main:hover,
+.project-card:hover,
+.skill-card:hover {
+    cursor: pointer !important;
+}

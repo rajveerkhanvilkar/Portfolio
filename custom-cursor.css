@@ -5,11 +5,30 @@
 
 /* Show default cursor (don't hide it) */
 body.custom-cursor-active {
-    cursor: auto;
+    cursor: default;
 }
 
 body.custom-cursor-active * {
-    cursor: auto !important;
+    cursor: default !important;
+}
+
+/* Prevent text selection cursor (I-beam) */
+body.custom-cursor-active p,
+body.custom-cursor-active h1,
+body.custom-cursor-active h2,
+body.custom-cursor-active h3,
+body.custom-cursor-active h4,
+body.custom-cursor-active h5,
+body.custom-cursor-active h6,
+body.custom-cursor-active span,
+body.custom-cursor-active div,
+body.custom-cursor-active li,
+body.custom-cursor-active label {
+    cursor: default !important;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 /* Small black cursor dot (follows directly) */
