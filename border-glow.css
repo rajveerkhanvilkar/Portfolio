@@ -12,7 +12,11 @@
 .social-link,
 .contact-link,
 .link-card,
-a.card,
+a.card {
+    position: relative;
+    overflow: visible;
+}
+
 input,
 input[type="text"],
 input[type="email"],
