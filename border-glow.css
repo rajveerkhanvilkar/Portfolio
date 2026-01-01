@@ -3,16 +3,12 @@
    Border lights up with animated sparkles where cursor hovers
    ======================================== */
 
-/* Apply to cards, inputs, and bordered elements */
+/* Apply to cards, inputs, and bordered elements ONLY - NO text links */
 .project-card,
 .skill-card,
 .achievement-card,
 .contact-card,
 .stat-card,
-.social-link,
-.contact-link,
-.link-card,
-a.card,
 input,
 input[type="text"],
 input[type="email"],
@@ -33,10 +29,6 @@ button,
 .achievement-card::before,
 .contact-card::before,
 .stat-card::before,
-.social-link::before,
-.contact-link::before,
-.link-card::before,
-a.card::before,
 input::before,
 input[type="text"]::before,
 input[type="email"]::before,
@@ -56,8 +48,9 @@ button::before,
     border-radius: inherit;
     padding: 2px;
     background: radial-gradient(200px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-            rgba(255, 100, 0, 1),
-            rgba(200, 80, 0, 0.8) 30%,
+            rgba(255, 80, 0, 1),
+            rgba(180, 50, 0, 1) 20%,
+            rgba(120, 30, 0, 0.9) 40%,
             transparent 70%);
     -webkit-mask:
         linear-gradient(#fff 0 0) content-box,
@@ -79,10 +72,6 @@ button::before,
 .achievement-card:hover::before,
 .contact-card:hover::before,
 .stat-card:hover::before,
-.social-link:hover::before,
-.contact-link:hover::before,
-.link-card:hover::before,
-a.card:hover::before,
 input:hover::before,
 input:focus::before,
 input[type="text"]:hover::before,
