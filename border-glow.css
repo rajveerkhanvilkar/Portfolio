@@ -44,11 +44,12 @@ button::before,
     right: 0;
     bottom: 0;
     border-radius: inherit;
-    padding: 2px;
-    background: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-            rgba(255, 150, 50, 1),
-            rgba(255, 120, 30, 0.6) 30%,
-            transparent 50%);
+    padding: 3px;
+    background: radial-gradient(300px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+            rgba(255, 100, 0, 1),
+            rgba(200, 80, 0, 0.9) 25%,
+            rgba(150, 60, 0, 0.6) 40%,
+            transparent 60%);
     -webkit-mask:
         linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);
@@ -59,7 +60,7 @@ button::before,
     mask-composite: exclude;
     pointer-events: none;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.2s ease;
     z-index: 1;
 }
 
