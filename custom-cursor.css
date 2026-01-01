@@ -31,16 +31,17 @@ body.custom-cursor-active label {
     -ms-user-select: none;
 }
 
-/* Small black cursor dot (follows directly) */
+/* Small cursor dot (inverts colors) */
 .cursor-dot {
     position: fixed;
     width: 8px;
     height: 8px;
-    background-color: #000;
+    background-color: white;
     border-radius: 50%;
     pointer-events: none;
     z-index: 10001;
     transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
     transition: transform 0.05s ease;
 }
 
