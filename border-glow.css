@@ -41,12 +41,12 @@ button::before,
 .btn-signing-main::before {
     content: '';
     position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     border-radius: inherit;
-    padding: 3px;
+    padding: 2px;
     background: radial-gradient(250px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
             rgba(255, 60, 0, 1),
             rgba(220, 40, 0, 1) 15%,
@@ -63,8 +63,8 @@ button::before,
     mask-composite: exclude;
     pointer-events: none;
     opacity: 0;
-    transition: opacity 0.2s ease;
-    z-index: 1;
+    transition: opacity 0.3s ease;
+    z-index: 10;
 }
 
 /* Show glow on hover/focus */
