@@ -3,10 +3,12 @@
    ======================================== */
 
 .apka-rakshak-image {
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('apka-rakshak.jpg');
+    background: url('apka-rakshak-new.jpg');
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     height: 300px;
+    width: 100%;
 }
 
 .ewaste-image {
