@@ -939,12 +939,23 @@
                 const allCards = scrollWrapper.querySelectorAll('.skill-card');
                 allCards.forEach(card => {
                     card.addEventListener('mouseenter', () => {
+                        // First: Stop scrolling immediately
                         scrollWrapper.style.animationPlayState = 'paused';
-                        card.style.transform = 'rotateY(180deg) scale(1.1) translateY(-5px)';
+
+                        // Then: Flip after card has stopped (100ms delay)
+                        setTimeout(() => {
+                            card.style.transform = 'rotateY(180deg) scale(1.1) translateY(-5px)';
+                        }, 100);
                     });
+
                     card.addEventListener('mouseleave', () => {
-                        scrollWrapper.style.animationPlayState = 'running';
+                        // Reset flip immediately
                         card.style.transform = 'rotateY(0deg) scale(1) translateY(0)';
+
+                        // Resume scrolling after flip completes (600ms)
+                        setTimeout(() => {
+                            scrollWrapper.style.animationPlayState = 'running';
+                        }, 600);
                     });
                 });
             }
