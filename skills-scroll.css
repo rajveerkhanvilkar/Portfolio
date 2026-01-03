@@ -41,11 +41,6 @@
     animation-play-state: paused;
 }
 
-/* Individual skill card hover pause */
-.skill-card:hover {
-    animation-play-state: paused;
-}
-
 /* Scroll animation */
 @keyframes scroll-left {
     0% {
@@ -61,4 +56,30 @@
 .skills-grid .skill-card {
     flex-shrink: 0;
     margin: 0 1.5rem;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 3D Flip animation on hover */
+.skill-card:hover {
+    animation-play-state: paused;
+    transform: rotateY(180deg);
+}
+
+/* Ensure content flips correctly */
+.skill-card>* {
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+}
+
+/* Flip animation keyframes for smooth effect */
+@keyframes flipCard {
+    0% {
+        transform: rotateY(0deg);
+    }
+
+    100% {
+        transform: rotateY(180deg);
+    }
 }
