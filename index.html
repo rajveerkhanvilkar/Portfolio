@@ -935,44 +935,14 @@
                 skillsGrid.innerHTML = '';
                 skillsGrid.appendChild(scrollWrapper);
 
-                // Pause animation and flip card on hover
+                // Pause animation on individual card hover
                 const allCards = scrollWrapper.querySelectorAll('.skill-card');
                 allCards.forEach(card => {
-                    let cardRect = null;
-
                     card.addEventListener('mouseenter', () => {
-                        // Stop scrolling
                         scrollWrapper.style.animationPlayState = 'paused';
-
-                        // Get card position
-                        cardRect = card.getBoundingClientRect();
-
-                        // Fix position to stop all movement
-                        card.style.position = 'fixed';
-                        card.style.left = cardRect.left + 'px';
-                        card.style.top = cardRect.top + 'px';
-                        card.style.width = cardRect.width + 'px';
-                        card.style.zIndex = '1000';
-
-                        // Flip smoothly after stopping
-                        setTimeout(() => {
-                            card.style.transform = 'rotateY(180deg) scale(1.1) translateY(-10px)';
-                        }, 50);
                     });
-
                     card.addEventListener('mouseleave', () => {
-                        // Reset position and transform
-                        card.style.position = '';
-                        card.style.left = '';
-                        card.style.top = '';
-                        card.style.width = '';
-                        card.style.zIndex = '';
-                        card.style.transform = 'rotateY(0deg) scale(1) translateY(0)';
-
-                        // Resume scrolling
-                        setTimeout(() => {
-                            scrollWrapper.style.animationPlayState = 'running';
-                        }, 100);
+                        scrollWrapper.style.animationPlayState = 'running';
                     });
                 });
             }
