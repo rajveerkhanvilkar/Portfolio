@@ -935,14 +935,16 @@
                 skillsGrid.innerHTML = '';
                 skillsGrid.appendChild(scrollWrapper);
 
-                // Pause animation on individual card hover
+                // Pause animation and flip card on hover
                 const allCards = scrollWrapper.querySelectorAll('.skill-card');
                 allCards.forEach(card => {
                     card.addEventListener('mouseenter', () => {
                         scrollWrapper.style.animationPlayState = 'paused';
+                        card.style.transform = 'rotateY(180deg) scale(1.1) translateY(-5px)';
                     });
                     card.addEventListener('mouseleave', () => {
                         scrollWrapper.style.animationPlayState = 'running';
+                        card.style.transform = 'rotateY(0deg) scale(1) translateY(0)';
                     });
                 });
             }
