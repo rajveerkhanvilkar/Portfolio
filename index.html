@@ -420,18 +420,17 @@
     <!-- PROJECTS SECTION -->
     <section id="projects" class="projects-section">
 
-        <div class="projects-horizontal-wrapper">
-            <div class="projects-sticky-container">
+        <!-- MY PROJECTS Header - OUTSIDE the pinned zone -->
+        <div class="projects-section-header">
+            <p class="projects-label">PORTFOLIO</p>
+            <h2 class="projects-main-title">MY PROJECTS</h2>
+            <p class="projects-sub">Scroll horizontally to explore all projects &rarr;</p>
+        </div>
 
-                <!-- MY PROJECTS Header - Centered above the cards -->
-                <div class="projects-section-header">
-                    <p class="projects-label">PORTFOLIO</p>
-                    <h2 class="projects-main-title">MY PROJECTS</h2>
-                    <p class="projects-sub">Scroll to explore →</p>
-                </div>
-
+        <div class="projects-horizontal-wrapper" id="projects-wrapper">
+            <div class="projects-sticky-container" id="projects-sticky">
                 <div class="projects-horizontal-content">
-                    <div class="projects-grid">
+                    <div class="projects-grid" id="projects-track">
                 <!-- Project 1: Jarvis AI Assistant -->
                 <div data-aos="fade-up" data-aos-duration="1000" class="project-card">
                     <div class="project-image jarvis-image" onclick="openVideoModal()">
@@ -1107,28 +1106,33 @@
             });
         });
 
+
         // Initialize GSAP ScrollTrigger for Horizontal Projects
         gsap.registerPlugin(ScrollTrigger);
 
-        const projectSections = document.querySelector('.projects-horizontal-wrapper');
-        const projectsGrid = document.querySelector('.projects-grid');
+        const projectsWrapper = document.getElementById('projects-wrapper');
+        const projectsTrack  = document.getElementById('projects-track');
         
-        if (projectSections && projectsGrid) {
-            // Horizontal scroll animation
-            gsap.to(projectsGrid, {
-                x: () => -(projectsGrid.scrollWidth - window.innerWidth + 100),
+        if (projectsWrapper && projectsTrack) {
+            // Calculate total horizontal distance to travel
+            const getTravelDist = () => projectsTrack.scrollWidth - window.innerWidth + 80;
+
+            gsap.to(projectsTrack, {
+                x: () => -getTravelDist(),
                 ease: "none",
                 scrollTrigger: {
-                    trigger: projectSections,
+                    trigger: projectsWrapper,
                     start: "top top",
-                    end: () => `+=${projectsGrid.scrollWidth}`,
-                    scrub: 1.5,
+                    end: () => `+=${getTravelDist()}`,
+                    scrub: 1,
                     pin: true,
+                    pinSpacing: true,
                     invalidateOnRefresh: true,
                     anticipatePin: 1
                 }
             });
         }
+
     </script>
     <script src="fluid-sim.js"></script>
 </body>

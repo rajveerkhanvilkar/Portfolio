@@ -876,47 +876,35 @@ main {
 .projects-section {
     padding: 0 !important;
     overflow: hidden;
-    background: transparent; /* Show fluid effect */
+    background: transparent;
     min-height: 100vh;
-}
-
-.projects-horizontal-wrapper {
-    height: 100%;
-}
-
-
-.projects-sticky-container {
-    height: 100vh;
     display: flex;
-    flex-direction: column;        /* Stack header then cards vertically */
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
+    flex-direction: column;
 }
 
 .projects-section-header {
     text-align: center;
-    padding: 0 2rem 2rem;
+    padding: 4rem 2rem 2.5rem;
     flex-shrink: 0;
     position: relative;
     z-index: 10;
 }
 
 .projects-label {
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.35em;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.4em;
     color: #667eea;
-    margin-bottom: 0.6rem;
+    margin: 0 0 0.8rem;
     text-transform: uppercase;
 }
 
 .projects-main-title {
-    font-size: 4rem;
+    font-size: 3.8rem;
     font-weight: 700;
-    letter-spacing: 0.08em;
-    margin: 0 0 0.6rem;
-    background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+    letter-spacing: 0.06em;
+    margin: 0 0 0.8rem;
+    background: linear-gradient(135deg, #ffffff 0%, #888 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -924,26 +912,38 @@ main {
 }
 
 .projects-sub {
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: #555;
     letter-spacing: 0.1em;
     margin: 0;
 }
 
-.projects-horizontal-content {
-    padding: 0 5vw;
-    width: 100%;
+.projects-horizontal-wrapper {
+    flex: 1;
+}
+
+.projects-sticky-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
     overflow: hidden;
-    flex-shrink: 0;
+}
+
+.projects-horizontal-content {
+    padding: 0 4vw;
+    width: 100%;
+    overflow: visible;
 }
 
 .projects-grid {
     display: flex !important;
     white-space: nowrap;
-    gap: 3rem !important;
+    gap: 2.5rem !important;
     padding: 0.5rem 0 !important;
     will-change: transform;
 }
+
 
 .project-card {
     flex: 0 0 420px !important;
