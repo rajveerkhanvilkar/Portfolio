@@ -884,38 +884,32 @@ main {
 
 .projects-section-header {
     text-align: center;
-    padding: 4rem 2rem 2.5rem;
+    padding: 5rem 2rem 2rem;
     flex-shrink: 0;
     position: relative;
     z-index: 10;
 }
 
-.projects-label {
-    font-size: 0.8rem;
+/* Override section-title inside projects header with colorful gradient */
+.projects-section-header .section-title {
+    font-size: 4rem;
     font-weight: 700;
-    letter-spacing: 0.4em;
-    color: #667eea;
-    margin: 0 0 0.8rem;
-    text-transform: uppercase;
-}
-
-.projects-main-title {
-    font-size: 3.8rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    margin: 0 0 0.8rem;
-    background: linear-gradient(135deg, #ffffff 0%, #888 100%);
+    letter-spacing: 0.08em;
+    margin: 0 0 0.6rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     line-height: 1.1;
+    text-align: center;
 }
 
-.projects-sub {
-    font-size: 0.95rem;
+.projects-section-header .section-subtitle {
+    font-size: 1rem;
     color: #555;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     margin: 0;
+    text-align: center;
 }
 
 .projects-horizontal-wrapper {
@@ -929,6 +923,7 @@ main {
     position: relative;
     overflow: hidden;
 }
+
 
 .projects-horizontal-content {
     padding: 0 4vw;
