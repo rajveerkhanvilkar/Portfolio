@@ -420,19 +420,16 @@
     <!-- PROJECTS SECTION -->
     <section id="projects" class="projects-section">
 
-        <!-- 3D Sphere - moved to top right -->
-        <div class="sphere-3d" data-aos="zoom-in" data-aos-duration="2000"
-            style="position: absolute; top: 5%; right: 8%; z-index: 0; opacity: 0.5;"></div>
+        <!-- MY PROJECTS Header -->
+        <div class="projects-section-header">
+            <h2 class="section-title" data-aos="fade-up" data-aos-duration="1000">MY PROJECTS</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="100">Scroll horizontally to explore &rarr;</p>
+        </div>
 
-        <!-- 3D Hexagon - in free space, won't overlap projects -->
-        <div class="hexagon-3d" data-aos="fade-in" data-aos-duration="1500"
-            style="position: absolute; top: 10%; left: 5%; z-index: 0; opacity: 0.5;"></div>
-
-
-        <div class="projects-horizontal-wrapper">
+        <div class="projects-horizontal-wrapper" id="projects-wrapper">
             <div class="projects-sticky-container">
                 <div class="projects-horizontal-content">
-                    <div class="projects-grid">
+                    <div class="projects-grid" id="projects-grid">
                 <!-- Project 1: Jarvis AI Assistant -->
                 <div data-aos="fade-up" data-aos-duration="1000" class="project-card">
                     <div class="project-image jarvis-image" onclick="openVideoModal()">
@@ -1111,25 +1108,41 @@
         // Initialize GSAP ScrollTrigger for Horizontal Projects
         gsap.registerPlugin(ScrollTrigger);
 
-        const projectSections = document.querySelector('.projects-horizontal-wrapper');
-        const projectsGrid = document.querySelector('.projects-grid');
-        
-        if (projectSections && projectsGrid) {
-            // Horizontal scroll animation
+        // Give the projects section a solid background + high z-index so it
+        // covers the achievements section while GSAP has it pinned
+        const projSection = document.getElementById('projects');
+        if (projSection) {
+            projSection.style.position    = 'relative';
+            projSection.style.zIndex      = '10';
+            projSection.style.background  = '#050510';
+        }
+        // Achievements and everything below sit at normal z-index
+        const achSection = document.getElementById('achievements');
+        if (achSection) {
+            achSection.style.position = 'relative';
+            achSection.style.zIndex   = '1';
+        }
+
+        const projectsWrapper = document.getElementById('projects-wrapper');
+        const projectsGrid    = document.getElementById('projects-grid');
+
+        if (projectsWrapper && projectsGrid) {
             gsap.to(projectsGrid, {
-                x: () => -(projectsGrid.scrollWidth - window.innerWidth + 100),
-                ease: "none",
+                x   : () => -(projectsGrid.scrollWidth - window.innerWidth + 100),
+                ease: 'none',
                 scrollTrigger: {
-                    trigger: projectSections,
-                    start: "top top",
-                    end: () => `+=${projectsGrid.scrollWidth}`,
-                    scrub: 1.5,
-                    pin: true,
+                    trigger : projectsWrapper,
+                    start   : 'top top',
+                    end     : () => `+=${projectsGrid.scrollWidth}`,
+                    scrub   : 1.5,
+                    pin     : true,
+                    pinSpacing: true,
                     invalidateOnRefresh: true,
                     anticipatePin: 1
                 }
             });
         }
+
     </script>
     <script src="fluid-sim.js"></script>
 </body>

@@ -2184,3 +2184,81 @@ html {
         height: 120px;
     }
 }
+
+/* ═══════════════════════════════════════════════
+   PROJECTS SECTION — Horizontal Scroll
+   ═══════════════════════════════════════════════ */
+
+/* Solid background ensures achievements don't bleed through when pinned */
+.projects-section {
+    position: relative;
+    z-index: 10;
+    background: #050510;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Title header above the pinned scroll zone */
+.projects-section-header {
+    text-align: center;
+    padding: 4.5rem 2rem 2rem;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 20;
+}
+
+.projects-section-header .section-title {
+    font-size: 3.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin: 0 0 0.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+}
+
+.projects-section-header .section-subtitle {
+    font-size: 0.95rem;
+    color: #556;
+    letter-spacing: 0.12em;
+    margin: 0;
+}
+
+/* Horizontal scroll wrapper */
+.projects-horizontal-wrapper {
+    flex: 1;
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.projects-sticky-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.projects-horizontal-content {
+    padding: 0 4vw;
+    width: 100%;
+    overflow: hidden;
+}
+
+.projects-grid {
+    display: flex;
+    gap: 2rem;
+    align-items: stretch;
+    width: max-content;
+    will-change: transform;
+}
+
+/* Achievements sits below the pinned layer */
+#achievements {
+    position: relative;
+    z-index: 1;
+}
