@@ -49,7 +49,7 @@
             </nav>
 
             <a data-aos="fade-down" data-aos-duration="1500" class="btn-signing"
-                href="Rajveer CSV.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
+                href="Rajveer CSV 2.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
         </header>
 
         <main id="home">
@@ -420,16 +420,19 @@
     <!-- PROJECTS SECTION -->
     <section id="projects" class="projects-section">
 
-        <!-- MY PROJECTS Header -->
-        <div class="projects-section-header">
-            <h2 class="section-title" data-aos="fade-up" data-aos-duration="1000">MY PROJECTS</h2>
-            <p class="section-subtitle" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="100">Scroll horizontally to explore &rarr;</p>
-        </div>
+        <!-- 3D Sphere - moved to top right -->
+        <div class="sphere-3d" data-aos="zoom-in" data-aos-duration="2000"
+            style="position: absolute; top: 5%; right: 8%; z-index: 0; opacity: 0.5;"></div>
 
-        <div class="projects-horizontal-wrapper" id="projects-wrapper">
-            <div class="projects-sticky-container" id="projects-sticky">
+        <!-- 3D Hexagon - in free space, won't overlap projects -->
+        <div class="hexagon-3d" data-aos="fade-in" data-aos-duration="1500"
+            style="position: absolute; top: 10%; left: 5%; z-index: 0; opacity: 0.5;"></div>
+
+
+        <div class="projects-horizontal-wrapper">
+            <div class="projects-sticky-container">
                 <div class="projects-horizontal-content">
-                    <div class="projects-grid" id="projects-track">
+                    <div class="projects-grid">
                 <!-- Project 1: Jarvis AI Assistant -->
                 <div data-aos="fade-up" data-aos-duration="1000" class="project-card">
                     <div class="project-image jarvis-image" onclick="openVideoModal()">
