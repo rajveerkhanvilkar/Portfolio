@@ -875,9 +875,14 @@ main {
 
 .projects-section {
     padding: 0 !important;
-    overflow: hidden;
-    background: transparent; /* Show fluid effect */
+    overflow-x: clip;        /* only hide horizontal overflow, not vertical */
+    overflow-y: visible;
+    background: #050510;
     min-height: 100vh;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
 }
 
 .projects-horizontal-wrapper {
@@ -889,8 +894,10 @@ main {
     display: flex;
     align-items: center;
     position: relative;
-    overflow: hidden;
+    overflow-x: clip;
+    overflow-y: visible;
 }
+
 
 .projects-horizontal-content {
     padding: 0 5vw;
@@ -2185,24 +2192,16 @@ html {
     }
 }
 
-/* ═══════════════════════════════════════════════
-   PROJECTS SECTION — Horizontal Scroll
-   ═══════════════════════════════════════════════ */
-
-/* Solid background ensures achievements don't bleed through when pinned */
-.projects-section {
+/* Achievements sits below the pinned layer */
+#achievements {
     position: relative;
-    z-index: 10;
-    background: #050510;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+    z-index: 1;
 }
 
-/* Title header above the pinned scroll zone */
+/* ─── MY PROJECTS header (above the pinned scroll zone) ─── */
 .projects-section-header {
     text-align: center;
-    padding: 4.5rem 2rem 2rem;
+    padding: 4rem 2rem 1.5rem;
     flex-shrink: 0;
     position: relative;
     z-index: 20;
@@ -2212,7 +2211,7 @@ html {
     font-size: 3.8rem;
     font-weight: 700;
     letter-spacing: 0.08em;
-    margin: 0 0 0.5rem;
+    margin: 0 0 0.4rem;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -2221,44 +2220,10 @@ html {
 }
 
 .projects-section-header .section-subtitle {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     color: #556;
     letter-spacing: 0.12em;
     margin: 0;
 }
 
-/* Horizontal scroll wrapper */
-.projects-horizontal-wrapper {
-    flex: 1;
-    min-height: 100vh;
-    overflow: hidden;
-    position: relative;
-}
-
-.projects-sticky-container {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    position: relative;
-}
-
-.projects-horizontal-content {
-    padding: 0 4vw;
-    width: 100%;
-    overflow: hidden;
-}
-
-.projects-grid {
-    display: flex;
-    gap: 2rem;
-    align-items: stretch;
-    width: max-content;
-    will-change: transform;
-}
-
-/* Achievements sits below the pinned layer */
-#achievements {
-    position: relative;
-    z-index: 1;
-}
+
