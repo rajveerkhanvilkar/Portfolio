@@ -1218,6 +1218,7 @@ main {
     letter-spacing: 0.05em;
     display: -webkit-box;
     -webkit-line-clamp: 2;   /* max 2 lines for title */
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -1230,6 +1231,7 @@ main {
     flex: 1;                      /* fills space between title and tags */
     display: -webkit-box;
     -webkit-line-clamp: 4;        /* max 4 lines — tags never get pushed out */
+    line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }

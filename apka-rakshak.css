@@ -26,3 +26,25 @@
     background-position: center;
     height: 300px;
 }
+
+/* Nexus-SOAP Clinical OS — teal/cyan healthcare AI theme */
+/* Replace 'nexus-soap.png' with your image file */
+.nexus-soap-image {
+    background: url('nexus-soap.png') center/cover no-repeat,
+                linear-gradient(135deg, #020d18 0%, #041f30 40%, #063a4a 70%, #08505f 100%);
+    background-size: cover, cover;
+    background-position: center, center;
+    height: 300px;
+    position: relative;
+}
+
+/* Glowing cyan overlay when no image yet */
+.nexus-soap-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at 30% 50%, rgba(0,212,255,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 30%, rgba(0,255,200,0.12) 0%, transparent 50%);
+    pointer-events: none;
+}
