@@ -1,0 +1,324 @@
+/* ===============================================
+   NEON HELIX SPIRAL — Projects Showcase
+   GSAP 3D ScrollTrigger powered
+   =============================================== */
+
+/* Override base section */
+.projects-section {
+    padding: 0 !important;
+    background: transparent !important;
+    overflow: hidden;
+    display: flex !important;
+    flex-direction: column !important;
+    position: relative;
+}
+
+/* Header stays above spiral zone */
+.projects-section-header {
+    text-align: center;
+    padding: 5rem 2rem 2rem;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 20;
+}
+
+.projects-section-header .section-title {
+    font-size: 4rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin: 0 0 0.6rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+    text-align: center;
+}
+
+.projects-section-header .section-subtitle {
+    font-size: 1rem;
+    color: #555;
+    letter-spacing: 0.12em;
+    text-align: center;
+    margin: 0;
+}
+
+/* ---- SPIRAL WRAPPER (pinned zone) ---- */
+.spiral-wrapper {
+    flex: 1;
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* ===========================
+   NEON ROD
+   =========================== */
+.neon-rod {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.neon-rod-line {
+    width: 3px;
+    height: 100%;
+    border-radius: 9999px;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(0, 212, 255, 0.1) 8%,
+        rgba(0, 212, 255, 0.85) 28%,
+        #00e5ff 46%,
+        #ffffff 50%,
+        #00e5ff 54%,
+        rgba(0, 212, 255, 0.85) 72%,
+        rgba(0, 212, 255, 0.1) 92%,
+        transparent 100%
+    );
+    animation: rod-breathe 2.8s ease-in-out infinite;
+}
+
+@keyframes rod-breathe {
+    0%, 100% {
+        box-shadow:
+            0 0 4px  rgba(255, 255, 255, 0.9),
+            0 0 10px rgba(0, 229, 255, 1),
+            0 0 25px rgba(0, 212, 255, 0.85),
+            0 0 55px rgba(0, 170, 255, 0.6),
+            0 0 110px rgba(102, 126, 234, 0.35),
+            0 0 200px rgba(102, 126, 234, 0.15);
+    }
+    50% {
+        box-shadow:
+            0 0 6px  rgba(255, 255, 255, 1),
+            0 0 16px rgba(0, 229, 255, 1),
+            0 0 38px rgba(0, 212, 255, 1),
+            0 0 80px rgba(0, 170, 255, 0.8),
+            0 0 160px rgba(102, 126, 234, 0.55),
+            0 0 280px rgba(102, 126, 234, 0.25);
+    }
+}
+
+/* Pulsing rings centred on rod */
+.neon-rod-rings {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.neon-ring {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    top: -35px;
+    left: -35px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(0, 229, 255, 0.6);
+    box-shadow: 0 0 12px rgba(0, 212, 255, 0.4), inset 0 0 8px rgba(0, 212, 255, 0.15);
+    animation: ring-pulse 3s ease-out infinite;
+    opacity: 0;
+}
+
+.neon-ring:nth-child(1) { animation-delay: 0s; }
+.neon-ring:nth-child(2) { animation-delay: 1s; }
+.neon-ring:nth-child(3) { animation-delay: 2s; }
+
+@keyframes ring-pulse {
+    0%   { transform: scale(0.1); opacity: 0.85; }
+    70%  { opacity: 0.15; }
+    100% { transform: scale(7); opacity: 0; }
+}
+
+/* ===========================
+   3D SCENE & TRACK
+   =========================== */
+.spiral-scene {
+    position: absolute;
+    inset: 0;
+    perspective: 1100px;
+    perspective-origin: 50% 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spiral-track {
+    position: relative;
+    width: 0;
+    height: 0;
+    transform-style: preserve-3d;
+    pointer-events: auto;
+}
+
+/* ===========================
+   CARDS IN 3D SPACE
+   =========================== */
+.spiral-track .project-card {
+    position: absolute !important;
+    flex: none !important;
+    width: 360px !important;
+    /* center card on origin */
+    left: -180px !important;
+    top: -200px !important;
+    margin: 0 !important;
+    background: linear-gradient(145deg, rgba(18,18,22,0.97), rgba(8,8,12,0.99)) !important;
+    border: 1px solid rgba(0, 212, 255, 0.18) !important;
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.85),
+        0 0 0 0 transparent !important;
+    transition:
+        border-color  0.35s ease,
+        box-shadow    0.35s ease !important;
+    transform-origin: center center;
+    backface-visibility: visible;
+}
+
+.spiral-track .project-card:hover {
+    border-color: rgba(0, 212, 255, 0.7) !important;
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.9),
+        0 0 35px rgba(0, 212, 255, 0.3),
+        inset 0 0 25px rgba(0, 212, 255, 0.04) !important;
+}
+
+/* Neon connector: thin line from card edge pointing toward the rod */
+.spiral-track .project-card::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 182px;    /* exactly reaches the rod */
+    height: 1px;
+    background: linear-gradient(to left, rgba(0,229,255,0.45), transparent);
+    transform: translateX(-100%);
+    pointer-events: none;
+}
+
+/* Scroll-progress indicator bar at bottom of card */
+.spiral-track .project-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background: linear-gradient(90deg, #667eea, #00d4ff, #f093fb);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 0 0 20px 20px;
+}
+
+.spiral-track .project-card:hover::after {
+    opacity: 1;
+}
+
+/* ===========================
+   SCROLL HINT LABEL
+   =========================== */
+.spiral-scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0.45;
+    pointer-events: none;
+    z-index: 20;
+    animation: hint-fade 2s ease-in-out infinite;
+}
+
+.spiral-scroll-hint span {
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: #00d4ff;
+    text-transform: uppercase;
+}
+
+.scroll-chevrons {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.scroll-chevrons i {
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid #00d4ff;
+    border-bottom: 2px solid #00d4ff;
+    transform: rotate(45deg);
+    display: block;
+}
+
+@keyframes hint-fade {
+    0%, 100% { opacity: 0.35; }
+    50%       { opacity: 0.7; }
+}
+
+/* ===========================
+   CARD COUNT INDICATOR
+   =========================== */
+.spiral-counter {
+    position: absolute;
+    right: 3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 20;
+    pointer-events: none;
+}
+
+.counter-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(0, 212, 255, 0.2);
+    border: 1px solid rgba(0, 212, 255, 0.35);
+    transition: all 0.4s ease;
+}
+
+.counter-dot.active {
+    background: #00d4ff;
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
+    transform: scale(1.4);
+}
+
+/* ===========================
+   RESPONSIVE
+   =========================== */
+@media (max-width: 900px) {
+    .spiral-track .project-card {
+        width: 300px !important;
+        left: -150px !important;
+    }
+    .spiral-track .project-card::before {
+        width: 152px;
+    }
+    .spiral-counter { display: none; }
+}
+
+@media (max-width: 600px) {
+    .projects-section-header .section-title { font-size: 2.4rem; }
+    .spiral-track .project-card { width: 260px !important; left: -130px !important; }
+    .spiral-track .project-card::before { width: 132px; }
+}

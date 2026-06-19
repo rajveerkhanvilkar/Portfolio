@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="force-cursor.css">
     <link rel="stylesheet" href="border-glow.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="spiral-projects.css">
 
     <!-- GSAP for Professional Animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -426,20 +427,30 @@
             <p class="section-subtitle" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="100">Scroll down to explore &rarr;</p>
         </div>
 
+    <div class="spiral-wrapper" id="projects-wrapper">
 
-        <div class="projects-horizontal-wrapper" id="projects-wrapper">
-            <div class="projects-sticky-container" id="projects-sticky">
-                <div class="projects-horizontal-content">
-                    <div class="projects-grid" id="projects-track">
+        <!-- NEON ROD in the center -->
+        <div class="neon-rod">
+            <div class="neon-rod-line"></div>
+            <div class="neon-rod-rings">
+                <div class="neon-ring"></div>
+                <div class="neon-ring"></div>
+                <div class="neon-ring"></div>
+            </div>
+        </div>
+
+        <!-- 3D Spiral Scene -->
+        <div class="spiral-scene">
+            <div class="spiral-track" id="projects-track">
+
                 <!-- Project 1: Jarvis AI Assistant -->
-                <div data-aos="fade-up" data-aos-duration="1000" class="project-card">
+                <div class="project-card">
                     <div class="project-image jarvis-image" onclick="openVideoModal()">
                         <video class="project-video" preload="metadata">
                             <source src="jarvis-assistant.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
                         </video>
                         <div class="project-overlay">
-                            <span class="view-project">▶ Watch Demo →</span>
+                            <span class="view-project">&#9654; Watch Demo &rarr;</span>
                         </div>
                     </div>
                     <div class="project-info">
@@ -632,14 +643,24 @@
                             <span>Video Platform</span>
                             <span>Analytics</span>
                         </div>
-                    </div>
-                </div>
-                    </div>
-                </div>
+                </div><!-- /last card -->
+            </div><!-- /spiral-track -->
+        </div><!-- /spiral-scene -->
 
+        <!-- Scroll Hint -->
+        <div class="spiral-scroll-hint">
+            <span>scroll</span>
+            <div class="scroll-chevrons">
+                <i></i><i></i><i></i>
             </div>
         </div>
-    </section>
+
+        <!-- Dot counter -->
+        <div class="spiral-counter" id="spiral-counter"></div>
+
+    </div><!-- /spiral-wrapper -->
+</section>
+
 
     <!-- ACHIEVEMENTS & LEADERSHIP SECTION -->
     <section id="achievements" class="achievements-section">
@@ -1104,31 +1125,69 @@
         });
 
 
-        // Initialize GSAP ScrollTrigger for Horizontal Projects
+        // =============================================
+        //  NEON HELIX SPIRAL — GSAP ScrollTrigger
+        // =============================================
         gsap.registerPlugin(ScrollTrigger);
 
-        const projectsWrapper = document.getElementById('projects-wrapper');
-        const projectsTrack  = document.getElementById('projects-track');
-        
-        if (projectsWrapper && projectsTrack) {
-            // Calculate total horizontal distance to travel
-            const getTravelDist = () => projectsTrack.scrollWidth - window.innerWidth + 80;
+        (function initNeonSpiral() {
+            const wrapper = document.getElementById('projects-wrapper');
+            const track   = document.getElementById('projects-track');
+            if (!wrapper || !track) return;
 
-            gsap.to(projectsTrack, {
-                x: () => -getTravelDist(),
-                ease: "none",
+            const cards  = Array.from(track.querySelectorAll('.project-card'));
+            const TOTAL  = cards.length;
+            const RADIUS = window.innerWidth < 768 ? 280 : 460; // px from center
+            const VSTEP  = 150;   // px between each card on Y axis (helix pitch)
+
+            // ── Build dot counter ─────────────────────────────────────
+            const counter = document.getElementById('spiral-counter');
+            if (counter) {
+                cards.forEach((_, i) => {
+                    const dot = document.createElement('div');
+                    dot.className = 'counter-dot' + (i === 0 ? ' active' : '');
+                    counter.appendChild(dot);
+                });
+            }
+
+            // ── Place each card on the helix ──────────────────────────
+            // rotateY(angle)  → orbit position around the Y-axis (the rod)
+            // translateZ(R)   → push outward from rod
+            // translateY(y)   → spread vertically = the "helix pitch"
+            cards.forEach((card, i) => {
+                const angleDeg  = (i / TOTAL) * 360;
+                const yOffset   = i * -VSTEP;
+                card.style.transform =
+                    `rotateY(${angleDeg}deg) translateZ(${RADIUS}px) translateY(${yOffset}px)`;
+            });
+
+            // ── Update active dot ─────────────────────────────────────
+            function updateDots(progress) {
+                const activeIdx = Math.round(progress * (TOTAL - 1));
+                if (!counter) return;
+                counter.querySelectorAll('.counter-dot').forEach((d, i) => {
+                    d.classList.toggle('active', i === activeIdx);
+                });
+            }
+
+            // ── ScrollTrigger: spin the entire track ──────────────────
+            gsap.to(track, {
+                rotateY: -360,            // one full revolution — every card visits front
+                ease: 'none',
                 scrollTrigger: {
-                    trigger: projectsWrapper,
-                    start: "top top",
-                    end: () => `+=${getTravelDist()}`,
-                    scrub: 1,
-                    pin: true,
+                    trigger : wrapper,
+                    start   : 'top top',
+                    end     : `+=${TOTAL * 380}`,   // ~380 px of scroll per card
+                    pin     : true,
                     pinSpacing: true,
+                    scrub   : 1.2,
+                    anticipatePin: 1,
                     invalidateOnRefresh: true,
-                    anticipatePin: 1
+                    onUpdate: (self) => updateDots(self.progress)
                 }
             });
-        }
+        })();
+
 
     </script>
     <script src="fluid-sim.js"></script>
