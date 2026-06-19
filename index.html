@@ -1040,70 +1040,117 @@
 
 
         // =====================================================
-        //  NEON HELIX SPIRAL — cards hug the rod, spiral up
-        //  DNA-corkscrew: rotateY + translateZ + ascend (Y)
+        //  NEON TIMELINE  — clean vertical scroll + rod attach
         // =====================================================
         gsap.registerPlugin(ScrollTrigger);
 
-        (function initHelixSpiral() {
+        (function initNeonTimeline() {
             const wrapper = document.getElementById('projects-wrapper');
             const track   = document.getElementById('projects-track');
+            const rodEl   = wrapper.querySelector('.neon-rod');
             if (!wrapper || !track) return;
 
             const cards   = Array.from(track.querySelectorAll('.project-card'));
             const TOTAL   = cards.length;
+            const SPACING = 300;      // px between card tops
+            const CARD_H  = 400;      // approx card height for centering
 
-            // Radius: small = cards hug the rod tightly
-            const RADIUS  = window.innerWidth < 768 ? 160 : 220; // px from rod centre
-            const VSTEP   = 130;  // vertical separation per card on the helix
+            // ── Sizing (runs on init & resize) ───────────────────────
+            function layout() {
+                const vw      = wrapper.clientWidth;
+                const rodGap  = 60;   // px from rod centre to card edge
+                const cardW   = Math.min(380, Math.floor(vw / 2) - rodGap - 20);
+                const leftPos = vw / 2 - rodGap - cardW;  // left edge of left-side card
+                const rightPos= vw / 2 + rodGap;           // left edge of right-side card
 
-            // ── Place each card on the helix ──────────────────────────
-            // Each card is rotated around the Y-axis and pushed outward.
-            // translateY staggers them vertically so they form a coil.
-            cards.forEach((card, i) => {
-                const angleDeg = (i / TOTAL) * 360;          // evenly around 360°
-                const yOffset  = -(i * VSTEP);               // upward stagger
-                card.style.transform =
-                    `rotateY(${angleDeg}deg) translateZ(${RADIUS}px) translateY(${yOffset}px)`;
+                cards.forEach((card, i) => {
+                    const isLeft = (i % 2 === 0);
+                    card.style.width  = cardW + 'px';
+                    card.style.left   = (isLeft ? leftPos : rightPos) + 'px';
+                    card.style.top    = (80 + i * SPACING) + 'px';
+                    card.classList.remove('side-left', 'side-right');
+                    card.classList.add(isLeft ? 'side-left' : 'side-right');
+                });
+
+                // track total height
+                track.style.height = (80 + TOTAL * SPACING + CARD_H + 80) + 'px';
+            }
+            layout();
+
+            // ── Glowing nodes on the rod (one per card) ──────────────
+            const oldNodes = wrapper.querySelectorAll('.rod-node');
+            oldNodes.forEach(n => n.remove());
+            const nodes = cards.map((card, i) => {
+                const node = document.createElement('div');
+                node.className = 'rod-node';
+                node.style.top = (80 + i * SPACING + CARD_H / 2) + 'px';
+                rodEl && rodEl.appendChild(node);
+                return node;
             });
 
-            // Total vertical distance the helix occupies
-            const helixHeight = TOTAL * VSTEP;
+            // ── Side counter dots ─────────────────────────────────────
+            let counterEl = wrapper.querySelector('.timeline-counter');
+            if (!counterEl) {
+                counterEl = document.createElement('div');
+                counterEl.className = 'timeline-counter';
+                wrapper.appendChild(counterEl);
+            }
+            counterEl.innerHTML = '';
+            const dots = cards.map(() => {
+                const d = document.createElement('div');
+                d.className = 'tc-dot';
+                counterEl.appendChild(d);
+                return d;
+            });
 
-            // ── ScrollTrigger: spin + ascend the spiral track ─────────
-            // rotateY(-360) = one full revolution (every card comes to front)
-            // y(+helixHeight/2) = helix moves UP giving the "ascending spiral" feel
+            // ── Active card updater ───────────────────────────────────
+            function updateActive() {
+                const viewMid = wrapper.clientHeight / 2;
+                const trackY  = gsap.getProperty(track, 'y') || 0;
+                let closestIdx = 0, minDist = Infinity;
+                cards.forEach((_, i) => {
+                    const cardMid = 80 + i * SPACING + CARD_H / 2 + trackY;
+                    const dist    = Math.abs(cardMid - viewMid);
+                    if (dist < minDist) { minDist = dist; closestIdx = i; }
+                });
+                cards.forEach((c, i) => {
+                    c.classList.toggle('card-active', i === closestIdx);
+                });
+                nodes.forEach((n, i) => {
+                    n.classList.toggle('node-active', i === closestIdx);
+                });
+                dots.forEach((d, i) => {
+                    d.classList.toggle('active', i === closestIdx);
+                });
+            }
+            updateActive();
+
+            // ── GSAP: pin viewport, scroll track upward ───────────────
+            const totalH  = parseFloat(track.style.height) || TOTAL * SPACING + 560;
+            const travelY = totalH - wrapper.clientHeight;
+
             gsap.to(track, {
-                rotateY: -360,
-                y: helixHeight * 0.6,
+                y   : -travelY,
                 ease: 'none',
                 scrollTrigger: {
                     trigger  : wrapper,
                     start    : 'top top',
-                    end      : `+=${TOTAL * 350}`,
+                    end      : `+=${travelY * 1.05}`,
                     pin      : true,
                     pinSpacing: true,
                     scrub    : 1,
                     anticipatePin: 1,
-                    invalidateOnRefresh: true
+                    invalidateOnRefresh: true,
+                    onUpdate : updateActive
                 }
             });
 
-            // Recalculate on resize
+            // ── Resize handler ────────────────────────────────────────
             window.addEventListener('resize', () => {
-                const newR = window.innerWidth < 768 ? 160 : 220;
-                cards.forEach((card, i) => {
-                    const angleDeg = (i / TOTAL) * 360;
-                    const yOffset  = -(i * VSTEP);
-                    card.style.transform =
-                        `rotateY(${angleDeg}deg) translateZ(${newR}px) translateY(${yOffset}px)`;
-                });
+                layout();
                 ScrollTrigger.refresh();
             });
         })();
-
-
-
 
     </script>
     <script src="fluid-sim.js"></script>
