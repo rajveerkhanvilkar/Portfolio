@@ -430,10 +430,7 @@
 
     <div class="spiral-viewport" id="projects-wrapper">
 
-        <!-- Fire canvas overlay (JS populates) -->
-        <canvas id="fire-canvas"></canvas>
-
-        <!-- Neon rod stays fixed in center -->
+        <!-- Neon rod — always stays fixed in center -->
         <div class="neon-rod">
             <div class="neon-rod-line"></div>
             <div class="neon-rod-rings">
@@ -443,8 +440,9 @@
             </div>
         </div>
 
-        <!-- All cards scroll through here -->
-        <div class="spiral-track" id="projects-track">
+        <!-- 3D scene: cards spiral around the rod -->
+        <div class="spiral-scene">
+            <div class="spiral-track" id="projects-track">
 
             <!-- Card 1: Jarvis AI -->
             <div class="project-card">
@@ -520,7 +518,7 @@
 
             <!-- Card 6: Building Collapse AI -->
             <div class="project-card">
-                <div class="project-image project-6">
+                <div class="project-image building-collapse-image">
                     <div class="project-overlay"><span class="view-project">View Details &rarr;</span></div>
                 </div>
                 <div class="project-info">
@@ -533,7 +531,7 @@
 
             <!-- Card 7: Green Corridor -->
             <div class="project-card">
-                <div class="project-image project-7">
+                <div class="project-image green-corridor-image">
                     <div class="project-overlay"><span class="view-project">View Details &rarr;</span></div>
                 </div>
                 <div class="project-info">
@@ -546,7 +544,7 @@
 
             <!-- Card 8: PeaceNet -->
             <div class="project-card">
-                <div class="project-image project-8">
+                <div class="project-image peacenet-image">
                     <div class="project-overlay"><span class="view-project">View Details &rarr;</span></div>
                 </div>
                 <div class="project-info">
@@ -559,7 +557,7 @@
 
             <!-- Card 9: LMS -->
             <div class="project-card">
-                <div class="project-image project-9">
+                <div class="project-image lms-image">
                     <div class="project-overlay"><span class="view-project">View Details &rarr;</span></div>
                 </div>
                 <div class="project-info">
@@ -570,10 +568,12 @@
                 </div>
             </div>
 
-        </div><!-- /spiral-track -->
+            </div><!-- /spiral-track -->
+        </div><!-- /spiral-scene -->
 
     </div><!-- /spiral-viewport -->
 </section>
+
 
 
     <!-- ACHIEVEMENTS & LEADERSHIP SECTION -->
@@ -1040,170 +1040,69 @@
 
 
         // =====================================================
-        //  NEON ROD SPIRAL — Zigzag scroll + Fire Particles
+        //  NEON HELIX SPIRAL — cards hug the rod, spiral up
+        //  DNA-corkscrew: rotateY + translateZ + ascend (Y)
         // =====================================================
         gsap.registerPlugin(ScrollTrigger);
 
-        (function initSpiralFire() {
+        (function initHelixSpiral() {
             const wrapper = document.getElementById('projects-wrapper');
             const track   = document.getElementById('projects-track');
             if (!wrapper || !track) return;
 
-            const cards        = Array.from(track.querySelectorAll('.project-card'));
-            const TOTAL        = cards.length;
-            const CARD_W       = window.innerWidth < 768 ? 260 : 320;
-            const SPACING      = 230;    // vertical px between card centres
-            const SIDE         = window.innerWidth < 900 ? 160 : 240; // px from rod centre to card
+            const cards   = Array.from(track.querySelectorAll('.project-card'));
+            const TOTAL   = cards.length;
 
-            // ── Canvas (fire overlay) ─────────────────────────────────
-            const canvas = document.getElementById('fire-canvas');
-            const ctx    = canvas ? canvas.getContext('2d') : null;
-            let particles  = [];
-            let scrollVel  = 0;
+            // Radius: small = cards hug the rod tightly
+            const RADIUS  = window.innerWidth < 768 ? 160 : 220; // px from rod centre
+            const VSTEP   = 130;  // vertical separation per card on the helix
 
-            function resizeCanvas() {
-                if (!canvas) return;
-                canvas.width  = wrapper.clientWidth;
-                canvas.height = wrapper.clientHeight;
-            }
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
-
-            // ── Fire Particle ─────────────────────────────────────────
-            class FireParticle {
-                constructor(x, y) {
-                    this.x    = x + (Math.random() - 0.5) * 28;
-                    this.y    = y;
-                    this.vx   = (Math.random() - 0.5) * 2.5;
-                    this.vy   = -(Math.random() * 4.5 + 2.5);
-                    this.life = 1.0;
-                    this.decay= 0.013 + Math.random() * 0.018;
-                    this.size = 5 + Math.random() * 9;
-                    this.turb = (Math.random() - 0.5) * 0.25;
-                }
-                update() {
-                    this.vx += this.turb;
-                    this.x  += this.vx;
-                    this.y  += this.vy;
-                    this.vy *= 0.98;
-                    this.size *= 0.965;
-                    this.life -= this.decay;
-                }
-                draw(c) {
-                    if (this.life <= 0) return;
-                    c.save();
-                    c.globalAlpha = Math.max(0, this.life * 0.82);
-                    const g = c.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
-                    if (this.life > 0.6) {
-                        g.addColorStop(0,   'rgba(255,255,200,1)');
-                        g.addColorStop(0.25,'rgba(255,190, 20,0.9)');
-                        g.addColorStop(0.6, 'rgba(255, 80,  0,0.7)');
-                        g.addColorStop(1,   'rgba(200,  0,  0,0)');
-                    } else if (this.life > 0.3) {
-                        g.addColorStop(0,   'rgba(255,130,  0,0.85)');
-                        g.addColorStop(0.5, 'rgba(180, 40,  0,0.55)');
-                        g.addColorStop(1,   'rgba( 80,  0,  0,0)');
-                    } else {
-                        g.addColorStop(0,   'rgba(130, 40,  0,0.5)');
-                        g.addColorStop(1,   'rgba( 40,  0,  0,0)');
-                    }
-                    c.fillStyle = g;
-                    c.beginPath();
-                    c.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    c.fill();
-                    c.restore();
-                }
-            }
-
-            // ── Spawn fire from ALL visible cards ─────────────────────
-            function spawnFire(intensity) {
-                const ppp = Math.floor(intensity * 6) + 1; // particles per card
-                const wRect = wrapper.getBoundingClientRect();
-                cards.forEach(card => {
-                    const r = card.getBoundingClientRect();
-                    if (r.bottom < wRect.top || r.top > wRect.bottom) return;
-                    for (let p = 0; p < ppp; p++) {
-                        const px = r.left - wRect.left + Math.random() * r.width;
-                        const py = r.top  - wRect.top  + Math.random() * r.height;
-                        particles.push(new FireParticle(px, py));
-                    }
-                });
-            }
-
-            // ── Fire render loop ──────────────────────────────────────
-            function renderFire() {
-                if (!ctx) { requestAnimationFrame(renderFire); return; }
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles = particles.filter(p => p.life > 0);
-                particles.forEach(p => { p.update(); p.draw(ctx); });
-                requestAnimationFrame(renderFire);
-            }
-            renderFire();
-
-            // ── Position cards in zigzag around the rod ───────────────
-            const totalTrackH = TOTAL * SPACING + 400;
-            track.style.height = totalTrackH + 'px';
-
-            const center = wrapper.clientWidth / 2;
+            // ── Place each card on the helix ──────────────────────────
+            // Each card is rotated around the Y-axis and pushed outward.
+            // translateY staggers them vertically so they form a coil.
             cards.forEach((card, i) => {
-                const isLeft  = i % 2 === 0;
-                const xOffset = isLeft ? -(SIDE + CARD_W) : SIDE;
-                card.style.width  = CARD_W + 'px';
-                card.style.left   = (center + xOffset) + 'px';
-                card.style.top    = (80 + i * SPACING) + 'px';
-                card.classList.add(isLeft ? 'side-left' : 'side-right');
+                const angleDeg = (i / TOTAL) * 360;          // evenly around 360°
+                const yOffset  = -(i * VSTEP);               // upward stagger
+                card.style.transform =
+                    `rotateY(${angleDeg}deg) translateZ(${RADIUS}px) translateY(${yOffset}px)`;
             });
 
-            // ── Tilt cards based on viewport distance ─────────────────
-            function updateTilts() {
-                const midY = wrapper.clientHeight / 2;
-                const trackY = gsap.getProperty(track, 'y') || 0;
-                cards.forEach((card, i) => {
-                    const cardMidY = 80 + i * SPACING + 180 + trackY; // 180 = ~half card h
-                    const dist     = cardMidY - midY;
-                    const tilt     = Math.max(-40, Math.min(40, dist * 0.08));
-                    card.style.transform = `perspective(900px) rotateY(${tilt}deg)`;
-                    card.classList.toggle('featured', Math.abs(dist) < 120);
-                });
-            }
-            updateTilts();
+            // Total vertical distance the helix occupies
+            const helixHeight = TOTAL * VSTEP;
 
-            // ── GSAP ScrollTrigger: scroll all cards upward ───────────
-            const travelY = totalTrackH - wrapper.clientHeight + 80;
-
+            // ── ScrollTrigger: spin + ascend the spiral track ─────────
+            // rotateY(-360) = one full revolution (every card comes to front)
+            // y(+helixHeight/2) = helix moves UP giving the "ascending spiral" feel
             gsap.to(track, {
-                y   : -travelY,
+                rotateY: -360,
+                y: helixHeight * 0.6,
                 ease: 'none',
                 scrollTrigger: {
                     trigger  : wrapper,
                     start    : 'top top',
-                    end      : `+=${travelY * 1.1}`,
+                    end      : `+=${TOTAL * 350}`,
                     pin      : true,
                     pinSpacing: true,
-                    scrub    : 0.9,
+                    scrub    : 1,
                     anticipatePin: 1,
-                    invalidateOnRefresh: true,
-                    onUpdate(self) {
-                        const vel = Math.abs(self.getVelocity());
-                        if (vel > 30) spawnFire(Math.min(vel / 400, 1));
-                        updateTilts();
-                    }
+                    invalidateOnRefresh: true
                 }
             });
 
+            // Recalculate on resize
             window.addEventListener('resize', () => {
-                const newCenter = wrapper.clientWidth / 2;
-                const newSide   = window.innerWidth < 900 ? 160 : 240;
-                const newW      = window.innerWidth < 768 ? 260 : 320;
+                const newR = window.innerWidth < 768 ? 160 : 220;
                 cards.forEach((card, i) => {
-                    const isLeft  = i % 2 === 0;
-                    const xOffset = isLeft ? -(newSide + newW) : newSide;
-                    card.style.width = newW + 'px';
-                    card.style.left  = (newCenter + xOffset) + 'px';
+                    const angleDeg = (i / TOTAL) * 360;
+                    const yOffset  = -(i * VSTEP);
+                    card.style.transform =
+                        `rotateY(${angleDeg}deg) translateZ(${newR}px) translateY(${yOffset}px)`;
                 });
-                resizeCanvas();
+                ScrollTrigger.refresh();
             });
         })();
+
+
 
 
     </script>

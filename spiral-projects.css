@@ -1,5 +1,6 @@
-/* ===============================================================
-   NEON ROD SPIRAL — All Cards Visible, Fire Particles on Scroll
+/* ================================================================
+   NEON HELIX SPIRAL — Cards hugging the rod, DNA-style
+   Scroll → helix rotates + ascends around the fixed neon rod
    ================================================================ */
 
 .projects-section {
@@ -11,13 +12,13 @@
     position: relative;
 }
 
-/* Header above spiral */
+/* ── Section header (outside pinned zone) ── */
 .projects-section-header {
     text-align: center;
     padding: 4.5rem 2rem 1.5rem;
     flex-shrink: 0;
-    position: relative;
     z-index: 30;
+    position: relative;
 }
 .projects-section-header .section-title {
     font-size: 3.6rem;
@@ -37,28 +38,23 @@
     margin: 0;
 }
 
-/* ── Pinned Viewport ─────────────────────────────── */
+/* ── Pinned viewport ── */
 .spiral-viewport {
-    position: relative;
     flex: 1;
+    position: relative;
     height: 100vh;
     overflow: hidden;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
+    /* 3D perspective for the whole scene */
+    perspective: 1000px;
+    perspective-origin: 50% 50%;
 }
 
-/* Fire canvas overlay */
-#fire-canvas {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 20;
-}
-
-/* ── NEON ROD ────────────────────────────────────── */
+/* ================================================================
+   NEON ROD  (fixed, always visible in center)
+   ================================================================ */
 .neon-rod {
     position: absolute;
     top: 0;
@@ -69,48 +65,47 @@
     display: flex;
     justify-content: center;
     pointer-events: none;
-    z-index: 15;
+    z-index: 30;    /* above the 3D cards */
 }
 
 .neon-rod-line {
-    width: 3px;
+    width: 4px;
     height: 100%;
     border-radius: 9999px;
     background: linear-gradient(
         to bottom,
         transparent 0%,
-        rgba(0,220,255,.15) 8%,
-        rgba(0,220,255,.85) 28%,
+        rgba(0,220,255,.08) 5%,
+        rgba(0,220,255,.8) 25%,
         #00eeff 46%,
-        #ffffff   50%,
-        #00eeff   54%,
-        rgba(0,220,255,.85) 72%,
-        rgba(0,220,255,.15) 92%,
+        #ffffff  50%,
+        #00eeff  54%,
+        rgba(0,220,255,.8) 75%,
+        rgba(0,220,255,.08) 95%,
         transparent 100%
     );
-    animation: rod-breath 2.6s ease-in-out infinite;
+    animation: rod-breathe 2.8s ease-in-out infinite;
 }
 
-@keyframes rod-breath {
+@keyframes rod-breathe {
     0%,100% {
         box-shadow:
-            0 0 4px  #fff,
+            0 0  4px #fff,
             0 0 10px #00eeff,
-            0 0 26px #00d4ff,
-            0 0 55px rgba(0,180,255,.7),
-            0 0 110px rgba(100,130,255,.35);
+            0 0 25px #00d4ff,
+            0 0 55px rgba(0,170,255,.75),
+            0 0 110px rgba(100,130,255,.4);
     }
     50% {
         box-shadow:
-            0 0 6px  #fff,
+            0 0  6px #fff,
             0 0 16px #00eeff,
             0 0 40px #00d4ff,
-            0 0 80px rgba(0,180,255,.9),
-            0 0 160px rgba(100,130,255,.55);
+            0 0 85px rgba(0,170,255,.95),
+            0 0 170px rgba(100,130,255,.6);
     }
 }
 
-/* Pulsing rings */
 .neon-rod-rings {
     position: absolute;
     top: 50%; left: 50%;
@@ -132,62 +127,66 @@
 @keyframes ring-out {
     0%  { transform: scale(.1);  opacity: .85; }
     80% { opacity: .1; }
-    100%{ transform: scale(8);   opacity: 0; }
+    100%{ transform: scale(8);   opacity: 0;  }
 }
 
-/* ── SPIRAL TRACK ────────────────────────────────── */
-.spiral-track {
+/* ================================================================
+   3-D SCENE  (cards live inside here, track spins on scroll)
+   ================================================================ */
+.spiral-scene {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    /* height set by JS */
-    will-change: transform;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
 }
 
-/* ── PROJECT CARDS ───────────────────────────────── */
+.spiral-track {
+    position: relative;
+    width: 0; height: 0;
+    transform-style: preserve-3d;
+    pointer-events: auto;
+}
+
+/* ================================================================
+   PROJECT CARDS  (positioned via JS onto the helix)
+   ================================================================ */
 .spiral-track .project-card {
     position: absolute !important;
     flex: none !important;
-    width: 320px !important;
+    width: 340px !important;
+    /* centred on track origin — JS overrides top/left via transform */
+    left: -170px !important;
+    top:  -190px !important;   /* half of ~380px card height */
     margin: 0 !important;
-    background: linear-gradient(145deg, rgba(16,16,22,.97), rgba(8,8,14,.99)) !important;
-    border: 1px solid rgba(0,212,255,.18) !important;
-    box-shadow: 0 20px 50px rgba(0,0,0,.8), 0 0 0 0 transparent !important;
+    background: linear-gradient(145deg,rgba(16,16,22,.97),rgba(8,8,14,.99)) !important;
+    border: 1px solid rgba(0,212,255,.2) !important;
+    box-shadow: 0 20px 55px rgba(0,0,0,.85) !important;
     transition: border-color .3s ease, box-shadow .3s ease !important;
     transform-origin: center center;
-    /* perspective applied inline by JS */
+    backface-visibility: visible;
 }
 
 .spiral-track .project-card:hover {
-    border-color: rgba(0,212,255,.65) !important;
+    border-color: rgba(0,212,255,.7) !important;
     box-shadow:
-        0 20px 50px rgba(0,0,0,.85),
-        0 0 28px rgba(0,212,255,.28),
-        inset 0 0 20px rgba(0,212,255,.04) !important;
+        0 20px 55px rgba(0,0,0,.9),
+        0 0 35px rgba(0,212,255,.3) !important;
 }
 
-/* Neon arm: line from card edge toward the rod */
-.spiral-track .project-card.side-left::before {
-    content: '';
-    position: absolute;
-    top: 50%; right: 0;
-    width: 60px; height: 1px;
-    background: linear-gradient(to right, transparent, rgba(0,225,255,.45));
-    transform: translateX(100%);
-    pointer-events: none;
-}
-.spiral-track .project-card.side-right::before {
+/* Thin neon connector line toward the rod */
+.spiral-track .project-card::before {
     content: '';
     position: absolute;
     top: 50%; left: 0;
-    width: 60px; height: 1px;
-    background: linear-gradient(to left, transparent, rgba(0,225,255,.45));
+    width: 172px; height: 1px;
+    background: linear-gradient(to left, rgba(0,225,255,.45), transparent);
     transform: translateX(-100%);
     pointer-events: none;
 }
 
-/* Accent bottom bar on hover */
+/* Bottom accent on hover */
 .spiral-track .project-card::after {
     content: '';
     position: absolute;
@@ -200,17 +199,79 @@
 }
 .spiral-track .project-card:hover::after { opacity: 1; }
 
-/* Active card highlight (JS adds 'featured' class) */
-.spiral-track .project-card.featured {
-    border-color: rgba(0,212,255,.55) !important;
-    box-shadow: 0 20px 50px rgba(0,0,0,.9), 0 0 40px rgba(0,212,255,.22) !important;
+/* ================================================================
+   PROJECT IMAGE  BACKGROUNDS  (all 9)
+   ================================================================ */
+.jarvis-image {
+    background-image: url('jarvis-ai.png');
+    background-size: cover;
+    background-position: center;
+}
+.jarvis-image::before { content: ''; }
+
+.thugnaash-image {
+    background-image: url('thugnaash.png');
+    background-size: cover;
+    background-position: center;
+}
+.thugnaash-image::before { content: ''; }
+
+.apka-rakshak-image {
+    background-image: url('apka-rakshak.png');
+    background-size: cover;
+    background-position: center;
 }
 
-/* ── Responsive ──────────────────────────────────── */
+.ewaste-image {
+    background-image: url('ewaste.png');
+    background-size: cover;
+    background-position: center;
+}
+.ewaste-image::before { content: ''; }
+
+.cyber-security-image {
+    background-image: url('cyber-security.png');
+    background-size: cover;
+    background-position: center;
+}
+.cyber-security-image::before { content: ''; }
+
+/* Cards 6–9 using real PNGs */
+.building-collapse-image {
+    background-image: url('building-collapse.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.green-corridor-image {
+    background-image: url('green-corridor.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.peacenet-image {
+    background-image: url('peacenet.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.lms-image {
+    background-image: url('lms.png');
+    background-size: cover;
+    background-position: center;
+}
+
+/* ── Responsive ── */
 @media (max-width: 900px) {
-    .spiral-track .project-card { width: 270px !important; }
+    .spiral-track .project-card {
+        width: 290px !important;
+        left: -145px !important;
+    }
 }
 @media (max-width: 600px) {
     .projects-section-header .section-title { font-size: 2.2rem; }
-    .spiral-track .project-card { width: 240px !important; }
+    .spiral-track .project-card {
+        width: 250px !important;
+        left: -125px !important;
+    }
 }
