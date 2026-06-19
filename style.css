@@ -1212,23 +1212,34 @@ main {
 }
 
 .project-info h3 {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     font-weight: 600;
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.6rem;
     letter-spacing: 0.05em;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;   /* max 2 lines for title */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .project-info p {
     color: #a7a7a7;
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    margin-bottom: 0;
+    flex: 1;                      /* fills space between title and tags */
+    display: -webkit-box;
+    -webkit-line-clamp: 4;        /* max 4 lines — tags never get pushed out */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .project-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.8rem;
+    gap: 0.5rem;
+    margin-top: 0.8rem;    /* space above tags */
+    flex-shrink: 0;        /* never compress tags row */
 }
 
 .project-tags span {
