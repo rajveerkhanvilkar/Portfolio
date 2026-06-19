@@ -1,0 +1,94 @@
+[HOME](https://portfolio-preb.vercel.app/#home)
+[ABOUT](https://portfolio-preb.vercel.app/#about)
+[SKILLS](https://portfolio-preb.vercel.app/#skills)
+[ACHIEVEMENTS](https://portfolio-preb.vercel.app/#achievements)
+[PROJECTS](https://portfolio-preb.vercel.app/#projects)
+[CONTACT](https://portfolio-preb.vercel.app/#contact)
+[Resume](https://portfolio-preb.vercel.app/Rajveer%20CSV%202.pdf)
+
+# RAJVEERKHANVILKAR
+
+Specialized in building stunning, responsive web applications with modern technologies. Transforming ideas into interactive digital realities.
+[View Projects >](https://portfolio-preb.vercel.app/#projects)
+[Get In Touch >](https://portfolio-preb.vercel.app/#contact)
+
+## ABOUT ME
+Hi, I'm Rajveer Vikram Khanvilkar, a Computer Engineering student at Pimpri Chinchwad College of Engineering & Research (PCCOER). I am driven by a strong interest in building software solutions that address real-world problems and deliver practical value to users.
+My core interests include data structures and algorithms, full-stack web development, and system-level software design. I enjoy working on applications that go beyond theoretical concepts—solutions that are usable, reliable, and capable of making a measurable impact in everyday life. I am particularly motivated by identifying gaps in existing systems and designing software that solves real human challenges effectively.
+I have a strong inclination toward developing unique and original projects rather than replicating commonly available solutions. I prefer to work on ideas that do not already exist in a saturated form—projects that introduce new approaches, improve safety, efficiency, or accessibility, and meaningfully contribute to improving quality of life.
+I believe in continuous learning through hands-on development, experimentation, and iteration. Whether working independently or collaboratively, I focus on writing clean, maintainable code, following sound engineering principles, and delivering dependable outcomes.
+My long-term goal is to engineer technology that is meaningful, reliable, and human-centric—software that not only functions correctly but also solves important problems and earns user trust through thoughtful design and real-world effectiveness.
+
+## MY PROJECTS
+A showcase of my recent work
+
+### Jarvis AI Assistant
+AI-powered voice assistant with custom intelligence engine, voice recognition with adaptive noise filtering for Indian English, OpenCV face authentication, and automated system workflows.
+
+### ThugNaash - SMS Scam Blocker
+India's first offline-first Android security app that detects and blocks scam SMS links in real-time using a rule-based detection engine with zero internet dependency.
+[View on Play Store →](https://play.google.com/store/apps/details?id=com.security.apkarakshak)
+
+### Apka Rakshak - WhatsApp APK Blocker
+Apka Rakshak is a world's-first–concept Android security app that focuses on preventing WhatsApp APK file scams using install-time interception and a privacy-first design.
+[Visit Live Site →](https://e-wastemanagementsystem.netlify.app/)
+
+### Smart E-Waste Management System
+A smart recycling platform built on MERN stack with cloud integration to encourage responsible e-waste disposal using gamification.
+[Visit
+                                Live Site →](https://cybersecurity-audit.base44.app/)
+
+### Cyber Security Audit & Vulnerability Scanner
+A comprehensive tool that scans websites and apps for security risks including weak headers, exposed ports, outdated SSL, and suspicious endpoints.
+[Visit Live
+                                Site →](https://safecityai.base44.app/)
+
+### Building Collapse Prediction AI
+A structural safety model using machine learning and live sensor data to predict potential building collapse risks and ensure public safety.
+[Visit Live
+                                Site →](https://green-corridor.base44.app/)
+
+### Green Corridor for Ambulances
+An emergency support app optimizing ambulance routes via cloud-powered traffic monitoring and Maps API integration for faster emergency response.
+[Visit
+                                Live Site →](https://peacnet-bytrionix.base44.app/)
+
+### PeaceNet Social App
+A responsive multi-page social networking web app with story sharing, user system, likes/follows, and real-time notifications.
+[Visit Live Site →](https://gleeful-tulumba-d2e223.netlify.app/)
+
+### Online Learning Management System
+Personalized LMS for engineering students with video lectures, PYQs, notes, syllabus-based content, quizzes, and performance tracking on a unified platform.
+
+### SKODA | Volkswagon Hackathon
+Proudly Won the prestigious SKODA | Volkswagon Hackathon, demonstrating exceptional problem-solving and technical skills.
+
+### Innovation 2K25
+Secured 28th rank out of 800 teams at national-level Innovation 2K25 competition.
+
+### Avishkar Competition
+Zonal Level Finalist at Avishkar Innovation Competition showcasing technical excellence.
+
+### Technical Leadership
+Technical Executive Head for Navdhara, Robohawk, and CodeCraft events.
+
+## LET'S CONNECT
+
+Feel free to reach out for collaborations, opportunities, or just to say hi!
+
+### Email
+[rajveer.khanvilkar_comp23@pccoer.in](mailto:rajveer.khanvilkar_comp23@pccoer.in)
+
+### Phone
+[+91 99550 39090](tel:+919955039090)
+
+### LinkedIn
+[linkedin.com/in/rajveer-khanvilkar](https://www.linkedin.com/in/rajveer-khanvilkar)
+
+### GitHub
+[github.com/rajveerkhanvilkar](https://github.com/rajveerkhanvilkar)
+
+### Get in Touch
+Contact.
+© 2025 Rajveer Khanvilkar. All rights reserved.
+Built with passion and code ✨
