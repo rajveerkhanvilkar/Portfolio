@@ -876,44 +876,12 @@ main {
 .projects-section {
     padding: 0 !important;
     overflow: hidden;
-    background: transparent;
+    background: transparent; /* Show fluid effect */
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-.projects-section-header {
-    text-align: center;
-    padding: 5rem 2rem 2rem;
-    flex-shrink: 0;
-    position: relative;
-    z-index: 10;
-}
-
-/* Override section-title inside projects header with colorful gradient */
-.projects-section-header .section-title {
-    font-size: 4rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    margin: 0 0 0.6rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    line-height: 1.1;
-    text-align: center;
-}
-
-.projects-section-header .section-subtitle {
-    font-size: 1rem;
-    color: #555;
-    letter-spacing: 0.12em;
-    margin: 0;
-    text-align: center;
 }
 
 .projects-horizontal-wrapper {
-    flex: 1;
+    height: 100%;
 }
 
 .projects-sticky-container {
@@ -924,50 +892,72 @@ main {
     overflow: hidden;
 }
 
-
 .projects-horizontal-content {
-    padding: 0 4vw;
+    padding: 0 5vw;
     width: 100%;
-    overflow: visible;
 }
 
 .projects-grid {
     display: flex !important;
     white-space: nowrap;
-    gap: 2.5rem !important;
-    padding: 0.5rem 0 !important;
+    gap: 4rem !important;
+    padding: 2rem 0 !important;
     will-change: transform;
 }
 
-
 .project-card {
-    flex: 0 0 420px !important;
+    flex: 0 0 500px !important;
     background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
     border-radius: 20px;
     overflow: hidden;
     transition: transform 0.4s ease, box-shadow 0.4s ease;
     border: 1px solid #2a2a2a;
     cursor: pointer;
-    white-space: normal;
+    white-space: normal; /* Resetting for content inside */
 }
 
 .project-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-10px);
     box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
     border-color: #0099ff;
 }
 
-/* Responsive adjustments */
+.projects-overlay-text {
+    position: absolute;
+    top: 5rem;
+    left: 5vw;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.projects-overlay-text .section-title {
+    margin-bottom: 0.5rem;
+    font-size: 4rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.projects-overlay-text .section-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.7;
+    letter-spacing: 0.1em;
+    color: #6b6b6b;
+}
+
+/* Responsive adjustments for horizontal projects */
 @media (max-width: 768px) {
     .project-card {
         flex: 0 0 85vw !important;
     }
-    .projects-main-title {
+    
+    .projects-overlay-text .section-title {
         font-size: 2.5rem;
     }
 }
-
-
 
 
 .project-image {
@@ -2194,3 +2184,65 @@ html {
         height: 120px;
     }
 }
+
+/* ─── Projects Section Header ─────────────────────────── */
+.projects-section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.projects-section-header {
+    text-align: center;
+    padding: 5rem 2rem 2rem;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 10;
+}
+
+.projects-section-header .section-title {
+    font-size: 4rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin: 0 0 0.6rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+    text-align: center;
+}
+
+.projects-section-header .section-subtitle {
+    font-size: 1rem;
+    color: #555;
+    letter-spacing: 0.12em;
+    margin: 0;
+    text-align: center;
+}
+
+/* ─── Horizontal Scroll Layout ────────────────────────── */
+.projects-horizontal-wrapper {
+    flex: 1;
+    overflow: hidden;
+}
+
+.projects-sticky-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.projects-horizontal-content {
+    padding: 0 4vw;
+    width: 100%;
+}
+
+.projects-grid {
+    display: flex;
+    gap: 2rem;
+    align-items: stretch;
+    width: max-content;
+}
