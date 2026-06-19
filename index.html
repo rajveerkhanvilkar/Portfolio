@@ -48,8 +48,8 @@
                 <a data-aos="fade-down" data-aos-duration="3000" href="#contact">CONTACT</a>
             </nav>
 
-            <a data-aos="fade-down" data-aos-duration="1500" class="btn-signing" href="Rajveer CSV 2.pdf"
-                target="_blank" rel="noopener noreferrer">Resume</a>
+            <a data-aos="fade-down" data-aos-duration="1500" class="btn-signing" href="Rajveer CSV.pdf" target="_blank"
+                rel="noopener noreferrer">Resume</a>
         </header>
 
         <main id="home">
@@ -1120,34 +1120,34 @@
         // ─── GSAP: Horizontal Projects + Achievements entrance ────────
         gsap.registerPlugin(ScrollTrigger);
 
-        const projSection  = document.getElementById('projects');
+        const projSection = document.getElementById('projects');
         const projectsGrid = document.getElementById('projects-grid');
-        const achSection   = document.getElementById('achievements');
+        const achSection = document.getElementById('achievements');
 
         // Projects: solid dark background + highest z-index
         if (projSection) {
-            projSection.style.position   = 'relative';
-            projSection.style.zIndex     = '10';
+            projSection.style.position = 'relative';
+            projSection.style.zIndex = '10';
             projSection.style.background = '#050510';
         }
 
         // Hide achievements COMPLETELY – prevent bleed-through during pin
         if (achSection) {
             achSection.style.visibility = 'hidden';
-            achSection.style.opacity    = '0';
+            achSection.style.opacity = '0';
         }
 
         if (projSection && projectsGrid) {
             // Pin the ENTIRE projects section so its background covers everything below
             gsap.to(projectsGrid, {
-                x   : () => -(projectsGrid.scrollWidth - window.innerWidth + 100),
+                x: () => -(projectsGrid.scrollWidth - window.innerWidth + 100),
                 ease: 'none',
                 scrollTrigger: {
-                    trigger : projSection,       // ← whole section, not just wrapper
-                    start   : 'top top',
-                    end     : () => `+=${projectsGrid.scrollWidth}`,
-                    scrub   : 1.5,
-                    pin     : true,
+                    trigger: projSection,       // ← whole section, not just wrapper
+                    start: 'top top',
+                    end: () => `+=${projectsGrid.scrollWidth}`,
+                    scrub: 1.5,
+                    pin: true,
                     pinSpacing: true,
                     invalidateOnRefresh: true,
                     anticipatePin: 1,
