@@ -427,9 +427,13 @@
             <p class="section-subtitle" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="100">Scroll down to explore &rarr;</p>
         </div>
 
-    <div class="spiral-wrapper" id="projects-wrapper">
 
-        <!-- NEON ROD in the center -->
+    <div class="spiral-viewport" id="projects-wrapper">
+
+        <!-- Fire canvas overlay (JS populates) -->
+        <canvas id="fire-canvas"></canvas>
+
+        <!-- Neon rod stays fixed in center -->
         <div class="neon-rod">
             <div class="neon-rod-line"></div>
             <div class="neon-rod-rings">
@@ -439,226 +443,136 @@
             </div>
         </div>
 
-        <!-- 3D Spiral Scene -->
-        <div class="spiral-scene">
-            <div class="spiral-track" id="projects-track">
+        <!-- All cards scroll through here -->
+        <div class="spiral-track" id="projects-track">
 
-                <!-- Project 1: Jarvis AI Assistant -->
-                <div class="project-card">
-                    <div class="project-image jarvis-image" onclick="openVideoModal()">
-                        <video class="project-video" preload="metadata">
-                            <source src="jarvis-assistant.mp4" type="video/mp4">
-                        </video>
-                        <div class="project-overlay">
-                            <span class="view-project">&#9654; Watch Demo &rarr;</span>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <div class="project-date">Nov 2025 - Present</div>
-                        <h3>Jarvis AI Assistant</h3>
-                        <p>AI-powered voice assistant with custom intelligence engine, voice recognition with adaptive
-                            noise filtering for Indian English, OpenCV face authentication, and automated system
-                            workflows.</p>
-                        <div class="project-tags">
-                            <span>Python</span>
-                            <span>AI/ML</span>
-                            <span>OpenCV</span>
-                            <span>SQLite</span>
-                            <span>Gemini AI</span>
-                        </div>
-                    </div>
+            <!-- Card 1: Jarvis AI -->
+            <div class="project-card">
+                <div class="project-image jarvis-image" onclick="openVideoModal()">
+                    <video class="project-video" preload="metadata">
+                        <source src="jarvis-assistant.mp4" type="video/mp4">
+                    </video>
+                    <div class="project-overlay"><span class="view-project">&#9654; Watch Demo &rarr;</span></div>
                 </div>
-
-                <!-- Project 2: ThugNaash -->
-                <div data-aos="fade-up" data-aos-duration="1200" class="project-card">
-                    <div class="project-image project-2 thugnaash-image">
-                        <div class="project-overlay">
-                            <span class="view-project">View Details →</span>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <div class="project-date">Nov 2025 - Dec 2025</div>
-                        <h3>ThugNaash - SMS Scam Blocker</h3>
-                        <p>India's first offline-first Android security app that detects and blocks scam SMS links in
-                            real-time using a rule-based detection engine with zero internet dependency.</p>
-                        <div class="project-tags">
-                            <span>Android</span>
-                            <span>Kotlin</span>
-                            <span>Security</span>
-                            <span>Offline-First</span>
-                        </div>
-                    </div>
+                <div class="project-info">
+                    <div class="project-date">Nov 2025 – Present</div>
+                    <h3>Jarvis AI Assistant</h3>
+                    <p>AI-powered voice assistant with custom intelligence engine, voice recognition with adaptive noise filtering for Indian English, OpenCV face authentication and automated system workflows.</p>
+                    <div class="project-tags"><span>Python</span><span>AI/ML</span><span>OpenCV</span><span>SQLite</span><span>Gemini AI</span></div>
                 </div>
-
-                <!-- Project 3: Apka Rakshak -->
-                <div data-aos="fade-up" data-aos-duration="1400" class="project-card">
-                    <div class="project-image apka-rakshak-image">
-                        <div class="project-overlay">
-                            <a href="https://play.google.com/store/apps/details?id=com.security.apkarakshak"
-                                target="_blank" class="view-project">View on Play Store →</a>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <div class="project-date">Dec 2025 - Present</div>
-                        <h3>Apka Rakshak - WhatsApp APK Blocker</h3>
-                        <p>Apka Rakshak is a world's-first–concept Android security app that focuses on preventing
-                            WhatsApp APK file scams using install-time interception and a privacy-first design.</p>
-                        <div class="project-tags">
-                            <span>Android</span>
-                            <span>Kotlin</span>
-                            <span>Security</span>
-                            <span>Privacy-First</span>
-                            <span>Real-time</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 4: Smart E-Waste Management -->
-                <div data-aos="fade-up" data-aos-duration="1600" class="project-card">
-                    <div class="project-image ewaste-image">
-                        <div class="project-overlay">
-                            <a href="https://e-wastemanagementsystem.netlify.app/" target="_blank"
-                                class="view-project">Visit Live Site →</a>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <div class="project-date">Oct 2025</div>
-                        <h3>Smart E-Waste Management System</h3>
-                        <p>A smart recycling platform built on MERN stack with cloud integration to encourage
-                            responsible e-waste disposal using gamification.</p>
-                        <div class="project-tags">
-                            <span>MongoDB</span>
-                            <span>Express</span>
-                            <span>React</span>
-                            <span>Node.js</span>
-                            <span>Cloud</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 5: Cyber Security Scanner -->
-                <div data-aos="fade-up" data-aos-duration="1800" class="project-card">
-                    <div class="project-image cyber-security-image">
-                        <div class="project-overlay">
-                            <a href="https://cybersecurity-audit.base44.app/" target="_blank" class="view-project">Visit
-                                Live Site →</a>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <div class="project-date">Sep 2025 - Present</div>
-                        <h3>Cyber Security Audit & Vulnerability Scanner</h3>
-                        <p>A comprehensive tool that scans websites and apps for security risks including weak headers,
-                            exposed ports, outdated SSL, and suspicious endpoints.</p>
-                        <div class="project-tags">
-                            <span>Python</span>
-                            <span>Security</span>
-                            <span>Network Analysis</span>
-                            <span>SSL</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 5: Building Collapse AI -->
-                <div data-aos="fade-up" data-aos-duration="1800" class="project-card">
-                    <div class="project-image project-5 building-collapse-image">
-                        <div class="project-overlay">
-                            <a href="https://safecityai.base44.app/" target="_blank" class="view-project">Visit Live
-                                Site →</a>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <div class="project-date">Aug 2025</div>
-                        <h3>Building Collapse Prediction AI</h3>
-                        <p>A structural safety model using machine learning and live sensor data to predict potential
-                            building collapse risks and ensure public safety.</p>
-                        <div class="project-tags">
-                            <span>Machine Learning</span>
-                            <span>Python</span>
-                            <span>IoT Sensors</span>
-                            <span>Predictive Analytics</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 6: Green Corridor -->
-                <div data-aos="fade-up" data-aos-duration="2000" class="project-card">
-                    <div class="project-image project-6 green-corridor-image">
-                        <div class="project-overlay">
-                            <a href="https://green-corridor.base44.app/" target="_blank" class="view-project">Visit Live
-                                Site →</a>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <div class="project-date">Jul 2025 - Present</div>
-                        <h3>Green Corridor for Ambulances</h3>
-                        <p>An emergency support app optimizing ambulance routes via cloud-powered traffic monitoring and
-                            Maps API integration for faster emergency response.</p>
-                        <div class="project-tags">
-                            <span>Cloud</span>
-                            <span>Maps API</span>
-                            <span>Real-time</span>
-                            <span>Emergency Tech</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 7: PeaceNet App -->
-                <div data-aos="fade-up" data-aos-duration="2200" class="project-card">
-                    <div class="project-image project-7 peacenet-image">
-                        <div class="project-overlay">
-                            <a href="https://peacnet-bytrionix.base44.app/" target="_blank" class="view-project">Visit
-                                Live Site →</a>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <div class="project-date">Apr 2025</div>
-                        <h3>PeaceNet Social App</h3>
-                        <p>A responsive multi-page social networking web app with story sharing, user system,
-                            likes/follows, and real-time notifications.</p>
-                        <div class="project-tags">
-                            <span>Web App</span>
-                            <span>Real-time</span>
-                            <span>Social Network</span>
-                            <span>Responsive</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 8: Online Learning Management -->
-                <div data-aos="fade-up" data-aos-duration="2400" class="project-card">
-                    <div class="project-image project-8 lms-image">
-                        <div class="project-overlay">
-                            <a href="https://gleeful-tulumba-d2e223.netlify.app/" target="_blank"
-                                class="view-project">Visit Live Site →</a>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <div class="project-date">Aug 2024</div>
-                        <h3>Online Learning Management System</h3>
-                        <p>Personalized LMS for engineering students with video lectures, PYQs, notes, syllabus-based
-                            content, quizzes, and performance tracking on a unified platform.</p>
-                        <div class="project-tags">
-                            <span>EdTech</span>
-                            <span>Full Stack</span>
-                            <span>Video Platform</span>
-                            <span>Analytics</span>
-                        </div>
-                </div><!-- /last card -->
-            </div><!-- /spiral-track -->
-        </div><!-- /spiral-scene -->
-
-        <!-- Scroll Hint -->
-        <div class="spiral-scroll-hint">
-            <span>scroll</span>
-            <div class="scroll-chevrons">
-                <i></i><i></i><i></i>
             </div>
-        </div>
 
-        <!-- Dot counter -->
-        <div class="spiral-counter" id="spiral-counter"></div>
+            <!-- Card 2: ThugNaash -->
+            <div class="project-card">
+                <div class="project-image project-2 thugnaash-image">
+                    <div class="project-overlay"><span class="view-project">View Details &rarr;</span></div>
+                </div>
+                <div class="project-info">
+                    <div class="project-date">Nov 2025 – Dec 2025</div>
+                    <h3>ThugNaash – SMS Scam Blocker</h3>
+                    <p>India's first offline-first Android security app that detects and blocks scam SMS links in real-time using a rule-based detection engine with zero internet dependency.</p>
+                    <div class="project-tags"><span>Android</span><span>Kotlin</span><span>Security</span><span>Offline-First</span></div>
+                </div>
+            </div>
 
-    </div><!-- /spiral-wrapper -->
+            <!-- Card 3: Apka Rakshak -->
+            <div class="project-card">
+                <div class="project-image apka-rakshak-image">
+                    <div class="project-overlay">
+                        <a href="https://play.google.com/store/apps/details?id=com.security.apkarakshak" target="_blank" class="view-project">View on Play Store &rarr;</a>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <div class="project-date">Dec 2025 – Present</div>
+                    <h3>Apka Rakshak – WhatsApp APK Blocker</h3>
+                    <p>World's-first–concept Android security app that focuses on preventing WhatsApp APK file scams using install-time interception and a privacy-first design.</p>
+                    <div class="project-tags"><span>Android</span><span>Kotlin</span><span>Security</span><span>Privacy-First</span><span>Real-time</span></div>
+                </div>
+            </div>
+
+            <!-- Card 4: E-Waste -->
+            <div class="project-card">
+                <div class="project-image ewaste-image">
+                    <div class="project-overlay">
+                        <a href="https://e-wastemanagementsystem.netlify.app/" target="_blank" class="view-project">Visit Live Site &rarr;</a>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <div class="project-date">Oct 2025</div>
+                    <h3>Smart E-Waste Management System</h3>
+                    <p>A smart recycling platform built on MERN stack with cloud integration to encourage responsible e-waste disposal using gamification.</p>
+                    <div class="project-tags"><span>MERN</span><span>Cloud</span><span>Gamification</span></div>
+                </div>
+            </div>
+
+            <!-- Card 5: Cyber Security -->
+            <div class="project-card">
+                <div class="project-image cyber-security-image">
+                    <div class="project-overlay"><span class="view-project">View Details &rarr;</span></div>
+                </div>
+                <div class="project-info">
+                    <div class="project-date">Sep 2025</div>
+                    <h3>Cyber Security Audit &amp; Vulnerability Scanner</h3>
+                    <p>A comprehensive tool for automated security auditing and vulnerability detection across web and network systems with detailed reporting.</p>
+                    <div class="project-tags"><span>Python</span><span>Security</span><span>Network</span></div>
+                </div>
+            </div>
+
+            <!-- Card 6: Building Collapse AI -->
+            <div class="project-card">
+                <div class="project-image project-6">
+                    <div class="project-overlay"><span class="view-project">View Details &rarr;</span></div>
+                </div>
+                <div class="project-info">
+                    <div class="project-date">Aug 2025</div>
+                    <h3>Building Collapse Prediction AI</h3>
+                    <p>Machine learning model that predicts structural integrity risks in buildings using sensor data and historical patterns to prevent disasters.</p>
+                    <div class="project-tags"><span>Python</span><span>ML</span><span>IoT</span><span>TensorFlow</span></div>
+                </div>
+            </div>
+
+            <!-- Card 7: Green Corridor -->
+            <div class="project-card">
+                <div class="project-image project-7">
+                    <div class="project-overlay"><span class="view-project">View Details &rarr;</span></div>
+                </div>
+                <div class="project-info">
+                    <div class="project-date">Jul 2025</div>
+                    <h3>Green Corridor for Ambulances</h3>
+                    <p>IoT + AI-based traffic management system that creates a real-time green corridor for emergency ambulances, reducing response time by up to 60%.</p>
+                    <div class="project-tags"><span>IoT</span><span>AI</span><span>Traffic</span><span>Emergency</span></div>
+                </div>
+            </div>
+
+            <!-- Card 8: PeaceNet -->
+            <div class="project-card">
+                <div class="project-image project-8">
+                    <div class="project-overlay"><span class="view-project">View Details &rarr;</span></div>
+                </div>
+                <div class="project-info">
+                    <div class="project-date">Jun 2025</div>
+                    <h3>PeaceNet Social App</h3>
+                    <p>A mental-health-first social platform with AI-powered sentiment moderation, anonymous safe spaces and crisis intervention features.</p>
+                    <div class="project-tags"><span>React</span><span>Node.js</span><span>AI</span><span>MongoDB</span></div>
+                </div>
+            </div>
+
+            <!-- Card 9: LMS -->
+            <div class="project-card">
+                <div class="project-image project-9">
+                    <div class="project-overlay"><span class="view-project">View Details &rarr;</span></div>
+                </div>
+                <div class="project-info">
+                    <div class="project-date">Aug 2024</div>
+                    <h3>Online Learning Management System</h3>
+                    <p>Personalised LMS for engineering students with video lectures, PYQs, notes, syllabus-based content, quizzes and performance tracking on a unified platform.</p>
+                    <div class="project-tags"><span>EdTech</span><span>Full Stack</span><span>Video Platform</span><span>Analytics</span></div>
+                </div>
+            </div>
+
+        </div><!-- /spiral-track -->
+
+    </div><!-- /spiral-viewport -->
 </section>
 
 
@@ -1125,66 +1039,169 @@
         });
 
 
-        // =============================================
-        //  NEON HELIX SPIRAL — GSAP ScrollTrigger
-        // =============================================
+        // =====================================================
+        //  NEON ROD SPIRAL — Zigzag scroll + Fire Particles
+        // =====================================================
         gsap.registerPlugin(ScrollTrigger);
 
-        (function initNeonSpiral() {
+        (function initSpiralFire() {
             const wrapper = document.getElementById('projects-wrapper');
             const track   = document.getElementById('projects-track');
             if (!wrapper || !track) return;
 
-            const cards  = Array.from(track.querySelectorAll('.project-card'));
-            const TOTAL  = cards.length;
-            const RADIUS = window.innerWidth < 768 ? 280 : 460; // px from center
-            const VSTEP  = 150;   // px between each card on Y axis (helix pitch)
+            const cards        = Array.from(track.querySelectorAll('.project-card'));
+            const TOTAL        = cards.length;
+            const CARD_W       = window.innerWidth < 768 ? 260 : 320;
+            const SPACING      = 230;    // vertical px between card centres
+            const SIDE         = window.innerWidth < 900 ? 160 : 240; // px from rod centre to card
 
-            // ── Build dot counter ─────────────────────────────────────
-            const counter = document.getElementById('spiral-counter');
-            if (counter) {
-                cards.forEach((_, i) => {
-                    const dot = document.createElement('div');
-                    dot.className = 'counter-dot' + (i === 0 ? ' active' : '');
-                    counter.appendChild(dot);
+            // ── Canvas (fire overlay) ─────────────────────────────────
+            const canvas = document.getElementById('fire-canvas');
+            const ctx    = canvas ? canvas.getContext('2d') : null;
+            let particles  = [];
+            let scrollVel  = 0;
+
+            function resizeCanvas() {
+                if (!canvas) return;
+                canvas.width  = wrapper.clientWidth;
+                canvas.height = wrapper.clientHeight;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            // ── Fire Particle ─────────────────────────────────────────
+            class FireParticle {
+                constructor(x, y) {
+                    this.x    = x + (Math.random() - 0.5) * 28;
+                    this.y    = y;
+                    this.vx   = (Math.random() - 0.5) * 2.5;
+                    this.vy   = -(Math.random() * 4.5 + 2.5);
+                    this.life = 1.0;
+                    this.decay= 0.013 + Math.random() * 0.018;
+                    this.size = 5 + Math.random() * 9;
+                    this.turb = (Math.random() - 0.5) * 0.25;
+                }
+                update() {
+                    this.vx += this.turb;
+                    this.x  += this.vx;
+                    this.y  += this.vy;
+                    this.vy *= 0.98;
+                    this.size *= 0.965;
+                    this.life -= this.decay;
+                }
+                draw(c) {
+                    if (this.life <= 0) return;
+                    c.save();
+                    c.globalAlpha = Math.max(0, this.life * 0.82);
+                    const g = c.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
+                    if (this.life > 0.6) {
+                        g.addColorStop(0,   'rgba(255,255,200,1)');
+                        g.addColorStop(0.25,'rgba(255,190, 20,0.9)');
+                        g.addColorStop(0.6, 'rgba(255, 80,  0,0.7)');
+                        g.addColorStop(1,   'rgba(200,  0,  0,0)');
+                    } else if (this.life > 0.3) {
+                        g.addColorStop(0,   'rgba(255,130,  0,0.85)');
+                        g.addColorStop(0.5, 'rgba(180, 40,  0,0.55)');
+                        g.addColorStop(1,   'rgba( 80,  0,  0,0)');
+                    } else {
+                        g.addColorStop(0,   'rgba(130, 40,  0,0.5)');
+                        g.addColorStop(1,   'rgba( 40,  0,  0,0)');
+                    }
+                    c.fillStyle = g;
+                    c.beginPath();
+                    c.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    c.fill();
+                    c.restore();
+                }
+            }
+
+            // ── Spawn fire from ALL visible cards ─────────────────────
+            function spawnFire(intensity) {
+                const ppp = Math.floor(intensity * 6) + 1; // particles per card
+                const wRect = wrapper.getBoundingClientRect();
+                cards.forEach(card => {
+                    const r = card.getBoundingClientRect();
+                    if (r.bottom < wRect.top || r.top > wRect.bottom) return;
+                    for (let p = 0; p < ppp; p++) {
+                        const px = r.left - wRect.left + Math.random() * r.width;
+                        const py = r.top  - wRect.top  + Math.random() * r.height;
+                        particles.push(new FireParticle(px, py));
+                    }
                 });
             }
 
-            // ── Place each card on the helix ──────────────────────────
-            // rotateY(angle)  → orbit position around the Y-axis (the rod)
-            // translateZ(R)   → push outward from rod
-            // translateY(y)   → spread vertically = the "helix pitch"
+            // ── Fire render loop ──────────────────────────────────────
+            function renderFire() {
+                if (!ctx) { requestAnimationFrame(renderFire); return; }
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles = particles.filter(p => p.life > 0);
+                particles.forEach(p => { p.update(); p.draw(ctx); });
+                requestAnimationFrame(renderFire);
+            }
+            renderFire();
+
+            // ── Position cards in zigzag around the rod ───────────────
+            const totalTrackH = TOTAL * SPACING + 400;
+            track.style.height = totalTrackH + 'px';
+
+            const center = wrapper.clientWidth / 2;
             cards.forEach((card, i) => {
-                const angleDeg  = (i / TOTAL) * 360;
-                const yOffset   = i * -VSTEP;
-                card.style.transform =
-                    `rotateY(${angleDeg}deg) translateZ(${RADIUS}px) translateY(${yOffset}px)`;
+                const isLeft  = i % 2 === 0;
+                const xOffset = isLeft ? -(SIDE + CARD_W) : SIDE;
+                card.style.width  = CARD_W + 'px';
+                card.style.left   = (center + xOffset) + 'px';
+                card.style.top    = (80 + i * SPACING) + 'px';
+                card.classList.add(isLeft ? 'side-left' : 'side-right');
             });
 
-            // ── Update active dot ─────────────────────────────────────
-            function updateDots(progress) {
-                const activeIdx = Math.round(progress * (TOTAL - 1));
-                if (!counter) return;
-                counter.querySelectorAll('.counter-dot').forEach((d, i) => {
-                    d.classList.toggle('active', i === activeIdx);
+            // ── Tilt cards based on viewport distance ─────────────────
+            function updateTilts() {
+                const midY = wrapper.clientHeight / 2;
+                const trackY = gsap.getProperty(track, 'y') || 0;
+                cards.forEach((card, i) => {
+                    const cardMidY = 80 + i * SPACING + 180 + trackY; // 180 = ~half card h
+                    const dist     = cardMidY - midY;
+                    const tilt     = Math.max(-40, Math.min(40, dist * 0.08));
+                    card.style.transform = `perspective(900px) rotateY(${tilt}deg)`;
+                    card.classList.toggle('featured', Math.abs(dist) < 120);
                 });
             }
+            updateTilts();
 
-            // ── ScrollTrigger: spin the entire track ──────────────────
+            // ── GSAP ScrollTrigger: scroll all cards upward ───────────
+            const travelY = totalTrackH - wrapper.clientHeight + 80;
+
             gsap.to(track, {
-                rotateY: -360,            // one full revolution — every card visits front
+                y   : -travelY,
                 ease: 'none',
                 scrollTrigger: {
-                    trigger : wrapper,
-                    start   : 'top top',
-                    end     : `+=${TOTAL * 380}`,   // ~380 px of scroll per card
-                    pin     : true,
+                    trigger  : wrapper,
+                    start    : 'top top',
+                    end      : `+=${travelY * 1.1}`,
+                    pin      : true,
                     pinSpacing: true,
-                    scrub   : 1.2,
+                    scrub    : 0.9,
                     anticipatePin: 1,
                     invalidateOnRefresh: true,
-                    onUpdate: (self) => updateDots(self.progress)
+                    onUpdate(self) {
+                        const vel = Math.abs(self.getVelocity());
+                        if (vel > 30) spawnFire(Math.min(vel / 400, 1));
+                        updateTilts();
+                    }
                 }
+            });
+
+            window.addEventListener('resize', () => {
+                const newCenter = wrapper.clientWidth / 2;
+                const newSide   = window.innerWidth < 900 ? 160 : 240;
+                const newW      = window.innerWidth < 768 ? 260 : 320;
+                cards.forEach((card, i) => {
+                    const isLeft  = i % 2 === 0;
+                    const xOffset = isLeft ? -(newSide + newW) : newSide;
+                    card.style.width = newW + 'px';
+                    card.style.left  = (newCenter + xOffset) + 'px';
+                });
+                resizeCanvas();
             });
         })();
 
