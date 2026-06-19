@@ -875,52 +875,87 @@ main {
 
 .projects-section {
     padding: 0 !important;
-    overflow-x: clip;        /* only hide horizontal overflow, not vertical */
-    overflow-y: visible;
     background: #050510;
-    min-height: 100vh;
+    height: 100vh;           /* EXACTLY one viewport — no more */
     position: relative;
     z-index: 10;
     display: flex;
     flex-direction: column;
+    overflow: hidden;        /* keep bg solid, clip nothing beyond viewport */
 }
 
-.projects-horizontal-wrapper {
-    height: 100%;
-}
-
-.projects-sticky-container {
-    height: 100vh;
-    display: flex;
-    align-items: center;
+/* Header takes natural height (~130px) */
+.projects-section-header {
+    flex-shrink: 0;
+    text-align: center;
+    padding: 2.5rem 2rem 1rem;
     position: relative;
-    overflow-x: clip;
-    overflow-y: visible;
+    z-index: 20;
 }
 
+.projects-section-header .section-title {
+    font-size: 3.4rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin: 0 0 0.3rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+}
+.projects-section-header .section-subtitle {
+    font-size: 0.88rem;
+    color: #556;
+    letter-spacing: 0.12em;
+    margin: 0;
+}
+
+/* Wrapper fills the rest of the section after the header */
+.projects-horizontal-wrapper {
+    flex: 1;                 /* take ALL remaining height */
+    min-height: 0;          /* important — prevents flex children overflowing */
+    overflow: hidden;
+    position: relative;
+}
+
+/* Sticky container = exactly the remaining height */
+.projects-sticky-container {
+    height: 100%;            /* 100% of wrapper, not 100vh */
+    display: flex;
+    align-items: center;     /* centre cards vertically in available space */
+    position: relative;
+    overflow: hidden;
+}
 
 .projects-horizontal-content {
     padding: 0 5vw;
     width: 100%;
+    overflow: visible;
 }
 
 .projects-grid {
     display: flex !important;
     white-space: nowrap;
-    gap: 4rem !important;
-    padding: 2rem 0 !important;
+    gap: 3rem !important;
+    padding: 0 !important;   /* no extra padding — let container centre them */
     will-change: transform;
+    align-items: center;     /* vertically centre all cards in the row */
 }
 
+
 .project-card {
-    flex: 0 0 500px !important;
+    flex: 0 0 420px !important;     /* slightly narrower so they fit */
+    max-height: calc(100vh - 160px); /* never taller than viewport minus header */
     background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
     border-radius: 20px;
-    overflow: hidden;
+    overflow: hidden;               /* clip card content, not the card itself */
     transition: transform 0.4s ease, box-shadow 0.4s ease;
     border: 1px solid #2a2a2a;
     cursor: pointer;
-    white-space: normal; /* Resetting for content inside */
+    white-space: normal;
+    display: flex;
+    flex-direction: column;
 }
 
 .project-card:hover {
@@ -2198,32 +2233,5 @@ html {
     z-index: 1;
 }
 
-/* ─── MY PROJECTS header (above the pinned scroll zone) ─── */
-.projects-section-header {
-    text-align: center;
-    padding: 4rem 2rem 1.5rem;
-    flex-shrink: 0;
-    position: relative;
-    z-index: 20;
-}
-
-.projects-section-header .section-title {
-    font-size: 3.8rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    margin: 0 0 0.4rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    line-height: 1.1;
-}
-
-.projects-section-header .section-subtitle {
-    font-size: 0.92rem;
-    color: #556;
-    letter-spacing: 0.12em;
-    margin: 0;
-}
 
 
