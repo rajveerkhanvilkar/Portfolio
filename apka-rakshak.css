@@ -26,11 +26,12 @@
 
 /* Nexus-SOAP — use PNG image directly, gradient as fallback bg-color */
 .nexus-soap-image {
-    background-image: url('nexus-soap.png');
+    background-image: url('nexus soap2.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: #041f30;   /* teal fallback if PNG fails */
+    background-color: #041f30;
+    /* teal fallback if PNG fails */
     height: 240px;
     position: relative;
 }
@@ -41,8 +42,7 @@
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(ellipse at 20% 50%, rgba(0,212,255,0.12) 0%, transparent 55%),
-        radial-gradient(ellipse at 85% 25%, rgba(0,255,180,0.08) 0%, transparent 45%);
+        radial-gradient(ellipse at 20% 50%, rgba(0, 212, 255, 0.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 25%, rgba(0, 255, 180, 0.08) 0%, transparent 45%);
     pointer-events: none;
 }
-
