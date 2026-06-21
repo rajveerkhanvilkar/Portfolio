@@ -1216,7 +1216,48 @@
                     }, 350);
                 });
             });
+
+            // ─── SMALL PILL MORPH — nav links only ───────────────────
+            // Fixed small rounded rectangle, not full element width
+            const navMorphTargets = document.querySelectorAll('nav a');
+
+            navMorphTargets.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    clearTimeout(leaveTimer);
+                    const rect = el.getBoundingClientRect();
+
+                    // Center lock
+                    btnCenterX = rect.left + rect.width  / 2;
+                    btnCenterY = rect.top  + rect.height / 2;
+                    circleX = btnCenterX;
+                    circleY = btnCenterY;
+                    isMorphed = true;
+
+                    // Small pill: text width + padding, fixed small height
+                    const pillW = rect.width + 20;
+                    const pillH = 34;
+
+                    cursorCircle.style.width        = pillW + 'px';
+                    cursorCircle.style.height       = pillH + 'px';
+                    cursorCircle.style.borderRadius = '20px';
+                    cursorCircle.style.transform    = 'translate(-50%, -50%)';
+                    cursorCircle.classList.add('hover-button');
+                });
+
+                el.addEventListener('mouseleave', () => {
+                    isMorphed = false;
+                    cursorCircle.style.width        = '50px';
+                    cursorCircle.style.height       = '50px';
+                    cursorCircle.style.borderRadius = '50%';
+                    cursorCircle.style.transform    = 'translate(-50%, -50%)';
+                    leaveTimer = setTimeout(() => {
+                        cursorCircle.classList.remove('hover-button');
+                    }, 350);
+                });
+            });
         }
+
+
 
 
 
