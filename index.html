@@ -1170,28 +1170,26 @@
             animateCircle();
 
             // ✨ Hold click: blob expands while held, elastic-shrinks on release
-            // (works even after visiting a button, because we kill ALL tweens)
+            // physicallyOnButton = true ONLY while cursor is literally over a morph target
+            let physicallyOnButton = false;
+
             document.addEventListener('mousedown', () => {
                 cursorCircle.classList.add('expand');
-                if (isMorphed) return;              // stay morphed on button
-                gsap.killTweensOf(cursorCircle);    // kill ALL prior tweens (including morph-leave)
-                gsap.to(cursorCircle, {
-                    width:    78,
-                    height:   78,
-                    duration: 0.18,
-                    ease:     'power2.out'
-                });
+                if (physicallyOnButton) return;   // cursor is ON a button right now — skip
+                // gsap.SET = instant, zero-duration — cannot be killed by overwrite or killTweensOf ✓
+                gsap.set(cursorCircle, { width: 78, height: 78 });
             });
 
             document.addEventListener('mouseup', () => {
                 cursorCircle.classList.remove('expand');
-                if (!isMorphed) {
-                    gsap.killTweensOf(cursorCircle); // kill hold-expand tween
+                if (!physicallyOnButton) {
+                    // Elastic shrink back — overwrite:true kills any competing tween
                     gsap.to(cursorCircle, {
                         width:    50,
                         height:   50,
                         duration: 0.55,
-                        ease:     'elastic.out(1.2, 0.4)'
+                        ease:     'elastic.out(1.2, 0.4)',
+                        overwrite: true
                     });
                 }
             });
@@ -1224,6 +1222,7 @@
                 el.addEventListener('mouseenter', () => {
                     clearTimeout(leaveTimer);
                     isOnButton = true;
+                    physicallyOnButton = true;   // cursor is NOW over a button
 
                     const rect = el.getBoundingClientRect();
                     morphTargetRect = rect;
@@ -1256,6 +1255,7 @@
                 el.addEventListener('mouseleave', () => {
                     isOnButton  = false;
                     isMorphed   = false;
+                    physicallyOnButton = false;  // cursor has left the button
                     morphTargetRect = null;
 
                     // âœ¨ Elastic bounce back to circle âœ¨
@@ -1280,6 +1280,7 @@
             navMorphTargets.forEach(el => {
                 el.addEventListener('mouseenter', () => {
                     clearTimeout(leaveTimer);
+                    physicallyOnButton = true;   // cursor is NOW over a nav link
                     const rect = el.getBoundingClientRect();
 
                     btnCenterX = rect.left + rect.width  / 2;
@@ -1304,6 +1305,7 @@
 
                 el.addEventListener('mouseleave', () => {
                     isMorphed = false;
+                    physicallyOnButton = false;  // cursor has left the nav link
 
                     // âœ¨ Elastic bounce back to circle âœ¨
                     gsap.killTweensOf(cursorCircle);
