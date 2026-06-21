@@ -1175,45 +1175,51 @@
                     const rect = el.getBoundingClientRect();
                     morphTargetRect = rect;
 
-                    // Store button center for animateCircle to lock onto
+                    // Lock blob to button center
                     btnCenterX = rect.left + rect.width  / 2;
                     btnCenterY = rect.top  + rect.height / 2;
-
-                    // Snap blob position immediately
                     circleX = btnCenterX;
                     circleY = btnCenterY;
-
-                    // LOCK: animateCircle will stop following mouse
                     isMorphed = true;
 
-                    // Border-radius: enforce minimum 8px
                     const cs = window.getComputedStyle(el);
                     let br = cs.borderRadius || '8px';
                     if (parseFloat(br) === 0) br = '8px';
 
-                    // Apply morph shape via CSS transition
-                    cursorCircle.style.width        = (rect.width  + MORPH_PAD * 2) + 'px';
-                    cursorCircle.style.height       = (rect.height + MORPH_PAD * 2) + 'px';
-                    cursorCircle.style.borderRadius = br;
-                    cursorCircle.style.transform    = 'translate(-50%, -50%)';
                     cursorCircle.classList.add('hover-button');
+
+                    // ✨ GSAP jelly chipakna morph ✨
+                    gsap.killTweensOf(cursorCircle);
+                    gsap.to(cursorCircle, {
+                        width:        rect.width  + MORPH_PAD * 2,
+                        height:       rect.height + MORPH_PAD * 2,
+                        borderRadius: br,
+                        duration:     0.7,
+                        ease:         'elastic.out(1.2, 0.4)',  // overshoot then settle
+                        overwrite:    true
+                    });
                 });
 
                 el.addEventListener('mouseleave', () => {
-                    isOnButton = false;
-                    isMorphed  = false;   // UNLOCK: blob follows mouse again
+                    isOnButton  = false;
+                    isMorphed   = false;
                     morphTargetRect = null;
 
-                    // Shrink back to circle
-                    cursorCircle.style.width        = '50px';
-                    cursorCircle.style.height       = '50px';
-                    cursorCircle.style.borderRadius = '50%';
-                    cursorCircle.style.transform    = 'translate(-50%, -50%)';
+                    // ✨ Elastic bounce back to circle ✨
+                    gsap.killTweensOf(cursorCircle);
+                    gsap.to(cursorCircle, {
+                        width:        50,
+                        height:       50,
+                        borderRadius: '50%',
+                        duration:     0.6,
+                        ease:         'elastic.out(1, 0.5)',
+                        overwrite:    true
+                    });
 
-                    // Keep hover-button class for 350ms to block jelly mid-transition
+                    // Keep hover-button class during elastic unmorph
                     leaveTimer = setTimeout(() => {
                         cursorCircle.classList.remove('hover-button');
-                    }, 350);
+                    }, 700);
                 });
             });
 
@@ -1226,33 +1232,43 @@
                     clearTimeout(leaveTimer);
                     const rect = el.getBoundingClientRect();
 
-                    // Center lock
                     btnCenterX = rect.left + rect.width  / 2;
                     btnCenterY = rect.top  + rect.height / 2;
                     circleX = btnCenterX;
                     circleY = btnCenterY;
                     isMorphed = true;
 
-                    // Small pill: text width + padding, fixed small height
-                    const pillW = rect.width + 20;
-                    const pillH = 34;
-
-                    cursorCircle.style.width        = pillW + 'px';
-                    cursorCircle.style.height       = pillH + 'px';
-                    cursorCircle.style.borderRadius = '20px';
-                    cursorCircle.style.transform    = 'translate(-50%, -50%)';
                     cursorCircle.classList.add('hover-button');
+
+                    // ✨ Small pill with jelly chipakna ✨
+                    gsap.killTweensOf(cursorCircle);
+                    gsap.to(cursorCircle, {
+                        width:        rect.width + 20,
+                        height:       34,
+                        borderRadius: '20px',
+                        duration:     0.65,
+                        ease:         'elastic.out(1.1, 0.4)',
+                        overwrite:    true
+                    });
                 });
 
                 el.addEventListener('mouseleave', () => {
                     isMorphed = false;
-                    cursorCircle.style.width        = '50px';
-                    cursorCircle.style.height       = '50px';
-                    cursorCircle.style.borderRadius = '50%';
-                    cursorCircle.style.transform    = 'translate(-50%, -50%)';
+
+                    // ✨ Elastic bounce back to circle ✨
+                    gsap.killTweensOf(cursorCircle);
+                    gsap.to(cursorCircle, {
+                        width:        50,
+                        height:       50,
+                        borderRadius: '50%',
+                        duration:     0.6,
+                        ease:         'elastic.out(1, 0.5)',
+                        overwrite:    true
+                    });
+
                     leaveTimer = setTimeout(() => {
                         cursorCircle.classList.remove('hover-button');
-                    }, 350);
+                    }, 700);
                 });
             });
         }

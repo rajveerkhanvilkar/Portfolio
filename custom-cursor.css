@@ -63,13 +63,10 @@ body.custom-cursor-active label {
         top 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* When morphed onto button — smooth shape transition, fast position snap */
+/* When morphed onto button — GSAP handles shape, CSS handles position snap */
 .cursor-circle.hover-button {
-    transition: width  0.35s cubic-bezier(0.23, 1, 0.32, 1),
-                height 0.35s cubic-bezier(0.23, 1, 0.32, 1),
-                border-radius 0.35s cubic-bezier(0.23, 1, 0.32, 1),
-                left   0.12s ease-out,
-                top    0.12s ease-out;
+    transition: left 0.12s ease-out,
+                top  0.12s ease-out;
 }
 
 
