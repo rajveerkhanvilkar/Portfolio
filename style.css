@@ -927,6 +927,110 @@ main {
     align-items: stretch;   /* all cards same height - stretch to tallest */
 }
 
+/* ── Premium Horizontal Scroll Enhancements ── */
+
+/* Gradient progress bar — bottom of pinned section */
+.proj-progress-rail {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.06);
+    z-index: 50;
+    pointer-events: none;
+}
+.proj-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #667eea 0%, #00d4ff 50%, #f093fb 100%);
+    border-radius: 0 3px 3px 0;
+    box-shadow: 0 0 12px rgba(0, 212, 255, 0.6);
+    transition: none; /* driven by GSAP scrub, no CSS transition needed */
+}
+
+/* Card counter: 01 / 07 */
+.proj-counter {
+    position: absolute;
+    bottom: 1.8rem;
+    right: 2.5rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.3rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.3);
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    z-index: 50;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.proj-counter.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.proj-counter .proj-current {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #00d4ff;
+    line-height: 1;
+    text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+}
+.proj-counter .proj-sep { color: rgba(255,255,255,0.15); }
+.proj-counter .proj-total { font-size: 0.78rem; }
+
+/* Active card spotlight */
+.project-card.proj-active {
+    border-color: rgba(0, 212, 255, 0.55) !important;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.8),
+                0 0 40px rgba(0, 212, 255, 0.2) !important;
+    transform: translateY(-6px) scale(1.015) !important;
+}
+
+/* Drag hint overlay */
+.proj-drag-hint {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 40;
+    opacity: 1;
+    animation: proj-hint-fade 0.6s ease 2.5s forwards;
+}
+@keyframes proj-hint-fade {
+    to { opacity: 0; }
+}
+.proj-drag-hint-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+.proj-drag-hint-text {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+}
+.proj-drag-hint-arrow {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+.proj-hint-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: rgba(0, 212, 255, 0.5);
+    animation: proj-hint-bounce 1.2s ease-in-out infinite;
+}
+.proj-hint-dot:nth-child(2) { animation-delay: 0.15s; }
+.proj-hint-dot:nth-child(3) { animation-delay: 0.30s; }
+@keyframes proj-hint-bounce {
+    0%, 100% { transform: translateX(0); opacity: 0.4; }
+    50%       { transform: translateX(6px); opacity: 1; }
+}
 
 
 

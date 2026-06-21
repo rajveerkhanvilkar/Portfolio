@@ -1354,42 +1354,90 @@
         });
 
 
-        // â”€â”€â”€ GSAP: Horizontal Projects + Achievements entrance â”€â”€â”€â”€â”€â”€â”€â”€
+        // ─── GSAP: Premium Horizontal Projects ─────────────────────
         gsap.registerPlugin(ScrollTrigger);
 
-        const projSection = document.getElementById('projects');
-        const projectsGrid = document.getElementById('projects-grid');
-        const achSection = document.getElementById('achievements');
+        const projSection   = document.getElementById('projects');
+        const projectsGrid  = document.getElementById('projects-grid');
+        const achSection    = document.getElementById('achievements');
+        const projCards     = projectsGrid ? projectsGrid.querySelectorAll('.project-card') : [];
+        const totalCards    = projCards.length;
 
-        // Projects: solid dark background + highest z-index
+        // Solid dark background + highest z-index on projects
         if (projSection) {
             projSection.style.position = 'relative';
-            projSection.style.zIndex = '10';
+            projSection.style.zIndex   = '10';
             projSection.style.background = '#050510';
         }
 
-        // Hide achievements COMPLETELY &#8212; prevent bleed-through during pin
+        // Hide achievements until projects are done scrolling
         if (achSection) {
             achSection.style.visibility = 'hidden';
-            achSection.style.opacity = '0';
+            achSection.style.opacity    = '0';
         }
 
-        if (projSection && projectsGrid) {
-            // Pin the ENTIRE projects section so its background covers everything below
+        if (projSection && projectsGrid && totalCards > 0) {
+
+            // ── 1. Build progress bar ──
+            const rail = document.createElement('div');
+            rail.className = 'proj-progress-rail';
+            rail.innerHTML = '<div class="proj-progress-fill" id="proj-fill"></div>';
+            projSection.appendChild(rail);
+            const fill = document.getElementById('proj-fill');
+
+            // ── 2. Build card counter ──
+            const counter = document.createElement('div');
+            counter.className = 'proj-counter';
+            const totalStr = String(totalCards).padStart(2, '0');
+            counter.innerHTML =
+                `<span class="proj-current" id="proj-current">01</span>` +
+                `<span class="proj-sep">&nbsp;/&nbsp;</span>` +
+                `<span class="proj-total">${totalStr}</span>`;
+            projSection.appendChild(counter);
+            const currentEl = document.getElementById('proj-current');
+
+            // ── 3. Build drag hint ──
+            const hint = document.createElement('div');
+            hint.className = 'proj-drag-hint';
+            hint.innerHTML =
+                `<div class="proj-drag-hint-inner">` +
+                `<div class="proj-drag-hint-text">Scroll to explore</div>` +
+                `<div class="proj-drag-hint-arrow">` +
+                `<div class="proj-hint-dot"></div>` +
+                `<div class="proj-hint-dot"></div>` +
+                `<div class="proj-hint-dot"></div>` +
+                `</div></div>`;
+            projSection.appendChild(hint);
+
+            // ── Helper: update active card spotlight ──
+            function updateActiveCard(idx) {
+                projCards.forEach((c, i) => {
+                    if (i === idx) c.classList.add('proj-active');
+                    else           c.classList.remove('proj-active');
+                });
+            }
+
+            // ── 4. Main horizontal scroll + pin ──
             gsap.to(projectsGrid, {
                 x: () => -(projectsGrid.scrollWidth - window.innerWidth + 100),
                 ease: 'none',
                 scrollTrigger: {
-                    trigger: projSection,       // â† whole section, not just wrapper
-                    start: 'top top',
-                    end: () => `+=${projectsGrid.scrollWidth}`,
-                    scrub: 1.5,
-                    pin: true,
-                    pinSpacing: true,
+                    trigger:           projSection,
+                    start:             'top top',
+                    end:               () => `+=${projectsGrid.scrollWidth}`,
+                    scrub:             1.5,
+                    pin:               true,
+                    pinSpacing:        true,
                     invalidateOnRefresh: true,
-                    anticipatePin: 1,
-                    // Reveal achievements with animation once projects finish
+                    anticipatePin:     1,
+
+                    onEnter() {
+                        counter.classList.add('visible');
+                        updateActiveCard(0);
+                    },
                     onLeave() {
+                        counter.classList.remove('visible');
+                        // Reveal achievements
                         if (!achSection) return;
                         achSection.style.visibility = 'visible';
                         gsap.fromTo(achSection,
@@ -1397,8 +1445,8 @@
                             { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' }
                         );
                     },
-                    // Hide again if user scrolls back up
                     onEnterBack() {
+                        counter.classList.add('visible');
                         if (!achSection) return;
                         gsap.to(achSection, {
                             opacity: 0, y: 70, duration: 0.35, ease: 'power2.in',
