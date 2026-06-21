@@ -1142,36 +1142,40 @@
                 cursorCircle.style.opacity = '1';
             });
 
-            // ─── BUTTON MORPH CURSOR ──────────────────────────────────
-            const MORPH_PAD = 10; // px bigger than button on each side
-            let isOnButton = false;
-            let morphTargetRect = null;
-            let morphTargetRadius = '50%';
+            // ─── BUTTON MORPH CURSOR (v2) ─────────────────────────────
+            const MORPH_PAD = 6;   // smaller padding = tighter fit
+            let isOnButton   = false;
+            let morphTargetRect   = null;
+            let leaveTimer   = null;
 
-            // All interactive elements to morph on
+            // ONLY small interactive buttons — NOT project-card, NOT generic <a>
             const morphTargets = document.querySelectorAll(
-                'button, a, .btn-signing, .btn-get-started, .btn-signing-main, .view-project, [role="button"], .nav-link, .project-card'
+                'button, .btn-signing, .btn-get-started, .btn-signing-main, .view-project, .resume-btn, .hero-cta, .cta-btn, .submit-btn, .social-btn'
             );
 
             morphTargets.forEach(el => {
                 el.addEventListener('mouseenter', () => {
+                    clearTimeout(leaveTimer);   // cancel any pending leave reset
                     isOnButton = true;
+
                     const rect = el.getBoundingClientRect();
                     morphTargetRect = rect;
 
-                    // Read actual computed border-radius so circular buttons stay circular
+                    // Get border-radius; enforce minimum 8px for always-rounded look
                     const cs = window.getComputedStyle(el);
-                    morphTargetRadius = cs.borderRadius || '8px';
+                    let br = cs.borderRadius || '8px';
+                    // If it's effectively 0, force 8px
+                    if (parseFloat(br) === 0) br = '8px';
 
-                    // Snap circle position to button center
-                    circleX = rect.left + rect.width / 2;
-                    circleY = rect.top + rect.height / 2;
+                    // Immediately snap position to button center (no lag)
+                    circleX = rect.left + rect.width  / 2;
+                    circleY = rect.top  + rect.height / 2;
 
-                    // Morph shape
-                    cursorCircle.style.width  = (rect.width  + MORPH_PAD * 2) + 'px';
-                    cursorCircle.style.height = (rect.height + MORPH_PAD * 2) + 'px';
-                    cursorCircle.style.borderRadius = morphTargetRadius;
-                    cursorCircle.style.transform = 'translate(-50%, -50%)';
+                    // Apply morph via CSS transition (smooth)
+                    cursorCircle.style.width        = (rect.width  + MORPH_PAD * 2) + 'px';
+                    cursorCircle.style.height       = (rect.height + MORPH_PAD * 2) + 'px';
+                    cursorCircle.style.borderRadius = br;
+                    cursorCircle.style.transform    = 'translate(-50%, -50%)';
                     cursorCircle.classList.add('hover-button');
                 });
 
@@ -1179,37 +1183,22 @@
                     isOnButton = false;
                     morphTargetRect = null;
 
-                    // Morph back to circle
-                    cursorCircle.style.width  = '50px';
-                    cursorCircle.style.height = '50px';
+                    // Transition back to circle shape first
+                    cursorCircle.style.width        = '50px';
+                    cursorCircle.style.height       = '50px';
                     cursorCircle.style.borderRadius = '50%';
-                    cursorCircle.classList.remove('hover-button');
+                    cursorCircle.style.transform    = 'translate(-50%, -50%)';
+
+                    // Keep 'hover-button' class alive during transition so
+                    // animateCircle does NOT fire jelly mid-morph (ugly shape bug)
+                    leaveTimer = setTimeout(() => {
+                        cursorCircle.classList.remove('hover-button');
+                    }, 350); // matches CSS transition duration
                 });
             });
-
-            // Keep morph locked to button center every frame (handles scroll)
-            const _origAnimate = animateCircle;
-            function animateCircleWithMorph() {
-                if (isOnButton && morphTargetRect) {
-                    // Re-read live rect (handles scroll/resize)
-                    const liveEl = document.querySelector(':hover');
-                    if (liveEl) {
-                        const r = liveEl.closest('button, a, .btn-signing, .btn-signing-main, .btn-get-started, .view-project, [role="button"]');
-                        if (r) morphTargetRect = r.getBoundingClientRect();
-                    }
-                    // Lock position to button center
-                    circleX += (morphTargetRect.left + morphTargetRect.width  / 2 - circleX) * 0.3;
-                    circleY += (morphTargetRect.top  + morphTargetRect.height / 2 - circleY) * 0.3;
-                    cursorCircle.style.left = circleX + 'px';
-                    cursorCircle.style.top  = circleY + 'px';
-                    // No jelly deformation during morph
-                    requestAnimationFrame(animateCircleWithMorph);
-                } else {
-                    // Normal jelly mode — restart original loop
-                    animateCircle();
-                }
-            }
         }
+
+
 
 
         // Cursor-following border glow effect
