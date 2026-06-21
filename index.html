@@ -1044,6 +1044,11 @@
             let isMoving = false;
             let movingTimeout;
 
+            // Button-center lock coords (declared before animateCircle to avoid TDZ)
+            let btnCenterX = 0;
+            let btnCenterY = 0;
+            let isMorphed  = false;  // true while blob is locked to a button
+
             // Track mouse position
             document.addEventListener('mousemove', (e) => {
                 mouseX = e.clientX;
@@ -1063,24 +1068,33 @@
 
             // Animate circle with smooth trailing and jelly deformation
             function animateCircle() {
-                // Elastic easing for smooth following
-                const speed = 0.25; // Faster following
+                const speed = 0.25;
 
                 prevCircleX = circleX;
                 prevCircleY = circleY;
 
+                // ── BUTTON LOCK: snap to button center, ignore mouse ──
+                if (isMorphed) {
+                    circleX += (btnCenterX - circleX) * 0.18;  // fast lock
+                    circleY += (btnCenterY - circleY) * 0.18;
+                    cursorCircle.style.left      = circleX + 'px';
+                    cursorCircle.style.top       = circleY + 'px';
+                    cursorCircle.style.transform = 'translate(-50%, -50%)';
+                    requestAnimationFrame(animateCircle);
+                    return;  // skip mouse-lerp AND jelly entirely
+                }
+
+                // Normal: lerp towards mouse
                 circleX += (mouseX - circleX) * speed;
                 circleY += (mouseY - circleY) * speed;
 
-                // Calculate velocity for jelly effect
+                // Velocity for jelly
                 const velocityX = circleX - prevCircleX;
                 const velocityY = circleY - prevCircleY;
-                const velocity = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
+                const velocity  = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
 
-
-                // ── If morphed onto a button: no jelly, lock to button center ──
+                // Also skip jelly during leave-transition (hover-button class still present)
                 if (cursorCircle.classList.contains('hover-button')) {
-                    // Position already updated by lerp above — just clean transform
                     cursorCircle.style.transform = 'translate(-50%, -50%)';
                     cursorCircle.style.left = circleX + 'px';
                     cursorCircle.style.top  = circleY + 'px';
@@ -1155,23 +1169,29 @@
 
             morphTargets.forEach(el => {
                 el.addEventListener('mouseenter', () => {
-                    clearTimeout(leaveTimer);   // cancel any pending leave reset
+                    clearTimeout(leaveTimer);
                     isOnButton = true;
 
                     const rect = el.getBoundingClientRect();
                     morphTargetRect = rect;
 
-                    // Get border-radius; enforce minimum 8px for always-rounded look
+                    // Store button center for animateCircle to lock onto
+                    btnCenterX = rect.left + rect.width  / 2;
+                    btnCenterY = rect.top  + rect.height / 2;
+
+                    // Snap blob position immediately
+                    circleX = btnCenterX;
+                    circleY = btnCenterY;
+
+                    // LOCK: animateCircle will stop following mouse
+                    isMorphed = true;
+
+                    // Border-radius: enforce minimum 8px
                     const cs = window.getComputedStyle(el);
                     let br = cs.borderRadius || '8px';
-                    // If it's effectively 0, force 8px
                     if (parseFloat(br) === 0) br = '8px';
 
-                    // Immediately snap position to button center (no lag)
-                    circleX = rect.left + rect.width  / 2;
-                    circleY = rect.top  + rect.height / 2;
-
-                    // Apply morph via CSS transition (smooth)
+                    // Apply morph shape via CSS transition
                     cursorCircle.style.width        = (rect.width  + MORPH_PAD * 2) + 'px';
                     cursorCircle.style.height       = (rect.height + MORPH_PAD * 2) + 'px';
                     cursorCircle.style.borderRadius = br;
@@ -1181,19 +1201,19 @@
 
                 el.addEventListener('mouseleave', () => {
                     isOnButton = false;
+                    isMorphed  = false;   // UNLOCK: blob follows mouse again
                     morphTargetRect = null;
 
-                    // Transition back to circle shape first
+                    // Shrink back to circle
                     cursorCircle.style.width        = '50px';
                     cursorCircle.style.height       = '50px';
                     cursorCircle.style.borderRadius = '50%';
                     cursorCircle.style.transform    = 'translate(-50%, -50%)';
 
-                    // Keep 'hover-button' class alive during transition so
-                    // animateCircle does NOT fire jelly mid-morph (ugly shape bug)
+                    // Keep hover-button class for 350ms to block jelly mid-transition
                     leaveTimer = setTimeout(() => {
                         cursorCircle.classList.remove('hover-button');
-                    }, 350); // matches CSS transition duration
+                    }, 350);
                 });
             });
         }
