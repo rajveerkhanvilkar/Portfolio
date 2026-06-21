@@ -1169,16 +1169,24 @@
             }
             animateCircle();
 
-            // Expand circle on click
+            // ✨ Hold click: blob expands while held, elastic-shrinks on release
+            // (works even after visiting a button, because we kill ALL tweens)
             document.addEventListener('mousedown', () => {
                 cursorCircle.classList.add('expand');
+                if (isMorphed) return;              // stay morphed on button
+                gsap.killTweensOf(cursorCircle);    // kill ALL prior tweens (including morph-leave)
+                gsap.to(cursorCircle, {
+                    width:    78,
+                    height:   78,
+                    duration: 0.18,
+                    ease:     'power2.out'
+                });
             });
 
             document.addEventListener('mouseup', () => {
                 cursorCircle.classList.remove('expand');
-                // ✨ Release hold: elastic bounce back to 50px
                 if (!isMorphed) {
-                    gsap.killTweensOf(cursorCircle, 'width,height');
+                    gsap.killTweensOf(cursorCircle); // kill hold-expand tween
                     gsap.to(cursorCircle, {
                         width:    50,
                         height:   50,
@@ -1186,18 +1194,6 @@
                         ease:     'elastic.out(1.2, 0.4)'
                     });
                 }
-            });
-
-            // ✨ Hold click = blob stays bigger; release = elastic shrink back
-            document.addEventListener('mousedown', () => {
-                if (isMorphed) return; // don't interfere with button morph
-                gsap.killTweensOf(cursorCircle, 'width,height');
-                gsap.to(cursorCircle, {
-                    width:    78,
-                    height:   78,
-                    duration: 0.18,
-                    ease:     'power2.out'
-                });
             });
 
 
