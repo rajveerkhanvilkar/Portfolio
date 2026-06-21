@@ -1188,14 +1188,14 @@
 
                     cursorCircle.classList.add('hover-button');
 
-                    // ✨ GSAP jelly chipakna morph ✨
+                    // ✨ GSAP satisfying jelly chipakna morph ✨
                     gsap.killTweensOf(cursorCircle);
                     gsap.to(cursorCircle, {
                         width:        rect.width  + MORPH_PAD * 2,
                         height:       rect.height + MORPH_PAD * 2,
                         borderRadius: br,
-                        duration:     0.7,
-                        ease:         'elastic.out(1.2, 0.4)',  // overshoot then settle
+                        duration:     0.85,
+                        ease:         'elastic.out(1.5, 0.45)',  // big overshoot, satisfying settle
                         overwrite:    true
                     });
                 });
@@ -1211,21 +1211,18 @@
                         width:        50,
                         height:       50,
                         borderRadius: '50%',
-                        duration:     0.6,
-                        ease:         'elastic.out(1, 0.5)',
+                        duration:     0.75,
+                        ease:         'elastic.out(1.3, 0.45)',
                         overwrite:    true
                     });
-
-                    // Keep hover-button class during elastic unmorph
                     leaveTimer = setTimeout(() => {
                         cursorCircle.classList.remove('hover-button');
                     }, 700);
                 });
             });
 
-            // ─── SMALL PILL MORPH — nav links only ───────────────────
-            // Fixed small rounded rectangle, not full element width
-            const navMorphTargets = document.querySelectorAll('nav a');
+            // ─── SMALL PILL MORPH — nav links + contact links ────────
+            const navMorphTargets = document.querySelectorAll('nav a, .contact-link');
 
             navMorphTargets.forEach(el => {
                 el.addEventListener('mouseenter', () => {
@@ -1240,14 +1237,14 @@
 
                     cursorCircle.classList.add('hover-button');
 
-                    // ✨ Small pill with jelly chipakna ✨
+                    // ✨ Small pill jelly chipakna ✨
                     gsap.killTweensOf(cursorCircle);
                     gsap.to(cursorCircle, {
                         width:        rect.width + 20,
                         height:       34,
                         borderRadius: '20px',
-                        duration:     0.65,
-                        ease:         'elastic.out(1.1, 0.4)',
+                        duration:     0.75,
+                        ease:         'elastic.out(1.5, 0.45)',
                         overwrite:    true
                     });
                 });
@@ -1261,8 +1258,8 @@
                         width:        50,
                         height:       50,
                         borderRadius: '50%',
-                        duration:     0.6,
-                        ease:         'elastic.out(1, 0.5)',
+                        duration:     0.75,
+                        ease:         'elastic.out(1.3, 0.45)',
                         overwrite:    true
                     });
 
