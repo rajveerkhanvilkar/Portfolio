@@ -71,6 +71,8 @@
     height: 100%;
     overflow: hidden;
     pointer-events: none;
+    /* Clip dots to this container only */
+    clip-path: inset(0);
 }
 
 .particle-3d {
@@ -124,23 +126,15 @@
 }
 
 @keyframes floatParticle {
-
-    0%,
-    100% {
-        transform: translateY(100vh) translateZ(0) scale(0.5);
+    0%, 100% {
+        transform: translateY(80%) translateZ(0) scale(0.5);
         opacity: 0;
     }
-
-    10% {
-        opacity: 1;
-    }
-
-    90% {
-        opacity: 1;
-    }
-
+    10% { opacity: 0.7; }
+    90% { opacity: 0.7; }
     50% {
-        transform: translateY(-20vh) translateZ(100px) scale(1.5);
+        transform: translateY(5%) translateZ(50px) scale(1.2);
+        opacity: 1;
     }
 }
 

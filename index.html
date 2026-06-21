@@ -1176,25 +1176,28 @@
 
             document.addEventListener('mouseup', () => {
                 cursorCircle.classList.remove('expand');
-            });
-
-            // ✨ Double-click/tap: elastic pop expand
-            document.addEventListener('dblclick', () => {
-                if (isMorphed) return; // don't interfere with button morph
-                gsap.killTweensOf(cursorCircle, 'width,height');
-                gsap.timeline()
-                    .to(cursorCircle, {
-                        width:    90,
-                        height:   90,
-                        duration: 0.12,
-                        ease:     'power2.out'
-                    })
-                    .to(cursorCircle, {
+                // ✨ Release hold: elastic bounce back to 50px
+                if (!isMorphed) {
+                    gsap.killTweensOf(cursorCircle, 'width,height');
+                    gsap.to(cursorCircle, {
                         width:    50,
                         height:   50,
-                        duration: 0.65,
-                        ease:     'elastic.out(1.3, 0.4)'
+                        duration: 0.55,
+                        ease:     'elastic.out(1.2, 0.4)'
                     });
+                }
+            });
+
+            // ✨ Hold click = blob stays bigger; release = elastic shrink back
+            document.addEventListener('mousedown', () => {
+                if (isMorphed) return; // don't interfere with button morph
+                gsap.killTweensOf(cursorCircle, 'width,height');
+                gsap.to(cursorCircle, {
+                    width:    78,
+                    height:   78,
+                    duration: 0.18,
+                    ease:     'power2.out'
+                });
             });
 
 
