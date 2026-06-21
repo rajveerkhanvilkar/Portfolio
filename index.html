@@ -1181,6 +1181,25 @@
                 cursorCircle.classList.remove('expand');
             });
 
+            // ✨ Double-click/tap: elastic pop expand
+            document.addEventListener('dblclick', () => {
+                if (isMorphed) return; // don't interfere with button morph
+                gsap.killTweensOf(cursorCircle, 'width,height');
+                gsap.timeline()
+                    .to(cursorCircle, {
+                        width:    90,
+                        height:   90,
+                        duration: 0.12,
+                        ease:     'power2.out'
+                    })
+                    .to(cursorCircle, {
+                        width:    50,
+                        height:   50,
+                        duration: 0.65,
+                        ease:     'elastic.out(1.3, 0.4)'
+                    });
+            });
+
 
             // Hide cursors when mouse leaves window
             document.addEventListener('mouseleave', () => {
