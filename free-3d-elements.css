@@ -15,16 +15,17 @@
     right: 10%;
     transform-style: preserve-3d;
     animation: rotateCube 20s infinite linear;
+    will-change: transform;      /* promote to GPU layer */
+    contain: layout style;       /* prevent repaint from spreading */
 }
 
 .cube-face {
     position: absolute;
     width: 200px;
     height: 200px;
-    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 153, 255, 0.2));
-    border: 2px solid rgba(0, 212, 255, 0.3);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.07), rgba(0, 153, 255, 0.12));
+    border: 1px solid rgba(0, 212, 255, 0.25);
+    /* Removed backdrop-filter + box-shadow — both force repaint every frame in 3D context */
 }
 
 .cube-face.front {
@@ -52,13 +53,9 @@
 }
 
 @keyframes rotateCube {
-    0% {
-        transform: rotateX(0deg) rotateY(0deg);
-    }
-
-    100% {
-        transform: rotateX(360deg) rotateY(360deg);
-    }
+    0%   { transform: rotateY(0deg); }
+    100% { transform: rotateY(360deg); }
+    /* Single-axis only — dual rotateX+rotateY was doubling GPU workload */
 }
 
 /* ========================================
