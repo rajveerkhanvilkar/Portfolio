@@ -1078,6 +1078,16 @@
                 const velocity = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
 
 
+                // ── If morphed onto a button: no jelly, lock to button center ──
+                if (cursorCircle.classList.contains('hover-button')) {
+                    // Position already updated by lerp above — just clean transform
+                    cursorCircle.style.transform = 'translate(-50%, -50%)';
+                    cursorCircle.style.left = circleX + 'px';
+                    cursorCircle.style.top  = circleY + 'px';
+                    requestAnimationFrame(animateCircle);
+                    return;
+                }
+
                 // Subtle jelly deformation based on movement
                 if (velocity > 0.5) {
                     const angle = Math.atan2(velocityY, velocityX);
@@ -1106,6 +1116,7 @@
                 cursorCircle.style.top = circleY + 'px';
 
                 requestAnimationFrame(animateCircle);
+
             }
             animateCircle();
 
@@ -1118,6 +1129,7 @@
                 cursorCircle.classList.remove('expand');
             });
 
+
             // Hide cursors when mouse leaves window
             document.addEventListener('mouseleave', () => {
                 cursorDot.style.opacity = '0';
@@ -1129,7 +1141,76 @@
                 cursorDot.style.opacity = '1';
                 cursorCircle.style.opacity = '1';
             });
+
+            // ─── BUTTON MORPH CURSOR ──────────────────────────────────
+            const MORPH_PAD = 10; // px bigger than button on each side
+            let isOnButton = false;
+            let morphTargetRect = null;
+            let morphTargetRadius = '50%';
+
+            // All interactive elements to morph on
+            const morphTargets = document.querySelectorAll(
+                'button, a, .btn-signing, .btn-get-started, .btn-signing-main, .view-project, [role="button"], .nav-link, .project-card'
+            );
+
+            morphTargets.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    isOnButton = true;
+                    const rect = el.getBoundingClientRect();
+                    morphTargetRect = rect;
+
+                    // Read actual computed border-radius so circular buttons stay circular
+                    const cs = window.getComputedStyle(el);
+                    morphTargetRadius = cs.borderRadius || '8px';
+
+                    // Snap circle position to button center
+                    circleX = rect.left + rect.width / 2;
+                    circleY = rect.top + rect.height / 2;
+
+                    // Morph shape
+                    cursorCircle.style.width  = (rect.width  + MORPH_PAD * 2) + 'px';
+                    cursorCircle.style.height = (rect.height + MORPH_PAD * 2) + 'px';
+                    cursorCircle.style.borderRadius = morphTargetRadius;
+                    cursorCircle.style.transform = 'translate(-50%, -50%)';
+                    cursorCircle.classList.add('hover-button');
+                });
+
+                el.addEventListener('mouseleave', () => {
+                    isOnButton = false;
+                    morphTargetRect = null;
+
+                    // Morph back to circle
+                    cursorCircle.style.width  = '50px';
+                    cursorCircle.style.height = '50px';
+                    cursorCircle.style.borderRadius = '50%';
+                    cursorCircle.classList.remove('hover-button');
+                });
+            });
+
+            // Keep morph locked to button center every frame (handles scroll)
+            const _origAnimate = animateCircle;
+            function animateCircleWithMorph() {
+                if (isOnButton && morphTargetRect) {
+                    // Re-read live rect (handles scroll/resize)
+                    const liveEl = document.querySelector(':hover');
+                    if (liveEl) {
+                        const r = liveEl.closest('button, a, .btn-signing, .btn-signing-main, .btn-get-started, .view-project, [role="button"]');
+                        if (r) morphTargetRect = r.getBoundingClientRect();
+                    }
+                    // Lock position to button center
+                    circleX += (morphTargetRect.left + morphTargetRect.width  / 2 - circleX) * 0.3;
+                    circleY += (morphTargetRect.top  + morphTargetRect.height / 2 - circleY) * 0.3;
+                    cursorCircle.style.left = circleX + 'px';
+                    cursorCircle.style.top  = circleY + 'px';
+                    // No jelly deformation during morph
+                    requestAnimationFrame(animateCircleWithMorph);
+                } else {
+                    // Normal jelly mode — restart original loop
+                    animateCircle();
+                }
+            }
         }
+
 
         // Cursor-following border glow effect
         const glowElements = document.querySelectorAll('.project-card, .skill-card, .achievement-card, .contact-card, .stat-card, .about-card, .main-card, .skills-card, input, input[type="text"], input[type="email"], input[type="tel"], textarea, .form-control, .input-field, button, .btn-get-started, .btn-signing-main, .btn-signing');
