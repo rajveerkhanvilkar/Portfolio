@@ -66,7 +66,7 @@
                 </div>
 
                 <h1 data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300" data-aos-offset="0"
-                    data-aos-duration="2000" class="metallic-text">RAJVEER<br>KHANVILKAR</h1>
+                    data-aos-duration="2000" class="metallic-text"><span class="scramble-word">RAJVEER</span><br><span class="scramble-word">KHANVILKAR</span></h1>
 
                 <p data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300" data-aos-offset="0"
                     data-aos-duration="2500" class="description">
@@ -1408,6 +1408,99 @@
                 }
             });
         }
+
+
+        // ─── 🧲 MAGNETIC HOVER — nav links + resume btn ────────────
+        (function initMagnetic() {
+            const RADIUS = 80;   // px — magnetic field radius
+            const PULL   = 0.38; // 0-1 — how far element moves
+
+            const els = Array.from(document.querySelectorAll('nav a, .btn-signing'));
+            if (!els.length) return;
+
+            // GSAP quickTo = one tween object, no GC pressure per frame
+            const data = els.map(el => ({
+                xTo: gsap.quickTo(el, 'x', { duration: 0.55, ease: 'power3.out' }),
+                yTo: gsap.quickTo(el, 'y', { duration: 0.55, ease: 'power3.out' }),
+                el
+            }));
+
+            window.addEventListener('mousemove', e => {
+                data.forEach(({ el, xTo, yTo }) => {
+                    const r   = el.getBoundingClientRect();
+                    const cx  = r.left + r.width  / 2;
+                    const cy  = r.top  + r.height / 2;
+                    const dx  = e.clientX - cx;
+                    const dy  = e.clientY - cy;
+                    const dist = Math.hypot(dx, dy);
+
+                    if (dist < RADIUS) {
+                        const power = (1 - dist / RADIUS) * PULL;
+                        xTo(dx * power * 2.8);
+                        yTo(dy * power * 2.8);
+                    } else {
+                        xTo(0);
+                        yTo(0);
+                    }
+                });
+            }, { passive: true });
+
+            // Hard snap-back on mouseleave (elastic feel)
+            els.forEach(el => {
+                el.addEventListener('mouseleave', () => {
+                    gsap.to(el, { x: 0, y: 0, duration: 0.8, ease: 'elastic.out(1.1, 0.45)' });
+                });
+            });
+        })();
+
+
+        // ─── 🔡 TEXT SCRAMBLE — Matrix-style resolve ───────────────
+        (function initScramble() {
+            const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&?';
+
+            function scramble(el) {
+                const original = el.dataset.orig || el.textContent.trim();
+                el.dataset.orig = original; // cache
+                let iter = 0;
+                const total = original.length * 3; // speed control (lower = faster)
+
+                const id = setInterval(() => {
+                    el.textContent = original
+                        .split('')
+                        .map((ch, i) => {
+                            if (ch === ' ') return ' ';
+                            if (i < Math.floor(iter / 3)) return ch; // resolved left→right
+                            return CHARS[Math.floor(Math.random() * CHARS.length)];
+                        })
+                        .join('');
+
+                    iter++;
+                    if (iter >= total) {
+                        clearInterval(id);
+                        el.textContent = original; // guarantee exact final
+                    }
+                }, 38); // ~26fps — visible but not flickery
+            }
+
+            // Hero name — scramble on load after AOS animation (1.4s delay)
+            const heroWords = document.querySelectorAll('.scramble-word');
+            setTimeout(() => {
+                heroWords.forEach((el, i) => setTimeout(() => scramble(el), i * 280));
+            }, 1400);
+
+            // Section headings — scramble once on scroll into view
+            const headings = document.querySelectorAll('.about-title, .section-title');
+            const obs = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        scramble(entry.target);
+                        obs.unobserve(entry.target); // fire only once
+                    }
+                });
+            }, { threshold: 0.6 });
+
+            headings.forEach(el => obs.observe(el));
+        })();
 
 
     </script>
