@@ -165,7 +165,7 @@
                                         d="M3 18.4v-2.796a4.3 4.3 0 00.713.31A26.226 26.226 0 0012 17.25c2.892 0 5.68-.468 8.287-1.335.252-.084.49-.189.713-.311V18.4c0 1.452-1.047 2.728-2.523 2.923-2.12.282-4.282.427-6.477.427a49.19 49.19 0 01-6.477-.427C4.047 21.128 3 19.852 3 18.4z" />
                                 </svg>
                             </div>
-                            <div class="stat-number">15+</div>
+                            <div class="stat-number" data-count="15" data-suffix="+">15+</div>
                             <div class="stat-label">Projects Completed</div>
                         </div>
 
@@ -177,7 +177,7 @@
                                         clip-rule="evenodd" />
                                 </svg>
                             </div>
-                            <div class="stat-number">10+</div>
+                            <div class="stat-number" data-count="10" data-suffix="+">10+</div>
                             <div class="stat-label">Technologies</div>
                         </div>
 
@@ -189,7 +189,7 @@
                                     <path d="M18.75 6.75h1.875c.621 0 1.125.504 1.125 1.125V18a1.5 1.5 0 01-3 0V6.75z" />
                                 </svg>
                             </div>
-                            <div class="stat-number" style="font-size:1.1rem; line-height:1.8; letter-spacing:0.02em;">1 Patent<br>3 Copyright</div>
+                            <div class="stat-number" style="font-size:1.1rem; line-height:1.8; letter-spacing:0.02em;"><span data-count="1" data-suffix="">1</span> Patent<br><span data-count="3" data-suffix="">3</span> Copyright</div>
                             <div class="stat-label">Copyright &amp; Patent</div>
                         </div>
                     </div>
@@ -1408,6 +1408,39 @@
                 }
             });
         }
+
+
+        // ─── 🔢 STAT COUNT-UP ANIMATION ────────────────────────────
+        (function initCountUp() {
+            const countEls = document.querySelectorAll('[data-count]');
+            if (!countEls.length) return;
+
+            function runCount(el) {
+                const target = parseInt(el.dataset.count, 10);
+                const suffix = el.dataset.suffix || '';
+                const obj    = { val: 0 };
+
+                gsap.to(obj, {
+                    val:      target,
+                    duration: target > 5 ? 1.6 : 1.0,
+                    ease:     'power2.out',
+                    onUpdate()  { el.textContent = Math.round(obj.val) + suffix; },
+                    onComplete(){ el.textContent = target + suffix; } // guarantee clean end
+                });
+            }
+
+            // Trigger on scroll into view — once per element
+            const obs = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        runCount(entry.target);
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            countEls.forEach(el => obs.observe(el));
+        })();
 
 
     </script>
