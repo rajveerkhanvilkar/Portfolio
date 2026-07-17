@@ -1077,17 +1077,13 @@
                 mouseX = e.clientX;
                 mouseY = e.clientY;
 
-                // Dot follows directly
-                cursorDot.style.left = mouseX + 'px';
-                cursorDot.style.top = mouseY + 'px';
-
                 // Add moving class for jelly effect
                 cursorCircle.classList.add('moving');
                 clearTimeout(movingTimeout);
                 movingTimeout = setTimeout(() => {
                     cursorCircle.classList.remove('moving');
                 }, 150);
-            });
+            }, { passive: true });
 
             // Animate circle with smooth trailing and jelly deformation
             function animateCircle() {
@@ -1096,13 +1092,14 @@
                 prevCircleX = circleX;
                 prevCircleY = circleY;
 
-                // â”€â”€ BUTTON LOCK: snap to button center, ignore mouse â”€â”€
+                // Position dot smoothly on GPU
+                cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+
+                // ── BUTTON LOCK: snap to button center, ignore mouse ──
                 if (isMorphed) {
                     circleX += (btnCenterX - circleX) * 0.18;  // fast lock
                     circleY += (btnCenterY - circleY) * 0.18;
-                    cursorCircle.style.left      = circleX + 'px';
-                    cursorCircle.style.top       = circleY + 'px';
-                    cursorCircle.style.transform = 'translate(-50%, -50%)';
+                    cursorCircle.style.transform = `translate3d(${circleX}px, ${circleY}px, 0) translate(-50%, -50%)`;
                     requestAnimationFrame(animateCircle);
                     return;  // skip mouse-lerp AND jelly entirely
                 }
@@ -1118,9 +1115,7 @@
 
                 // Also skip jelly during leave-transition (hover-button class still present)
                 if (cursorCircle.classList.contains('hover-button')) {
-                    cursorCircle.style.transform = 'translate(-50%, -50%)';
-                    cursorCircle.style.left = circleX + 'px';
-                    cursorCircle.style.top  = circleY + 'px';
+                    cursorCircle.style.transform = `translate3d(${circleX}px, ${circleY}px, 0) translate(-50%, -50%)`;
                     requestAnimationFrame(animateCircle);
                     return;
                 }
@@ -1141,19 +1136,15 @@
                     const finalScaleX = scaleX * squashX;
                     const finalScaleY = scaleY * squashY;
 
-                    cursorCircle.style.transform = `translate(-50%, -50%) scale(${finalScaleX}, ${finalScaleY}) rotate(${angle * 0.3}rad)`;
+                    cursorCircle.style.transform = `translate3d(${circleX}px, ${circleY}px, 0) translate(-50%, -50%) scale(${finalScaleX}, ${finalScaleY}) rotate(${angle * 0.3}rad)`;
                     cursorCircle.style.borderRadius = '45% 55% 55% 45% / 50% 50% 50% 50%'; // Subtle organic shape
                 } else {
                     // Smooth return to circle
-                    cursorCircle.style.transform = 'translate(-50%, -50%) scale(1, 1)';
+                    cursorCircle.style.transform = `translate3d(${circleX}px, ${circleY}px, 0) translate(-50%, -50%) scale(1, 1)`;
                     cursorCircle.style.borderRadius = '50%';
                 }
 
-                cursorCircle.style.left = circleX + 'px';
-                cursorCircle.style.top = circleY + 'px';
-
                 requestAnimationFrame(animateCircle);
-
             }
             animateCircle();
 

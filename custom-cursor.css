@@ -34,29 +34,33 @@ body.custom-cursor-active label {
 /* Small cursor dot (inverts colors) */
 .cursor-dot {
     position: fixed;
+    top: 0;
+    left: 0;
     width: 8px;
     height: 8px;
     background-color: white;
     border-radius: 50%;
     pointer-events: none;
     z-index: 10001;
-    transform: translate(-50%, -50%);
     mix-blend-mode: difference;
-    transition: transform 0.05s ease;
+    transition: none !important;
+    will-change: transform;
 }
 
-/* Large white jelly blob (follows with delay and deforms) */
+/* Large white jelly blob */
 .cursor-circle {
     position: fixed;
+    top: 0;
+    left: 0;
     width: 50px;
     height: 50px;
     background: white;
     border-radius: 50%;
     pointer-events: none;
     z-index: 10000;
-    transform: translate(-50%, -50%);
     mix-blend-mode: difference;
-    transition: none !important; /* Set to none to prevent conflict with requestAnimationFrame and GSAP */
+    transition: none !important;
+    will-change: transform;
 }
 
 /* When morphed onto button */
