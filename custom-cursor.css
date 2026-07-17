@@ -56,17 +56,12 @@ body.custom-cursor-active label {
     z-index: 10000;
     transform: translate(-50%, -50%);
     mix-blend-mode: difference;
-    transition: width 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-        height 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-        border-radius 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-        left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-        top 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: none !important; /* Set to none to prevent conflict with requestAnimationFrame and GSAP */
 }
 
-/* When morphed onto button — GSAP handles shape, CSS handles position snap */
+/* When morphed onto button */
 .cursor-circle.hover-button {
-    transition: left 0.12s ease-out,
-                top  0.12s ease-out;
+    transition: none !important;
 }
 
 
